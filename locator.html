@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DDR Finder</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/modern.css" rel="stylesheet">
+    <link href="css/modern-responsive.css" rel="stylesheet">
+    <style>
+        .message-hidden { display: none; }
+    </style>
+</head>
+<body>
+<h1>DDR Finder</h1>
+<noscript><div id="message-noscript">
+    <h2>JavaScript Error</h2>
+    <p>Could not start location process; make sure JavaScript is enabled</p>
+</div></noscript>
+<div id="message-nogeo">
+    <h2>No Geolocation Support</h2>
+    <p>
+        Your web browser does not support the HTML5 Geolocation API!<br>
+        <a href="http://m.zenius-i-vanisher.com/arcadelocations.php" class="button bg-color-blueDark fg-color-white">Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i></a>
+    </p>
+</div>
+<div id="message-waiting" class="message-hidden">
+    <h2>Waiting for location...</h2>
+    <p>
+        <img src="images/preloader-w8-line-black.gif"><br>
+        <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
+    </p>
+</div>
+<div id="message-denied" class="message-hidden">
+    <h2>Could not locate: Permission Error</h2>
+    <p>Reload this page and make sure to allow location detection!</p>
+    <button onclick="location.reload()" class="bg-color-green fg-color-white">Reload <i class="icon-loop"></i></button>
+</div>
+<div id="message-failed" class="message-hidden">
+    <h2>Could not locate: Position Unavailable</h2>
+    <p>
+        Unable to locate your current position<br>
+        <button onclick="location.reload()" class="bg-color-green fg-color-white">Retry <i class="icon-loop"></i></button><br>
+        <a href="http://m.zenius-i-vanisher.com/arcadelocations.php" class="button bg-color-blueDark fg-color-white">Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i></a>
+    </p>
+</div>
+<script src="javascript/jquery-1.8.3.js"></script>
+<script>
+    var handle_error = function(error) {
+        if (error.code == 1) {
+            $('#message-waiting').hide();
+            $('#message-denied').show();
+        }
+        else if (error.code == 2 || error.code == 3) {
+            $('#message-waiting').hide();
+            $('#message-failed').show();
+        }
+    };
+    if ('geolocation' in navigator) {
+        $('#message-nogeo').hide();
+        $('#message-waiting').show();
+        navigator.geolocation.getCurrentPosition(console.log, handle_error);
+    }
+</script>
+</body>
+</html>
