@@ -43,6 +43,13 @@
         <a href="http://m.zenius-i-vanisher.com/arcadelocations.php" class="button bg-color-blueDark fg-color-white">Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i></a>
     </p>
 </div>
+<div id="message-found-searching" class="message-hidden">
+    <h2>Found! Locating machines...</h2>
+    <p>
+        <img src="images/preloader-w8-line-black.gif"><br>
+        <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
+    </p>
+</div>
 <script src="javascript/jquery-1.8.3.js"></script>
 <script>
     var handle_error = function(error) {
@@ -55,10 +62,14 @@
             $('#message-failed').show();
         }
     };
+    var handle_ok = function(position) {
+        $('#message-waiting').hide();
+        $('#message-found-searching').show();
+    }
     if ('geolocation' in navigator) {
         $('#message-nogeo').hide();
         $('#message-waiting').show();
-        navigator.geolocation.getCurrentPosition(console.log, handle_error);
+        navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {maximumAge: 75000});
     }
 </script>
 </body>
