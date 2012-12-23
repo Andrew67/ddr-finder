@@ -21,7 +21,7 @@
     <h2>No Geolocation Support</h2>
     <p>
         Your web browser does not support the HTML5 Geolocation API!<br>
-        <a href="http://m.zenius-i-vanisher.com/arcadelocations.php" class="button bg-color-blueDark fg-color-white">Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i></a>
+        <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white">Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i></a>
     </p>
 </div>
 <div id="message-waiting" class="message-hidden">
@@ -41,7 +41,7 @@
     <p>
         Unable to locate your current position<br>
         <button onclick="location.reload()" class="bg-color-green fg-color-white">Retry <i class="icon-loop"></i></button><br>
-        <a href="http://m.zenius-i-vanisher.com/arcadelocations.php" class="button bg-color-blueDark fg-color-white">Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i></a>
+        <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white">Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i></a>
     </p>
 </div>
 <div id="message-found-searching" class="message-hidden">
@@ -52,6 +52,8 @@
     </p>
 </div>
 <div id="message-arcade-list" class="message-hidden">
+    <h2>Your Location:</h2>
+    <a id="current-location-link" target="_blank"><img id="current-location-img"></a>
     <h2>Located Arcades:</h2>
     <ul class="accordion" data-role="accordion" id="arcade-list">
 
@@ -81,7 +83,11 @@
         for (var i = 0; i < locations.length; ++i) {
             arcade_list.append('<li><a href="#">' + locations[i].name + '</a><div><h3>'
                 + locations[i].city + '</h3><h4>Approximately '
-                + locations[i].distance + 'km away</h4></div></li>');
+                + locations[i].distance + 'km away</h4><a class="button bg-color-green fg-color-white" href="https://maps.google.com/?q=loc:'
+                + locations[i].latitude + ',' + locations[i].longitude + '" target="_blank">Find on Google Maps <i class="icon-location-2"></i></a><br>'
+                + '<a class="button bg-color-blueDark fg-color-white" href="http://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid='
+                + locations[i].id + '">Information on Zenius -I- vanisher.com <i class="icon-new-tab"></i></a>'
+                + '</div></li>');
         }
         // Load accordion library after preparing list, because it attaches click events to list elements themselves
         $('body').append('<script src="javascript/accordion.js"><\/script>');
@@ -90,6 +96,9 @@
     var handle_ok = function(position) {
         $('#message-waiting').hide();
         $('#message-found-searching').show();
+        var coords = '' + position.coords.latitude + ',' + position.coords.longitude;
+        $('#current-location-link').attr('href', 'http://maps.google.com/maps?q='+coords+'&ll='+coords+'&z=16&t=h');
+        $('#current-location-img').attr('src', 'http://maps.google.com/maps/api/staticmap?center='+coords+'&zoom=16&size=288x216&markers='+coords+'&sensor=false');
         $.getJSON('locate.php', {'lat': position.coords.latitude, 'long': position.coords.longitude}, handle_data);
     }
     // Geolocation feature detection from Modernizr
@@ -97,7 +106,7 @@
         $('#message-nogeo').hide();
         $('#message-waiting').show();
         // Function explained in http://diveintohtml5.info/geolocation.html
-        navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {enableHighAccuracy: false, maximumAge: 75000});
+        navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {enableHighAccuracy: true, maximumAge: 75000});
     }
 </script>
 </body>
