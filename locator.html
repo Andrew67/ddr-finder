@@ -51,8 +51,14 @@
         <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
     </p>
 </div>
+<div id="message-arcade-list" class="message-hidden">
+    <h2>Located Arcades:</h2>
+    <ul class="accordion" data-role="accordion" id="arcade-list">
+
+    </ul>
+</div>
+
 <script src="javascript/jquery-1.8.3.js"></script>
-<script src="javascript/accordion.js"></script>
 <script>
     // Geolocation error handler
     var handle_error = function(error) {
@@ -67,10 +73,24 @@
             $('#message-failed').show();
         }
     };
+    // Arcade location data handler function
+    var handle_data = function(locations) {
+        $('#message-found-searching').hide();
+        $('#message-arcade-list').show();
+        var arcade_list = $('#arcade-list');
+        for (var i = 0; i < locations.length; ++i) {
+            arcade_list.append('<li><a href="#">' + locations[i].name + '</a><div><h3>'
+                + locations[i].city + '</h3><h4>Approximately '
+                + locations[i].distance + 'km away</h4></div></li>');
+        }
+        // Load accordion library after preparing list, because it attaches click events to list elements themselves
+        $('body').append('<script src="javascript/accordion.js"><\/script>');
+    }
     // Geolocation ok handler
     var handle_ok = function(position) {
         $('#message-waiting').hide();
         $('#message-found-searching').show();
+        $.getJSON('locate.php', {'lat': position.coords.latitude, 'long': position.coords.longitude}, handle_data);
     }
     // Geolocation feature detection from Modernizr
     if ('geolocation' in navigator) {
