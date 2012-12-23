@@ -12,6 +12,7 @@
 </head>
 <body>
 <h1>DDR Finder</h1>
+<!-- Templates for all success/error messages -->
 <noscript><div id="message-noscript">
     <h2>JavaScript Error</h2>
     <p>Could not start location process; make sure JavaScript is enabled</p>
@@ -44,32 +45,39 @@
     </p>
 </div>
 <div id="message-found-searching" class="message-hidden">
-    <h2>Found! Locating machines...</h2>
+    <h2>Found you! Locating machines...</h2>
     <p>
         <img src="images/preloader-w8-line-black.gif"><br>
         <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
     </p>
 </div>
 <script src="javascript/jquery-1.8.3.js"></script>
+<script src="javascript/accordion.js"></script>
 <script>
+    // Geolocation error handler
     var handle_error = function(error) {
+        // Permission denied
         if (error.code == 1) {
             $('#message-waiting').hide();
             $('#message-denied').show();
         }
+        // Position unavailable or timeout
         else if (error.code == 2 || error.code == 3) {
             $('#message-waiting').hide();
             $('#message-failed').show();
         }
     };
+    // Geolocation ok handler
     var handle_ok = function(position) {
         $('#message-waiting').hide();
         $('#message-found-searching').show();
     }
+    // Geolocation feature detection from Modernizr
     if ('geolocation' in navigator) {
         $('#message-nogeo').hide();
         $('#message-waiting').show();
-        navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {maximumAge: 75000});
+        // Function explained in http://diveintohtml5.info/geolocation.html
+        navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {enableHighAccuracy: false, maximumAge: 75000});
     }
 </script>
 </body>
