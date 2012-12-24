@@ -27,7 +27,7 @@
 <div id="message-waiting" class="message-hidden">
     <h2>Waiting for location...</h2>
     <p>
-        <img src="images/preloader-w8-line-black.gif"><br>
+        <img src="images/preloader-w8-line-black.gif" alt="Loading..."><br>
         <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
     </p>
 </div>
@@ -47,13 +47,13 @@
 <div id="message-found-searching" class="message-hidden">
     <h2>Found you! Locating machines...</h2>
     <p>
-        <img src="images/preloader-w8-line-black.gif"><br>
+        <img src="images/preloader-w8-line-black.gif" alt="Loading..."><br>
         <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
     </p>
 </div>
 <div id="message-arcade-list" class="message-hidden">
     <h2>Your Location:</h2>
-    <a id="current-location-link"><img id="current-location-img"></a>
+    <a id="current-location-link"><img id="current-location-img" src="images/preloader-w8-line-black.gif" alt="Current Location"></a>
     <h4>Accurate to within <span id="current-location-accuracy">??? meters</span></h4>
     <h2>Located Arcades:</h2>
     <ul class="accordion" data-role="accordion" id="arcade-list">
@@ -92,7 +92,7 @@
         }
         // Load accordion library after preparing list, because it attaches click events to list elements themselves
         $('body').append('<script src="javascript/accordion.js"><\/script>');
-    }
+    };
     // Geolocation ok handler
     var handle_ok = function(position) {
         $('#message-waiting').hide();
@@ -107,7 +107,7 @@
 
         // Locate nearby machines and populate/show list
         $.getJSON('locate.php', {'lat': position.coords.latitude, 'long': position.coords.longitude, 'timestamp': position.timestamp}, handle_data);
-    }
+    };
     // Geolocation feature detection from Modernizr
     if ('geolocation' in navigator) {
         $('#message-nogeo').hide();
