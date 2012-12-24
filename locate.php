@@ -22,6 +22,7 @@ if (isset($_GET['lat']) && isset($_GET['long'])) {
     //$stmt = $dbh->prepare("SELECT * FROM `{$db_conf['table']}` WHERE `latitude` > :latlower AND `latitude` < :latupper AND `longitude` > :longlower AND `longitude` < :longupper ;");
 
     // Set latitude/longitude lower and upper boundaries
+    // See http://en.wikipedia.org/wiki/Latitude#The_length_of_a_degree_of_latitude for a rough idea of the radius represented
     $latlower = $latitude - 0.5;
     $latupper = $latitude + 0.5;
     $longlower = $longitude - 0.5;
