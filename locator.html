@@ -53,7 +53,8 @@
 </div>
 <div id="message-arcade-list" class="message-hidden">
     <h2>Your Location:</h2>
-    <a id="current-location-link" target="_blank"><img id="current-location-img"></a>
+    <a id="current-location-link"><img id="current-location-img"></a>
+    <h4>Accurate to within <span id="current-location-accuracy">??? meters</span></h4>
     <h2>Located Arcades:</h2>
     <ul class="accordion" data-role="accordion" id="arcade-list">
 
@@ -84,9 +85,9 @@
             arcade_list.append('<li><a href="#">' + locations[i].name + '</a><div><h3>'
                 + locations[i].city + '</h3><h4>Approximately '
                 + locations[i].distance + 'km away</h4><a class="button bg-color-green fg-color-white" href="https://maps.google.com/?q=loc:'
-                + locations[i].latitude + ',' + locations[i].longitude + '" target="_blank">Find on Google Maps <i class="icon-location-2"></i></a><br>'
+                + locations[i].latitude + ',' + locations[i].longitude + '">Find on Google Maps <i class="icon-location-2"></i></a><br>'
                 + '<a class="button bg-color-blueDark fg-color-white" href="http://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid='
-                + locations[i].id + '">Information on Zenius -I- vanisher.com <i class="icon-new-tab"></i></a>'
+                + locations[i].id + '">Info on Zenius -I- vanisher.com <i class="icon-new-tab"></i></a>'
                 + '</div></li>');
         }
         // Load accordion library after preparing list, because it attaches click events to list elements themselves
@@ -99,7 +100,13 @@
         var coords = '' + position.coords.latitude + ',' + position.coords.longitude;
         $('#current-location-link').attr('href', 'http://maps.google.com/maps?q='+coords+'&ll='+coords+'&z=16&t=h');
         $('#current-location-img').attr('src', 'http://maps.google.com/maps/api/staticmap?center='+coords+'&zoom=16&size=288x216&markers='+coords+'&sensor=false');
-        $.getJSON('locate.php', {'lat': position.coords.latitude, 'long': position.coords.longitude}, handle_data);
+        var accuracy = (position.coords.accuracy >= 1000) ?
+                '' + (position.coords.accuracy / 1000) + 'km' :
+                '' + position.coords.accuracy + ' meters';
+        $('#current-location-accuracy').text(accuracy);
+
+        // Locate nearby machines and populate/show list
+        $.getJSON('locate.php', {'lat': position.coords.latitude, 'long': position.coords.longitude, 'timestamp': position.timestamp}, handle_data);
     }
     // Geolocation feature detection from Modernizr
     if ('geolocation' in navigator) {
