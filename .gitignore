@@ -1,5 +1,7 @@
 .idea/
 images/arcade-machine.jpg
+images/favicon.png
+images/apple-touch-icon.png
 import/
 db-conf.php
 TODO
