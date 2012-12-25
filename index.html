@@ -21,6 +21,10 @@ Location information used for searching is NOT recorded.
 Machine location data collected from <a href="http://zenius-i-vanisher.com/">Zenius -I- vanisher.com</a> (no affiliation with said site).
 No donations accepted; donate to Z-I-v instead, without it this app would not have been possible!</p>
 <div id="main-buttons">
+    <label class="input-control switch">
+        <input type="checkbox" id="enable-high-accuracy">
+        <span class="helper">Use GPS <small>(if available)</small></span>
+    </label><br>
     <a href="locator.html" class="button default big">Locate Machines <i class="icon-location"></i></a><br>
     <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white">Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i></a><br>
     <a href="https://github.com/Andrew67/ddr-finder" class="button bg-color-pinkDark fg-color-white">View Source on GitHub <i class="icon-github"></i></a>
@@ -30,5 +34,16 @@ No donations accepted; donate to Z-I-v instead, without it this app would not ha
     Using <a href="http://metroui.org.ua/">Metro UI CSS</a> for page styling<br>
     Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin
 </h5>
+<script src="javascript/jquery-1.8.3.js"></script>
+<script>
+    // Save the option for using GPS in the locator (see http://diveintohtml5.info/storage.html)
+    $('#enable-high-accuracy').change(function () {
+        if ('localStorage' in window && window['localStorage'] != null) {
+            window.localStorage['highAccuracy'] = $('#enable-high-accuracy')[0].checked;
+        }
+    });
+    // Load the previous option
+    $('#enable-high-accuracy')[0].checked = ('localStorage' in window && window['localStorage'] != null && window.localStorage['highAccuracy'] == "true");
+</script>
 </body>
 </html>

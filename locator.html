@@ -21,7 +21,11 @@
     <h2>JavaScript Error</h2>
     <p>Could not start location process; make sure JavaScript is enabled</p>
 </div></noscript>
-<div id="message-nogeo">
+<div id="message-loading">
+    <h2>Loading...</h2>
+    <p><a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a></p>
+</div>
+<div id="message-nogeo" class="message-hidden">
     <h2>No Geolocation Support</h2>
     <p>
         Your web browser does not support the HTML5 Geolocation API!<br>
@@ -114,10 +118,16 @@
     };
     // Geolocation feature detection from Modernizr
     if ('geolocation' in navigator) {
-        $('#message-nogeo').hide();
+        $('#message-loading').hide();
         $('#message-waiting').show();
+        // Check user setting for high accuracy
+        var highAccuracy = ('localStorage' in window && window['localStorage'] != null && window.localStorage['highAccuracy'] == "true");
         // Function explained in http://diveintohtml5.info/geolocation.html
-        navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {enableHighAccuracy: true, maximumAge: 75000});
+        navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {enableHighAccuracy: highAccuracy, maximumAge: 75000});
+    }
+    else {
+        $('#message-loading').hide();
+        $('#message-nogeo').show();
     }
 </script>
 </body>
