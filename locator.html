@@ -11,7 +11,11 @@
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <style>
-        .message-hidden { display: none; }
+        .message-hidden,
+        .arcade-list-item:first-child,
+        .arcade-nav[href^="#"] {
+            display: none;
+        }
     </style>
 </head>
 <body id="page-locator">
@@ -23,13 +27,17 @@
 </div></noscript>
 <div id="message-loading">
     <h2>Loading...</h2>
-    <p><a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a></p>
+    <p>
+        <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
+    </p>
 </div>
 <div id="message-nogeo" class="message-hidden">
     <h2>No Geolocation Support</h2>
+    <p>Your web browser does not support the HTML5 Geolocation API!</p>
     <p>
-        Your web browser does not support the HTML5 Geolocation API!<br>
-        <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white">Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i></a>
+        <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white">
+            Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i>
+        </a>
     </p>
 </div>
 <div id="message-waiting" class="message-hidden">
@@ -42,14 +50,22 @@
 <div id="message-denied" class="message-hidden">
     <h2>Could not locate: Permission Error</h2>
     <p>Reload this page and make sure to allow location detection!</p>
-    <button onclick="location.reload()" class="bg-color-green fg-color-white">Reload <i class="icon-loop"></i></button>
+    <p>
+        <button onclick="location.reload()" class="bg-color-green fg-color-white">
+            Reload <i class="icon-loop"></i>
+        </button>
+    </p>
 </div>
 <div id="message-failed" class="message-hidden">
     <h2>Could not locate: Position Unavailable</h2>
+    <p>Unable to locate your current position</p>
     <p>
-        Unable to locate your current position<br>
-        <button onclick="location.reload()" class="bg-color-green fg-color-white">Retry <i class="icon-loop"></i></button><br>
-        <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white">Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i></a>
+        <button onclick="location.reload()" class="bg-color-green fg-color-white">
+            Retry <i class="icon-loop"></i>
+        </button><br>
+        <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white">
+            Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i>
+        </a>
     </p>
 </div>
 <div id="message-found-searching" class="message-hidden">
@@ -61,15 +77,42 @@
 </div>
 <div id="message-arcade-list" class="message-hidden">
     <h2>Your Location:</h2>
-    <a id="current-location-link"><img id="current-location-img" src="images/preloader-w8-line-black.gif" alt="Current Location"></a>
+    <a id="current-location-link">
+        <img id="current-location-img" src="images/preloader-w8-line-black.gif" alt="Current Location">
+    </a>
     <h4>Accurate to within <span id="current-location-accuracy">??? meters</span></h4>
     <div id="arcade-list-container">
         <h2>Located Arcades:</h2>
-        <ul class="accordion" data-role="accordion" id="arcade-list"></ul>
+        <ul class="accordion" data-role="accordion" id="arcade-list">
+            <li class="arcade-list-item">
+                <a href="#" class="arcade-name">Name</a>
+                <div>
+                    <h3 class="arcade-city">City</h3>
+                    <h4>Approximately <span class="arcade-distance">???</span> km away</h4>
+                    <a class="arcade-nav button bg-color-purple fg-color-white" href="#">
+                        Navigate <i class="icon-location-2"></i>
+                    </a>
+                    <a class="arcade-gmaps button bg-color-green fg-color-white">
+                        Find on Google Maps <i class="icon-location"></i>
+                    </a><br>
+                    <a class="arcade-ziv button bg-color-blueDark fg-color-white">
+                        Info on Zenius -I- vanisher.com <i class="icon-new-tab"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
     </div>
     <div id="arcade-noresults-container" class="message-hidden">
         <h2>No nearby arcades found</h2>
-        <h3>Sorry! Try toggling the GPS option or just check out the full Zenius -I- vanisher.com database!</h3>
+        <p>Sorry! Try going back and toggling the GPS option or check out the full database</p>
+        <p>
+            <button onclick="location.reload()" class="bg-color-green fg-color-white">
+                Retry <i class="icon-loop"></i>
+            </button><br>
+            <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white">
+                Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i>
+            </a>
+        </p>
     </div>
 </div>
 <script src="javascript/jquery-1.8.3.js"></script>
