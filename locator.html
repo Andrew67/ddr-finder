@@ -53,7 +53,7 @@
     </p>
 </div>
 <div id="message-found-searching" class="message-hidden">
-    <h2>Found you! Locating machines...</h2>
+    <h2>Found you! Locating arcades...</h2>
     <p>
         <img src="images/preloader-w8-line-black.gif" alt="Loading..."><br>
         <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
@@ -63,10 +63,14 @@
     <h2>Your Location:</h2>
     <a id="current-location-link"><img id="current-location-img" src="images/preloader-w8-line-black.gif" alt="Current Location"></a>
     <h4>Accurate to within <span id="current-location-accuracy">??? meters</span></h4>
-    <h2>Located Arcades:</h2>
-    <ul class="accordion" data-role="accordion" id="arcade-list">
-
-    </ul>
+    <div id="arcade-list-container">
+        <h2>Located Arcades:</h2>
+        <ul class="accordion" data-role="accordion" id="arcade-list"></ul>
+    </div>
+    <div id="arcade-noresults-container" class="message-hidden">
+        <h2>No nearby arcades found</h2>
+        <h3>Sorry! Try toggling the GPS option or just check out the full Zenius -I- vanisher.com database!</h3>
+    </div>
 </div>
 
 <script src="javascript/jquery-1.8.3.js"></script>
@@ -89,17 +93,23 @@
         $('#message-found-searching').hide();
         $('#message-arcade-list').show();
         var arcade_list = $('#arcade-list');
-        for (var i = 0; i < locations.length; ++i) {
-            arcade_list.append('<li><a href="#">' + locations[i].name + '</a><div><h3>'
-                + locations[i].city + '</h3><h4>Approximately '
-                + locations[i].distance + 'km away</h4><a class="button bg-color-green fg-color-white" href="https://maps.google.com/?q=loc:'
-                + locations[i].latitude + ',' + locations[i].longitude + '">Find on Google Maps <i class="icon-location-2"></i></a><br>'
-                + '<a class="button bg-color-blueDark fg-color-white" href="http://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid='
-                + locations[i].id + '">Info on Zenius -I- vanisher.com <i class="icon-new-tab"></i></a>'
-                + '</div></li>');
+        if (locations.length == 0) {
+            $('#arcade-list-container').hide();
+            $('#arcade-noresults-container').show();
         }
-        // Load accordion library after preparing list, because it attaches click events to list elements themselves
-        $('body').append('<script src="javascript/accordion.js"><\/script>');
+        else {
+            for (var i = 0; i < locations.length; ++i) {
+                arcade_list.append('<li><a href="#">' + locations[i].name + '</a><div><h3>'
+                    + locations[i].city + '</h3><h4>Approximately '
+                    + locations[i].distance + 'km away</h4><a class="button bg-color-green fg-color-white" href="https://maps.google.com/?q=loc:'
+                    + locations[i].latitude + ',' + locations[i].longitude + '">Find on Google Maps <i class="icon-location-2"></i></a><br>'
+                    + '<a class="button bg-color-blueDark fg-color-white" href="http://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid='
+                    + locations[i].id + '">Info on Zenius -I- vanisher.com <i class="icon-new-tab"></i></a>'
+                    + '</div></li>');
+            }
+            // Load accordion library after preparing list, because it attaches click events to list elements themselves
+            $('body').append('<script src="javascript/accordion.js"><\/script>');
+        }
     };
     // Geolocation ok handler
     var handle_ok = function(position) {
