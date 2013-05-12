@@ -38,17 +38,15 @@ else {
 // return array(); with the values used in the below initializations
 $db_conf = require 'db-conf.php';
 $dsn = "{$db_conf['driver']}:dbname={$db_conf['database']};host={$db_conf['host']}";
-// NOTE: if not using MySQL, remove the 4th argument and use the appropriate method of setting the encoding
 $dbh = new PDO($dsn, $db_conf['username'], $db_conf['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
-// NOTE: if your database does not support these math functions, uncomment the second version of this query
-// and uncomment the below block of code that can perform the distance calculation and sorting in PHP
-// See the below block for a more readable version of the formula, and more importantly its source
+
+// Using distance formula as defined in
+// http://en.wikipedia.org/wiki/Geographical_distance#Spherical_Earth_projected_to_a_plane
 $stmt = $dbh->prepare("SELECT `id`,`name`,`city`,`latitude`,`longitude`,
     TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat),2)+POW(COS(RADIANS((`latitude`+:lat)/2))*RADIANS(`longitude`-:long),2)),2) AS `distance`
     FROM `{$db_conf['table']}`
     WHERE `latitude` > :latlower AND `latitude` < :latupper AND `longitude` > :longlower AND `longitude` < :longupper
     ORDER BY `distance` ASC;");
-//$stmt = $dbh->prepare("SELECT * FROM `{$db_conf['table']}` WHERE `latitude` > :latlower AND `latitude` < :latupper AND `longitude` > :longlower AND `longitude` < :longupper ;");
 
 // Set reasonable latitude/longitude lower and upper boundaries in radius mode
 // If in box mode, these have already been set by the request
@@ -72,23 +70,6 @@ $stmt->execute();
 // Fetch all data for nearby machines
 $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Calculate arcade distances and add to array values (in km)
-// using formula as defined in http://en.wikipedia.org/wiki/Geographical_distance#Spherical_Earth_projected_to_a_plane
-// NOTE: only uncomment if your database does not have the functions required to calculate this in the query itself (see above)
-/*define('R', 6371.009);
-$distances = array();
-foreach ($locations as &$loc) {
-    $d_lat = deg2rad($latitude - $loc['latitude']);
-    $d_long = deg2rad($longitude - $loc['longitude']);
-    $m_lat = deg2rad(($latitude + $loc['latitude']) / 2);
-    $distance = R * sqrt( pow($d_lat, 2) + pow( cos($m_lat) * $d_long, 2) );
-    $loc['distance'] = sprintf('%.2f', $distance);
-    $distances[] = $distance;
-}
-
-// Sort locations by distance (closest first)
-array_multisort($distances, $locations);*/
-
-// Output result in JSON for JavaScript processing
+// Output result in JSON
 header('Content-type: application/json; charset=utf-8');
 echo json_encode($locations);
