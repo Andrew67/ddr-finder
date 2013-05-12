@@ -7,8 +7,7 @@ if (isset($_GET['lat']) && isset($_GET['long']) && empty($_GET['source'])) {
     $mode = 'radius';
 }
 elseif (isset($_GET['source']) && 'android' === $_GET['source']) {
-    if (!isset($_GET['lat']) || !isset($_GET['long'])
-        ||!isset($_GET['latlower']) || !isset($_GET['latupper'])
+    if (!isset($_GET['latlower']) || !isset($_GET['latupper'])
         || !isset($_GET['longlower']) || !isset($_GET['longupper'])
         || 1 < abs($_GET['latupper'] - $_GET['latlower'])
         || 1 < abs($_GET['longlower'] - $_GET['longupper'])
@@ -16,13 +15,13 @@ elseif (isset($_GET['source']) && 'android' === $_GET['source']) {
         header('HTTP/1.1 400 Bad Request');
         echo '<h1>400 Bad Request</h1>
                 <h2>
-                    Please specify latitude and longitude (?lat=xx&amp;long=xx)
-                    and boundaries (&amp;latlower=xx&amp;latupper=xx&amp;longlower=xx&amp;longupper=xx) not exceeding a 1° by 1° box
+                    Please specify boundaries (?latlower=xx&amp;latupper=xx&amp;longlower=xx&amp;longupper=xx)
+                    not exceeding a 1° by 1° box
                 </h2>';
         exit(1);
     }
-    $latitude = $_GET['lat'];
-    $longitude = $_GET['long'];
+    $latitude = null;
+    $longitude = null;
     $mode = 'box';
     $latlower = $_GET['latlower'];
     $latupper = $_GET['latupper'];
