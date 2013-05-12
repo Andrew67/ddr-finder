@@ -40,14 +40,6 @@ $db_conf = require 'db-conf.php';
 $dsn = "{$db_conf['driver']}:dbname={$db_conf['database']};host={$db_conf['host']}";
 $dbh = new PDO($dsn, $db_conf['username'], $db_conf['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
 
-// Using distance formula as defined in
-// http://en.wikipedia.org/wiki/Geographical_distance#Spherical_Earth_projected_to_a_plane
-$stmt = $dbh->prepare("SELECT `id`,`name`,`city`,`latitude`,`longitude`,
-    TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat),2)+POW(COS(RADIANS((`latitude`+:lat)/2))*RADIANS(`longitude`-:long),2)),2) AS `distance`
-    FROM `{$db_conf['table']}`
-    WHERE `latitude` > :latlower AND `latitude` < :latupper AND `longitude` > :longlower AND `longitude` < :longupper
-    ORDER BY `distance` ASC;");
-
 // Set reasonable latitude/longitude lower and upper boundaries in radius mode
 // If in box mode, these have already been set by the request
 // See http://en.wikipedia.org/wiki/Latitude#The_length_of_a_degree_of_latitude for a rough idea of the radius represented
@@ -56,11 +48,27 @@ if ('radius' === $mode) {
     $latupper = $latitude + 0.5;
     $longlower = $longitude - 0.5;
     $longupper = $longitude + 0.5;
+
+    // Using distance formula as defined in
+    // http://en.wikipedia.org/wiki/Geographical_distance#Spherical_Earth_projected_to_a_plane
+    $query = "SELECT `id`,`name`,`city`,`latitude`,`longitude`,
+      TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat),2)+POW(COS(RADIANS((`latitude`+:lat)/2))*RADIANS(`longitude`-:long),2)),2) AS `distance`
+      FROM `locations`
+      WHERE `latitude` > :latlower AND `latitude` < :latupper AND `longitude` > :longlower AND `longitude` < :longupper
+      ORDER BY `distance` ASC";
+}
+else /* if ('box' === $mode) */ {
+    $query = "SELECT `id`,`name`,`city`,`latitude`,`longitude`
+      FROM `locations`
+      WHERE `latitude` > :latlower AND `latitude` < :latupper AND `longitude` > :longlower AND `longitude` < :longupper";
 }
 
 // Bind parameters and execute query
-$stmt->bindParam(':lat', $latitude);
-$stmt->bindParam(':long', $longitude);
+$stmt = $dbh->prepare($query);
+if ('radius' === $mode) {
+    $stmt->bindParam(':lat', $latitude);
+    $stmt->bindParam(':long', $longitude);
+}
 $stmt->bindParam(':latlower', $latlower);
 $stmt->bindParam(':latupper', $latupper);
 $stmt->bindParam(':longlower', $longlower);

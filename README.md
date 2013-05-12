@@ -29,7 +29,6 @@ return array('driver' => 'mysql',
              'username' => 'user',
              'password' => 'pass',
              'database' => 'ddrfinder',
-             'table' => 'locations',
 );
 ```
 
