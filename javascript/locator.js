@@ -3,6 +3,7 @@ $(window).load(function () {
     // Prefixes for arcade item info/navigation links
     var GMAPS_PREFIX = 'https://maps.google.com/?q=loc:';
     var ZIV_PREFIX = 'http://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid=';
+    var ZIV_PREFIX_PC = 'http://zenius-i-vanisher.com/v5.2/arcadelocations.php?locationid=';
     var NAV_PREFIX_ANDROID = 'geo:0,0?q=loc:';
     var NAV_PREFIX_IOS = 'maps:?q=&saddr=Current%20Location&daddr=loc:';
     var NAV_PREFIX_WP7 = 'bingmaps:?q=';
@@ -10,6 +11,7 @@ $(window).load(function () {
     if (/Android/i.test(navigator.userAgent)) NAV_PREFIX = NAV_PREFIX_ANDROID;
     else if (/(iPhone)|(iPad)/i.test(navigator.userAgent)) NAV_PREFIX = NAV_PREFIX_IOS;
     else if (/Windows Phone/i.test(navigator.userAgent)) NAV_PREFIX = NAV_PREFIX_WP7;
+    else ZIV_PREFIX = ZIV_PREFIX_PC;
 
     // Geolocation error handler
     var handle_error = function(error) {
@@ -43,6 +45,8 @@ $(window).load(function () {
                 arcade.find('.arcade-name').text(locations[i].name);
                 arcade.find('.arcade-city').text(locations[i].city);
                 arcade.find('.arcade-distance').text(locations[i].distance);
+                arcade.find('.arcade-latitude').text(locations[i].latitude);
+                arcade.find('.arcade-longitude').text(locations[i].longitude);
                 // Encode location name as label (supported in Google Maps, at least, but they don't like () in the label)
                 var label = locations[i].name.replace(/\(/g, '[').replace(/\)/g, ']');
                 var mapsuffix = locations[i].latitude + ',' + locations[i].longitude + '(' + encodeURI(label) + ')';
