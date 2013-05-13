@@ -4,13 +4,30 @@ $(window).load(function () {
     var GMAPS_PREFIX = 'https://maps.google.com/?q=loc:';
     var ZIV_PREFIX = 'http://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid=';
     var ZIV_PREFIX_PC = 'http://zenius-i-vanisher.com/v5.2/arcadelocations.php?locationid=';
-    var NAV_PREFIX_ANDROID = 'geo:0,0?q=loc:';
+    var NAV_PREFIX_ANDROID = 'geo:';
     var NAV_PREFIX_IOS = 'maps:?q=&saddr=Current%20Location&daddr=loc:';
-    var NAV_PREFIX_WP7 = 'bingmaps:?q=';
+    var NAV_PREFIX_WP7 = 'maps:';
     var NAV_PREFIX = '#';
-    if (/Android/i.test(navigator.userAgent)) NAV_PREFIX = NAV_PREFIX_ANDROID;
-    else if (/(iPhone)|(iPad)/i.test(navigator.userAgent)) NAV_PREFIX = NAV_PREFIX_IOS;
-    else if (/Windows Phone/i.test(navigator.userAgent)) NAV_PREFIX = NAV_PREFIX_WP7;
+
+    // Navigation URL generator functions
+    var nav_url = function(latitude, longitude, label) {
+        return NAV_PREFIX + latitude + ',' + longitude + '(' + encodeURI(label) + ')';
+    };
+    var nav_url_android = function(latitude, longitude, label) {
+        return NAV_PREFIX_ANDROID + latitude + ',' + longitude + '?q=' +
+            latitude + ',' + longitude + '(' + encodeURI(label) + ')';
+    };
+    var nav_url_ios = function(latitude, longitude, label) {
+        return NAV_PREFIX_IOS + latitude + ',' + longitude + '(' + encodeURI(label) + ')';
+    };
+    var nav_url_wp7 = function(latitude, longitude) {
+        return NAV_PREFIX_WP7 + latitude + ' ' + longitude;
+    };
+
+    // Detect platform and set generator function
+    if (/Android/i.test(navigator.userAgent)) nav_url = nav_url_android;
+    else if (/(iPhone)|(iPad)/i.test(navigator.userAgent)) nav_url = nav_url_ios;
+    else if (/Windows Phone/i.test(navigator.userAgent)) nav_url = nav_url_wp7;
     else ZIV_PREFIX = ZIV_PREFIX_PC;
 
     // Geolocation error handler
@@ -50,7 +67,7 @@ $(window).load(function () {
                 // Encode location name as label (supported in Google Maps, at least, but they don't like () in the label)
                 var label = locations[i].name.replace(/\(/g, '[').replace(/\)/g, ']');
                 var mapsuffix = locations[i].latitude + ',' + locations[i].longitude + '(' + encodeURI(label) + ')';
-                arcade.find('.arcade-nav').attr('href', NAV_PREFIX + mapsuffix);
+                arcade.find('.arcade-nav').attr('href', nav_url(locations[i].latitude, locations[i].longitude, label));
                 arcade.find('.arcade-gmaps').attr('href', GMAPS_PREFIX + mapsuffix);
                 arcade.find('.arcade-ziv').attr('href', ZIV_PREFIX + locations[i].id);
                 arcade.appendTo(arcade_list);
