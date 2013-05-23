@@ -1,3 +1,8 @@
+<?php
+$versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
+$versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
+define('LATEST_VERSION', 5);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +16,16 @@
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 </head>
-<body id="page-about">
+<body id="page-about" class="metrouicss">
 <!-- This page is meant to be displayed in the About dialog of the Android app -->
 <h1>DDR Finder</h1>
 <h2>
-    Version <?php echo htmlspecialchars($_GET['n']); ?>
-    (Revision <?php echo htmlspecialchars($_GET['c']); ?>)
+    Version <?php echo htmlspecialchars($versionName); ?>
+    (Revision <?php echo htmlspecialchars($versionCode); ?>)
 </h2>
+<?php if ($versionCode < LATEST_VERSION): ?>
+<p class="label warning">New version available!</p>
+<?php endif; ?>
 <p>This is a work in progress proof of concept.
     No warranty is made regarding operation, and no accuracy of results is guaranteed.
     Location information used for searching is NOT recorded.
@@ -25,9 +33,14 @@
     (no affiliation with said site, data snapshots may not be up-to-date).
     No donations accepted; donate to Z-I-v instead, without it this app would not have been possible!</p>
 <div id="main-buttons">
+    <?php if ($versionCode < LATEST_VERSION): ?>
+    <a href="ddrfinder.apk" class="button bg-color-greenLight fg-color-white">
+        Install New Version <i class="icon-android"></i>
+    </a><br>
+    <?php endif; ?>
     <a href="https://raw.github.com/Andrew67/DdrFinder/master/LICENSE" class="button bg-color-greenDark fg-color-white">
         View Application License
-    </a>
+    </a><br>
     <a href="https://github.com/Andrew67/ddr-finder" class="button bg-color-pinkDark fg-color-white">
         View Source on GitHub <i class="icon-github-4"></i>
     </a>
