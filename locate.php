@@ -51,14 +51,14 @@ if ('radius' === $mode) {
 
     // Using distance formula as defined in
     // http://en.wikipedia.org/wiki/Geographical_distance#Spherical_Earth_projected_to_a_plane
-    $query = "SELECT `id`,`name`,`city`,`latitude`,`longitude`,
+    $query = "SELECT `id`,`name`,`city`,`latitude`,`longitude`,`hasDDR`,
       TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat),2)+POW(COS(RADIANS((`latitude`+:lat)/2))*RADIANS(`longitude`-:long),2)),2) AS `distance`
       FROM `locations`
       WHERE `latitude` > :latlower AND `latitude` < :latupper AND `longitude` > :longlower AND `longitude` < :longupper
       ORDER BY `distance` ASC";
 }
 else /* if ('box' === $mode) */ {
-    $query = "SELECT `id`,`name`,`city`,`latitude`,`longitude`
+    $query = "SELECT `id`,`name`,`city`,`latitude`,`longitude`,`hasDDR`
       FROM `locations`
       WHERE `latitude` > :latlower AND `latitude` < :latupper AND `longitude` > :longlower AND `longitude` < :longupper";
 }

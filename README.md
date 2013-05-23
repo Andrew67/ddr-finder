@@ -40,9 +40,16 @@ CREATE TABLE IF NOT EXISTS `locations` (
   `city` varchar(255) NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
+  `hasDDR` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `coordinates` (`latitude`,`longitude`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+```
+
+#### Update from 1.0 ####
+If you had a 1.0 deployment, add the hasDDR column and you're all set!
+```sql
+ALTER TABLE `locations` ADD `hasDDR` tinyint(1) DEFAULT '0' NOT NULL;
 ```
 
 Acknowledgments
