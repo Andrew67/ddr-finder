@@ -1,0 +1,9 @@
+.message-hidden,
+li.arcade-list-item:first-child,
+.arcade-nav[href^="#"] {
+    display: none;
+}
+
+body {
+    padding-top: 20px;
+}

@@ -1,7 +1,7 @@
 <?php
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 5);
+define('LATEST_VERSION', 6);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +13,7 @@ define('LATEST_VERSION', 5);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/modern.css">
     <link rel="stylesheet" href="css/modern-responsive.css">
+    <link rel="stylesheet" href="css/custom.css">
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 </head>
