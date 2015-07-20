@@ -1,3 +1,4 @@
+/* ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
 // Funcationality for locator page
 $(window).load(function () {
     // Prefixes for arcade item info/navigation links

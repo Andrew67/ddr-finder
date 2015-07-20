@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>DDR Finder</title>
+    <!-- ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE -->
     <!-- Setting the OpenGraph URL ensures shared links point to the main page -->
     <meta property="og:url" content="http://www.ddrfinder.tk/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,16 +16,19 @@
 <body id="page-locator" class="metrouicss">
 <h1>DDR Finder</h1>
 <!-- Templates for all success/error messages -->
+<!-- ERROR: JavaScript not supported -->
 <noscript><div id="message-noscript">
     <h2>JavaScript Error</h2>
     <p>Could not start location process; make sure JavaScript is enabled</p>
 </div></noscript>
+<!-- PROGRESS: Loading scripts -->
 <div id="message-loading">
     <h2>Loading...</h2>
     <p>
         <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
     </p>
 </div>
+<!-- ERROR: HTML5 Geolocation API not supported -->
 <div id="message-nogeo" class="message-hidden">
     <h2>No Geolocation Support</h2>
     <p>Your web browser does not support the HTML5 Geolocation API!</p>
@@ -34,6 +38,7 @@
         </a>
     </p>
 </div>
+<!-- PROGRESS: Waiting for location -->
 <div id="message-waiting" class="message-hidden">
     <h2>Waiting for location...</h2>
     <p>
@@ -41,6 +46,7 @@
         <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
     </p>
 </div>
+<!-- ERROR: Location data denied -->
 <div id="message-denied" class="message-hidden">
     <h2>Could not locate: Permission Error</h2>
     <p>Reload this page and make sure to allow location detection!</p>
@@ -50,6 +56,7 @@
         </button>
     </p>
 </div>
+<!-- ERROR: Location data unavailable -->
 <div id="message-failed" class="message-hidden">
     <h2>Could not locate: Position Unavailable</h2>
     <p>Unable to locate your current position</p>
@@ -62,6 +69,7 @@
         </a>
     </p>
 </div>
+<!-- PROGRESS: Loading arcade location data -->
 <div id="message-found-searching" class="message-hidden">
     <h2>Found you! Locating arcades...</h2>
     <p>
@@ -69,6 +77,7 @@
         <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
     </p>
 </div>
+<!-- Final results screen -->
 <div id="message-arcade-list" class="message-hidden">
     <h2>Your Location:</h2>
     <a id="current-location-link">
@@ -78,6 +87,7 @@
     <div id="arcade-list-container">
         <h2>Located Arcades:</h2>
         <ul class="accordion" data-role="accordion" id="arcade-list">
+            <!-- Arcade locatoin template -->
             <li class="arcade-list-item">
                 <a href="#" class="arcade-name">Name</a>
                 <div>
@@ -98,6 +108,7 @@
             </li>
         </ul>
     </div>
+    <!-- No arcades found -->
     <div id="arcade-noresults-container" class="message-hidden">
         <h2>No nearby arcades found</h2>
         <p>Sorry! Try going back and toggling the GPS option or check out the full database</p>
