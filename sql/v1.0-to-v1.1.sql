@@ -1,0 +1,1 @@
+ALTER TABLE `locations` ADD `hasDDR` tinyint(1) DEFAULT '0' NOT NULL;
