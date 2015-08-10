@@ -5,3 +5,4 @@ ALTER TABLE `locations` ADD COLUMN `source_id` varchar(16) NOT NULL AFTER `sourc
 UPDATE `locations` SET `source_id`=`id`, `source_type`='ziv';
 CREATE UNIQUE INDEX `composite_id` ON `locations` (`source_type`, `source_id`);
 CREATE INDEX `source_coordinates` ON `locations` (`source_type`, `latitude`, `longitude`);
+CREATE INDEX `last_update` ON `locations` (`last_update`);

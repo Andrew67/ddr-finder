@@ -11,5 +11,6 @@ CREATE TABLE IF NOT EXISTS `locations` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `composite_id` (`source_type`,`source_id`),
   KEY `coordinates` (`latitude`,`longitude`),
-  KEY `source_coordinates` (`source_type`,`latitude`,`longitude`)
+  KEY `source_coordinates` (`source_type`,`latitude`,`longitude`),
+  KEY `last_update` (`last_update`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
