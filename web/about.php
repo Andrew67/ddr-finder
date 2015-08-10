@@ -34,7 +34,7 @@ define('LATEST_VERSION', 8);
     <meta charset="utf-8">
     <title>DDR Finder</title>
     <!-- Setting the OpenGraph URL ensures shared links point to the main page -->
-    <meta property="og:url" content="http://www.ddrfinder.tk/">
+    <meta property="og:url" content="http://ddrfinder.andrew67.com/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/modern.css">
     <link rel="stylesheet" href="css/modern-responsive.css">
