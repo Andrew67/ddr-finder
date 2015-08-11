@@ -23,7 +23,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-error_reporting(0);
 
 if (isset($_GET['lat']) && isset($_GET['long']) && empty($_GET['source'])) {
     $latitude = $_GET['lat'];
