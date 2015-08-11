@@ -23,25 +23,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-// API router: sends request to appropriate handler based on detected API version
 
-// Set response type and encoding
-header('Content-Type: application/json; charset=utf-8');
-// Set up class autoloader
-set_include_path(get_include_path() . PATH_SEPARATOR . 'lib/');
-spl_autoload_extensions('.php');
-spl_autoload_register();
+/**
+ * Class APIError
+ * Helper methods for generating the API error structure.
+ */
+class APIError {
 
-// Empty, invalid, or below 20 version field is treated as API 1.x client
-if (empty($_GET['version']) || !is_numeric($_GET['version']) || 20 > $_GET['version']) {
-    header('Content-Type: text/html; charset=utf-8');
-    require 'locate-v1.php';
-}
-// API 2.x clients are 20 through 29
-elseif (20 <= $_GET['version'] && 30 > $_GET['version']) {
-    echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'API v2.x support is a work in progress.');
-}
-// Any other API versions are yet to be implemented
-else {
-    echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'This server only implements API v1.x.');
+    // Error code constants
+    // See API description: https://github.com/Andrew67/ddr-finder/wiki/API-Description
+    const VERSION_NOT_SUPPORTED = 1;
+    const MISSING_REQUIRED_FIELD = 20;
+    const INVALID_DATA_SOURCE = 21;
+    const DUMP_FORBIDDEN = 22;
+    const OVERSIZED_BOX_FORBIDDEN = 23;
+    const TOO_MANY_REQUESTS = 42;
+
+    /**
+     * Returns the v2.0 API error structure.
+     * Sets the HTTP status code to 400 "Bad Request".
+     * Recommended usage: output the return value and exit the script.
+     *
+     * @param int $code Error code.
+     * @param string $message User-readable message.
+     * @return string API error structure in JSON format.
+     */
+    public static function getError($code, $message) {
+        header('HTTP/1.1 400 Bad Request');
+        return json_encode(array(
+            "error" => $message,
+            "errorCode" => $code
+        ));
+    }
+
 }
