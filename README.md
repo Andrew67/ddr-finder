@@ -49,6 +49,7 @@ Acknowledgments
   * http://developer.apple.com/library/ios/#featuredarticles/iPhoneURLScheme_Reference/Articles/MapLinks.html
   * http://msdn.microsoft.com/en-us/library/windows/apps/jj635237.aspx
   * http://stackoverflow.com/questions/3990110/how-to-show-marker-in-maps-launched-by-geo-uri-intent/7405992#7405992
+* [DDR-Navi](http://ddr-navi.jp/) for Japan data.
 
 Future Work
 -----------

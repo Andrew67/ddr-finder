@@ -55,10 +55,10 @@ define('LATEST_VERSION', 8);
 <?php endif; ?>
 <p>This is a work in progress proof of concept.
     No warranty is made regarding operation, and no accuracy of results is guaranteed.
-    Location information used for searching is NOT recorded.
     Machine location data collected from <a href="http://zenius-i-vanisher.com/">Zenius -I- vanisher.com</a>
-    (no affiliation with said site, data snapshots may not be up-to-date).
-    No donations accepted; donate to Z-I-v instead, without it this app would not have been possible!</p>
+    and <a href="http://ddr-navi.jp/">DDR-Navi</a>
+    (no affiliation with said sites, data snapshots may not be up-to-date).
+    No donations accepted; donate to the above sites instead, without them this app would not have been possible!</p>
 <div id="main-buttons">
     <?php if ($versionCode < LATEST_VERSION): ?>
     <a href="ddrfinder.apk" class="button bg-color-greenLight fg-color-white">
