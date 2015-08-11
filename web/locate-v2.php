@@ -35,7 +35,7 @@ if (isset($_GET['dump'])) {
 // - $_GET['datasrc'] overrides $_COOKIE['datasrc'].
 // - If neither value is present, throw error.
 if (empty($_GET['datasrc']) && empty($_COOKIE['datasrc'])) {
-    echo APIError::getError(APIError::MISSING_REQUIRED_FIELD, 'The \'datasrc\' field is required, but was not present.');
+    echo APIError::getError(APIError::MISSING_REQUIRED_FIELD, 'The \'datasrc\' field is required, but was not specified.');
     exit(1);
 }
 /** @var array $datasrc Data sources requested. */
@@ -68,4 +68,13 @@ else {
     $lngupper = (int) $_GET['lngupper'];
 }
 
-echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'API v2.x support is a work in progress.');
+// Set up JSON result
+$result = array();
+
+// Inject source information
+$result['sources'] = Sources::getSourceObject($datasrc);
+
+// Inject locations data
+$result['locations'] = array();
+
+echo json_encode($result);

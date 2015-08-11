@@ -51,8 +51,8 @@ class APIError {
     public static function getError($code, $message) {
         header('HTTP/1.1 400 Bad Request');
         return json_encode(array(
-            "error" => $message,
-            "errorCode" => $code
+            'error' => $message,
+            'errorCode' => $code
         ));
     }
 
