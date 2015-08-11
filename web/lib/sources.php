@@ -72,4 +72,23 @@ class Sources {
 
         return $d;
     }
+
+    /**
+     * Returns the shortnames of the available sources.
+     * @return array Shortnames of the available sources.
+     */
+    public static function getSourceNames() {
+        return array_keys(self::$data);
+    }
+
+    /**
+     * Whether the specified source is valid. "all" is valid, while "fallback" is not.
+     * @param string $source Source name to validate.
+     * @return bool Whether the specified source is valid.
+     */
+    public static function isValidSource($source) {
+        if ('all' === $source) return true;
+        elseif ('fallback' === $source) return false;
+        else return array_key_exists($source, self::$data);
+    }
 }

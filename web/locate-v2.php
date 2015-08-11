@@ -40,6 +40,16 @@ if (empty($_GET['datasrc']) && empty($_COOKIE['datasrc'])) {
 }
 /** @var array $datasrc Data sources requested. */
 $datasrc = explode(',', (!empty($_GET['datasrc']) ? $_GET['datasrc'] : $_COOKIE['datasrc']));
+// Validate data sources and throw error if invalid data source encountered (or if "all" is present, overrides all values)
+foreach($datasrc as $source) {
+    if ('all' === $source) {
+        $datasrc = array('all');
+        break;
+    } elseif (!Sources::isValidSource($source)) {
+        echo APIError::getError(APIError::INVALID_DATA_SOURCE, 'Invalid \'datasrc\' value specified: ' . $source);
+        exit(1);
+    }
+}
 
 // Check for presence of "lat" field to toggle radius mode
 if (isset($_GET['lat'])) {
