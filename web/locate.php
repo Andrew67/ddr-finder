@@ -39,7 +39,7 @@ if (empty($_GET['version']) || !is_numeric($_GET['version']) || 20 > $_GET['vers
 }
 // API 2.x clients are 20 through 29
 elseif (20 <= $_GET['version'] && 30 > $_GET['version']) {
-    echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'API v2.x support is a work in progress.');
+    require 'locate-v2.php';
 }
 // Any other API versions are yet to be implemented
 else {
