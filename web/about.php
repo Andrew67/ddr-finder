@@ -33,6 +33,7 @@ define('LATEST_VERSION', 8);
 <head>
     <meta charset="utf-8">
     <title>DDR Finder</title>
+    <!-- ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE -->
     <!-- Setting the OpenGraph URL ensures shared links point to the main page -->
     <meta property="og:url" content="http://ddrfinder.andrew67.com/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,7 +72,7 @@ define('LATEST_VERSION', 8);
         View Source on GitHub <i class="icon-github-4"></i>
     </a>
 </div>
-<h4>&copy; 2013 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
+<h4>&copy; 2013-2015 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
     Using <a href="http://metroui.org.ua/">Metro UI CSS</a> for page styling<br>
     Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin<br>

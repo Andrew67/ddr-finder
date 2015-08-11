@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2012 Andrés Cordero
+ * Copyright (c) 2012-2015 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
