@@ -97,8 +97,7 @@ $(window).load(function () {
         // Locate nearby machines and populate/show list
         $.getJSON('locate.php', {
             'lat': position.coords.latitude,
-            'long': position.coords.longitude,
-            'timestamp': position.timestamp
+            'long': position.coords.longitude
         }, handle_data);
     };
 
@@ -106,13 +105,9 @@ $(window).load(function () {
     if ('geolocation' in navigator) {
         $('#message-loading').hide();
         $('#message-waiting').show();
-        // Check user setting for high accuracy
-        var highAccuracy = ('localStorage' in window &&
-            window['localStorage'] != null &&
-            window.localStorage['highAccuracy'] == "true");
         // Function explained in http://diveintohtml5.info/geolocation.html
         navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {
-            enableHighAccuracy: highAccuracy,
+            enableHighAccuracy: false,
             maximumAge: 75000
         });
     }
