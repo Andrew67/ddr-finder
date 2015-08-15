@@ -91,8 +91,8 @@ $lochelper = new LocationsHelper(PDOHelper::getConnection());
 if ('dump' === $mode) {
     $result['locations'] = $lochelper->getDump($_GET['dump']);
 }
-elseif ('radius' == $mode) {
-    $result['locations'] = $lochelper->getRadius($_GET['lat'], $_GET['lng']);
+elseif ('radius' === $mode) {
+    $result['locations'] = $lochelper->getRadius($_GET['lat'], $_GET['lng'], $datasrc);
 }
 
 echo json_encode($result);

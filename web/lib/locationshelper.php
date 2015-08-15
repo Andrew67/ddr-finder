@@ -72,16 +72,40 @@ class LocationsHelper {
      * Retrieve all records within +/- 0.5 of the given lat/lng, sorted by distance.
      * @param float $lat
      * @param float $lng
+     * @param array $src Data sources to pull from.
      * @return array API format array.
      */
-    public function getRadius($lat, $lng) {
+    public function getRadius($lat, $lng, $src) {
         $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ', ' . self::SELECT_distance . ' ' . self::FROM .
-            ' WHERE ' . self::WHERE_radius . ' ORDER BY `distance` ASC');
+            ' WHERE ' . $this->getSourceString($src) . ' AND ' . self::WHERE_radius . ' ORDER BY `distance` ASC');
         $stmt->execute(array(
             ':lat' => $lat,
             ':lng' => $lng
         ));
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Builds a conditional based on requested data sources.
+     * Example output: `source_type` IN ('navi','zim')
+     * @param array $src
+     * @return string SQL fragment with safe values.
+     */
+    private function getSourceString($src) {
+        // Handle special value "all"
+        if ('all' === $src[0]) return '1=1';
+
+        $q = '`source_type` IN (';
+
+        // The $p is a trick to properly generate the commas in-between values
+        $p = '';
+        foreach ($src as $source) {
+            $q .= $p . $this->dbh->quote($source, PDO::PARAM_STR);
+            $p = ',';
+        }
+
+        $q .= ')';
+        return $q;
     }
 
 }
