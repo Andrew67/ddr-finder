@@ -33,7 +33,7 @@ class PDOHelper {
 
     public static function getConnection() {
         if (null === self::$connection) {
-            $db_conf = require '../db-conf.php';
+            $db_conf = require __DIR__ . '/../db-conf.php';
             $dsn = "{$db_conf['driver']}:dbname={$db_conf['database']};host={$db_conf['host']}";
             self::$connection = new PDO($dsn, $db_conf['username'], $db_conf['password'],
                 array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));

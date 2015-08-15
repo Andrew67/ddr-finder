@@ -27,8 +27,8 @@
 
 // Test for presence of "dump" field, as it overrides all others
 if (isset($_GET['dump'])) {
-    echo APIError::getError(APIError::DUMP_FORBIDDEN, 'Support for \'dump\' flag is a work in progress.');
-    exit(1);
+    $mode = 'dump';
+    $_GET['datasrc'] = 'all';
 }
 
 // Set up the datasrc array based on the following rules:
@@ -64,7 +64,7 @@ if (isset($_GET['lat'])) {
 }
 
 // Box mode: confirm presence of box boundaries
-else {
+if (!isset($mode)) {
     if (!isset($_GET['latlower']) || !isset($_GET['latupper']) ||
         !isset($_GET['lnglower']) || !isset($_GET['lngupper'])) {
         echo APIError::getError(APIError::MISSING_REQUIRED_FIELD,
@@ -86,5 +86,13 @@ $result['sources'] = Sources::getSourceObject($datasrc);
 
 // Inject locations data
 $result['locations'] = array();
+$lochelper = new LocationsHelper(PDOHelper::getConnection());
+// Dump mode
+if ('dump' === $mode) {
+    $result['locations'] = $lochelper->getDump($_GET['dump']);
+}
+elseif ('radius' == $mode) {
+    $result['locations'] = $lochelper->getRadius($_GET['lat'], $_GET['lng']);
+}
 
 echo json_encode($result);
