@@ -1,10 +1,8 @@
 /* ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
 // Funcationality for locator page
 $(window).load(function () {
-    // Prefixes for arcade item info/navigation links
+    // Prefixes for arcade item navigation links
     var GMAPS_PREFIX = 'https://maps.google.com/?q=loc:';
-    var ZIV_PREFIX = 'http://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid=';
-    var ZIV_PREFIX_PC = 'http://zenius-i-vanisher.com/v5.2/arcadelocations.php?locationid=';
     var NAV_PREFIX_ANDROID = 'geo:';
     var NAV_PREFIX_IOS = 'maps:?q=&saddr=Current%20Location&daddr=loc:';
     var NAV_PREFIX_WP7 = 'maps:';
@@ -26,10 +24,23 @@ $(window).load(function () {
     };
 
     // Detect platform and set generator function
+    var platform = 'mobile';
     if (/Android/i.test(navigator.userAgent)) nav_url = nav_url_android;
     else if (/(iPhone)|(iPad)/i.test(navigator.userAgent)) nav_url = nav_url_ios;
     else if (/Windows Phone/i.test(navigator.userAgent)) nav_url = nav_url_wp7;
-    else ZIV_PREFIX = ZIV_PREFIX_PC;
+    else platform = 'pc';
+
+    // Source info URL/name functions
+    var info_url = function(metadata, src, id, sid) {
+        var property = 'infoURL';
+        if ('mobile' === platform) property = 'mInfoURL';
+        if (!(src in metadata)) src = 'fallback';
+        return metadata[src][property].replace('${id}', id).replace('${sid}', sid);
+    };
+    var info_name = function(metadata, src) {
+        if (!(src in metadata)) src = 'fallback';
+        return metadata[src].name;
+    };
 
     // Geolocation error handler
     var handle_error = function(error) {
@@ -67,12 +78,14 @@ $(window).load(function () {
                 arcade.find('.arcade-distance').text(locations[i].distance);
                 arcade.find('.arcade-latitude').text(locations[i].lat);
                 arcade.find('.arcade-longitude').text(locations[i].lng);
+                arcade.find('.arcade-info-name').text(info_name(data.sources, locations[i].src));
                 // Encode location name as label (supported in Google Maps, at least, but they don't like () in the label)
                 var label = locations[i].name.replace(/\(/g, '[').replace(/\)/g, ']');
                 var mapsuffix = locations[i].lat + ',' + locations[i].lng + '(' + encodeURI(label) + ')';
                 arcade.find('.arcade-nav').attr('href', nav_url(locations[i].lat, locations[i].lng, label));
                 arcade.find('.arcade-gmaps').attr('href', GMAPS_PREFIX + mapsuffix);
-                arcade.find('.arcade-ziv').attr('href', ZIV_PREFIX + locations[i].sid);
+                arcade.find('.arcade-info').attr('href',
+                    info_url(data.sources, locations[i].src, locations[i].id, locations[i].sid));
                 arcade.appendTo(arcade_list);
             }
             // Execute accordion function on list manually after populating it,
