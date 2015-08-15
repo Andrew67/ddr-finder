@@ -46,7 +46,9 @@ $(window).load(function () {
     };
 
     // Arcade location data handler function
-    var handle_data = function(locations) {
+    var handle_data = function(data) {
+        var locations = data['locations'];
+
         $('#message-found-searching').hide();
         $('#message-arcade-list').show();
         var arcade_list = $('#arcade-list');
@@ -63,14 +65,14 @@ $(window).load(function () {
                 arcade.find('.arcade-name').text(locations[i].name);
                 arcade.find('.arcade-city').text(locations[i].city);
                 arcade.find('.arcade-distance').text(locations[i].distance);
-                arcade.find('.arcade-latitude').text(locations[i].latitude);
-                arcade.find('.arcade-longitude').text(locations[i].longitude);
+                arcade.find('.arcade-latitude').text(locations[i].lat);
+                arcade.find('.arcade-longitude').text(locations[i].lng);
                 // Encode location name as label (supported in Google Maps, at least, but they don't like () in the label)
                 var label = locations[i].name.replace(/\(/g, '[').replace(/\)/g, ']');
-                var mapsuffix = locations[i].latitude + ',' + locations[i].longitude + '(' + encodeURI(label) + ')';
-                arcade.find('.arcade-nav').attr('href', nav_url(locations[i].latitude, locations[i].longitude, label));
+                var mapsuffix = locations[i].lat + ',' + locations[i].lng + '(' + encodeURI(label) + ')';
+                arcade.find('.arcade-nav').attr('href', nav_url(locations[i].lat, locations[i].lng, label));
                 arcade.find('.arcade-gmaps').attr('href', GMAPS_PREFIX + mapsuffix);
-                arcade.find('.arcade-ziv').attr('href', ZIV_PREFIX + locations[i].id);
+                arcade.find('.arcade-ziv').attr('href', ZIV_PREFIX + locations[i].sid);
                 arcade.appendTo(arcade_list);
             }
             // Execute accordion function on list manually after populating it,
@@ -96,8 +98,10 @@ $(window).load(function () {
 
         // Locate nearby machines and populate/show list
         $.getJSON('locate.php', {
+            'version': 20,
+            'datasrc': 'ziv',
             'lat': position.coords.latitude,
-            'long': position.coords.longitude
+            'lng': position.coords.longitude
         }, handle_data);
     };
 
