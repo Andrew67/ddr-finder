@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2012 Andrés Cordero
+ * Copyright (c) 2012-2015 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -78,7 +78,5 @@ define('LATEST_VERSION', 8);
     Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin<br>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project
 </h5>
-<script src="javascript/jquery-1.8.3.js"></script>
-<script src="javascript/options.js"></script>
 </body>
 </html>
