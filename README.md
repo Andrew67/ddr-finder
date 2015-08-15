@@ -5,7 +5,7 @@ HTML5 DDR Locator Application (targetted at Mobile); could be modified into a ge
 
 Live Demo
 ---------
-The official working demo is at http://ddrfinder.andrew67.com/, using data snapshots from the database at http://zenius-i-vanisher.com/.
+The official working demo is at http://ddrfinder.andrew67.com/, using data snapshots from multiple sources.
 
 UI
 --
