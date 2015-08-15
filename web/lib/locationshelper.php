@@ -68,6 +68,12 @@ class LocationsHelper {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieve all records within +/- 0.5 of the given lat/lng, sorted by distance.
+     * @param float $lat
+     * @param float $lng
+     * @return array API format array.
+     */
     public function getRadius($lat, $lng) {
         $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ', ' . self::SELECT_distance . ' ' . self::FROM .
             ' WHERE ' . self::WHERE_radius . ' ORDER BY `distance` ASC');

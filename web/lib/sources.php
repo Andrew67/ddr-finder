@@ -47,8 +47,8 @@ class Sources {
         // The intention with "fallback" is to provide a URL that redirects to source, based on actual database ID
         'fallback' => array(
             'name' => 'Source Website',
-            'infoURL' => '',
-            'mInfoURL' => '',
+            'infoURL' => 'http://ddrfinder.andrew67.com/info.php?id=${id}',
+            'mInfoURL' => 'http://ddrfinder.andrew67.com/info.php?id=${id}',
             'hasDDR' => false
         )
     );
