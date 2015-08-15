@@ -30,6 +30,10 @@ $(window).load(function () {
     else if (/Windows Phone/i.test(navigator.userAgent)) nav_url = nav_url_wp7;
     else platform = 'pc';
 
+    // Get user-selected data source(s) or set to default (Z-I-v)
+    var datasrc = localStorage.getItem('datasrc');
+    if (null === datasrc) datasrc = 'ziv';
+
     // Source info URL/name functions
     var info_url = function(metadata, src, id, sid) {
         var property = 'infoURL';
@@ -112,7 +116,7 @@ $(window).load(function () {
         // Locate nearby machines and populate/show list
         $.getJSON('locate.php', {
             'version': 20,
-            'datasrc': 'ziv',
+            'datasrc': datasrc,
             'lat': position.coords.latitude,
             'lng': position.coords.longitude
         }, handle_data);
