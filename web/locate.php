@@ -43,5 +43,5 @@ elseif (20 <= $_GET['version'] && 30 > $_GET['version']) {
 }
 // Any other API versions are yet to be implemented
 else {
-    echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'This server only implements API v1.x.');
+    echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'This server only implements API: v1.x, v2.x.');
 }
