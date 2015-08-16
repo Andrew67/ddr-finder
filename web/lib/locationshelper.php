@@ -70,17 +70,34 @@ class LocationsHelper {
 
     /**
      * Retrieve all records within +/- 0.5 of the given lat/lng, sorted by distance.
-     * @param float $lat
-     * @param float $lng
+     * @param Coords $coords
      * @param array $src Data sources to pull from.
      * @return array API format array.
      */
-    public function getRadius($lat, $lng, $src) {
+    public function getRadius($coords, $src) {
         $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ', ' . self::SELECT_distance . ' ' . self::FROM .
             ' WHERE ' . $this->getSourceString($src) . ' AND ' . self::WHERE_radius . ' ORDER BY `distance` ASC');
         $stmt->execute(array(
-            ':lat' => $lat,
-            ':lng' => $lng
+            ':lat' => $coords->lat,
+            ':lng' => $coords->lng
+        ));
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Retrieve all records within the given lat/lng boundaries.
+     * @param CoordsBox $boundingBox
+     * @param array $src Data sources to pull from.
+     * @return array API format array.
+     */
+    public function getBox(CoordsBox $boundingBox, $src) {
+        $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ' ' . self::FROM .
+            ' WHERE ' . $this->getSourceString($src) . ' AND ' . self::WHERE_box);
+        $stmt->execute(array(
+            ':latlower' => $boundingBox->southwest->lat,
+            ':lnglower' => $boundingBox->southwest->lng,
+            ':latupper' => $boundingBox->northeast->lat,
+            ':lngupper' => $boundingBox->northeast->lng
         ));
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

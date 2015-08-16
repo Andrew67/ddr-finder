@@ -59,8 +59,9 @@ if (isset($_GET['lat'])) {
         exit(1);
     }
     $mode = 'radius';
-    $lat = (int) $_GET['lat'];
-    $lng = (int) $_GET['lng'];
+    $lat = (float) $_GET['lat'];
+    $lng = (float) $_GET['lng'];
+    $location = new Coords($lat, $lng);
 }
 
 // Box mode: confirm presence of box boundaries
@@ -72,10 +73,13 @@ if (!isset($mode)) {
         exit(1);
     }
     $mode = 'box';
-    $latlower = (int) $_GET['latlower'];
-    $latupper = (int) $_GET['latupper'];
-    $lnglower = (int) $_GET['lnglower'];
-    $lngupper = (int) $_GET['lngupper'];
+    $latlower = (float) $_GET['latlower'];
+    $lnglower = (float) $_GET['lnglower'];
+    $southwest = new Coords($latlower, $lnglower);
+    $latupper = (float) $_GET['latupper'];
+    $lngupper = (float) $_GET['lngupper'];
+    $northeast = new Coords($latupper, $lngupper);
+    $boundingBox = new CoordsBox($southwest, $northeast);
 }
 
 // Set up JSON result
@@ -92,7 +96,10 @@ if ('dump' === $mode) {
     $result['locations'] = $lochelper->getDump($_GET['dump']);
 }
 elseif ('radius' === $mode) {
-    $result['locations'] = $lochelper->getRadius($_GET['lat'], $_GET['lng'], $datasrc);
+    $result['locations'] = $lochelper->getRadius($location, $datasrc);
+}
+else /* if ('box' === $mode) */ {
+    $result['locations'] = $lochelper->getBox($boundingBox, $datasrc);
 }
 
 echo json_encode($result);
