@@ -30,15 +30,17 @@
  * Tweak them here!!
  */
 class Sources {
-    /** @var array Raw source data, in same format as API output. */
+    /** @var array Raw source data, in same format as v2.0 API output. */
     public static $data = array(
         'ziv' => array(
+            'shortName' => 'ziv',
             'name' => 'Zenius -I- vanisher.com',
             'infoURL' => 'http://zenius-i-vanisher.com/v5.2/arcadelocations.php?locationid=${sid}',
             'mInfoURL' => 'http://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid=${sid}',
             'hasDDR' => false
         ),
         'navi' => array(
+            'shortName' => 'navi',
             'name' => 'DDR-Navi',
             'infoURL' => 'http://www.ddr-navi.jp/db/herodb.cgi?search=${sid}',
             'mInfoURL' => 'http://www.ddr-navi.jp/db/herodb.cgi?search=${sid}',
@@ -46,6 +48,7 @@ class Sources {
         ),
         // The intention with "fallback" is to provide a URL that redirects to source, based on actual database ID
         'fallback' => array(
+            'shortName' => 'fallback',
             'name' => 'Source Website',
             'infoURL' => 'http://ddrfinder.andrew67.com/info.php?id=${id}',
             'mInfoURL' => 'http://ddrfinder.andrew67.com/info.php?id=${id}',
@@ -57,7 +60,7 @@ class Sources {
      * Returns a source object with information for the specified sources, and "fallback".
      * Invalid sources are ignored.
      * @param array $sources Array of source strings.
-     * @return array API output format source data.
+     * @return array API v2.0 output format source data.
      */
     public static function getSourceObject($sources) {
         if ('all' === $sources[0]) return self::$data;
@@ -69,6 +72,26 @@ class Sources {
             }
         }
         $d['fallback'] = self::$data['fallback'];
+
+        return $d;
+    }
+
+    /**
+     * Returns a source array with information for the specified sources, and "fallback".
+     * Invalid sources are ignored.
+     * @param array $sources Array of source strings.
+     * @return array API v3.0 output format source data.
+     */
+    public static function getSourceArray($sources) {
+        if ('all' === $sources[0]) $sources = array_keys(self::$data);
+        else $sources[] = 'fallback';
+
+        $d = array();
+        foreach ($sources as $s) {
+            if (array_key_exists($s, self::$data)) {
+                $d[] = self::$data[$s];
+            }
+        }
 
         return $d;
     }

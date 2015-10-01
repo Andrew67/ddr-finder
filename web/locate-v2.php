@@ -23,7 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-// Locator API v2.0
+// Locator API v2.0/v3.0
 
 // Test for presence of "dump" field, as it overrides all others
 if (isset($_GET['dump'])) {
@@ -86,7 +86,13 @@ if (!isset($mode)) {
 $result = array();
 
 // Inject source information
-$result['sources'] = Sources::getSourceObject($datasrc);
+// v2.0 is an object keyed by shortName, while v3.0 is an array and each element contains shortName field
+if (20 <= $_GET['version'] && 30 > $_GET['version']) {
+    $result['sources'] = Sources::getSourceObject($datasrc);
+}
+else {
+    $result['sources'] = Sources::getSourceArray($datasrc);
+}
 
 // Inject locations data
 $result['locations'] = array();

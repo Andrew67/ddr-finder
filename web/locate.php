@@ -41,7 +41,11 @@ if (empty($_GET['version']) || !is_numeric($_GET['version']) || 20 > $_GET['vers
 elseif (20 <= $_GET['version'] && 30 > $_GET['version']) {
     require 'locate-v2.php';
 }
+// API 3.0 clients are version 30
+elseif (30 == $_GET['version']) {
+    require 'locate-v2.php';
+}
 // Any other API versions are yet to be implemented
 else {
-    echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'This server only implements API: v1.x, v2.x.');
+    echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'This server only implements API: v1.x, v2.x, v3.0.');
 }
