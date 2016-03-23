@@ -103,10 +103,10 @@ $(window).load(function () {
         $('#message-waiting').hide();
         $('#message-found-searching').show();
         var coords = '' + position.coords.latitude + ',' + position.coords.longitude;
-        $('#current-location-link').attr('href', 'http://maps.google.com/maps?q='+coords+'&ll='+coords+'&z=16&t=h');
+        $('#current-location-link').attr('href', 'https://maps.google.com/maps?q='+coords+'&ll='+coords+'&z=16&t=h');
         $('#current-location-img').attr(
             'src',
-            'http://maps.google.com/maps/api/staticmap?center='+coords+'&zoom=16&size=288x216&markers='+coords+'&sensor=false'
+            'https://maps.google.com/maps/api/staticmap?center='+coords+'&zoom=16&size=288x216&markers='+coords+'&sensor=false'
         );
         var accuracy = (position.coords.accuracy >= 1000) ?
             '' + (position.coords.accuracy / 1000) + 'km' :
