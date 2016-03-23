@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 8);
+define('LATEST_VERSION', 12);
 ?>
 <!DOCTYPE html>
 <html lang="en">
