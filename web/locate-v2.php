@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015 Andrés Cordero
+ * Copyright (c) 2015-2016 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -24,6 +24,10 @@
  * THE SOFTWARE.
  */
 // Locator API v2.0/v3.0
+
+// Whether to restrict box mode queries to a 1° by 1° box.
+// These queries are not expensive for us, but may overload certain clients.
+const RESTRICT_BOX_SIZE = true;
 
 // Test for presence of "dump" field, as it overrides all others
 if (isset($_GET['dump'])) {
@@ -76,10 +80,18 @@ if (!isset($mode)) {
     $latlower = (float) $_GET['latlower'];
     $lnglower = (float) $_GET['lnglower'];
     $southwest = new Coords($latlower, $lnglower);
+
     $latupper = (float) $_GET['latupper'];
     $lngupper = (float) $_GET['lngupper'];
     $northeast = new Coords($latupper, $lngupper);
+
     $boundingBox = new CoordsBox($southwest, $northeast);
+
+    if (RESTRICT_BOX_SIZE && (abs($latupper - $latlower) > 1 || abs($lngupper - $lnglower) > 1)) {
+        echo APIError::getError(APIError::OVERSIZED_BOX_FORBIDDEN,
+            'Please select box boundaries not exceeding a 1° by 1° box.');
+        exit(1);
+    }
 }
 
 // Set up JSON result
