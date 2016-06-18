@@ -1,4 +1,4 @@
-/* ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
 // Functionality for main page
 $(window).load(function() {
     // Save selected source on click
