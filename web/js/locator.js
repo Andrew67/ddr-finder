@@ -1,4 +1,4 @@
-/* ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
 // Funcationality for locator page
 $(window).load(function () {
     // Prefixes for arcade item navigation links
@@ -109,8 +109,8 @@ $(window).load(function () {
             'https://maps.google.com/maps/api/staticmap?center='+coords+'&zoom=16&size=288x216&markers='+coords+'&sensor=false'
         );
         var accuracy = (position.coords.accuracy >= 1000) ?
-            '' + (position.coords.accuracy / 1000) + 'km' :
-            '' + position.coords.accuracy + ' meters';
+            '' + (position.coords.accuracy / 1000).toFixed(2) + 'km' :
+            '' + position.coords.accuracy.toFixed() + ' meters';
         $('#current-location-accuracy').text(accuracy);
 
         // Locate nearby machines and populate/show list
