@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2012-2015 Andrés Cordero
+ * Copyright (c) 2012-2016 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -26,7 +26,11 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 12);
+define('LATEST_VERSION', 13);
+
+function apkSizeMB() {
+    return number_format(filesize('ddrfinder.apk') / (1024 * 1024), 2);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,8 +51,8 @@ define('LATEST_VERSION', 12);
 <!-- This page is meant to be displayed in the About dialog of the Android app -->
 <h1>DDR Finder</h1>
 <h2>
-    Version <?php echo htmlspecialchars($versionName); ?>
-    (Revision <?php echo htmlspecialchars($versionCode); ?>)
+    Version <?= htmlspecialchars($versionName); ?>
+    (Revision <?= htmlspecialchars($versionCode); ?>)
 </h2>
 <?php if ($versionCode < LATEST_VERSION): ?>
 <p class="label warning">New version available!</p>
@@ -62,7 +66,7 @@ define('LATEST_VERSION', 12);
 <div id="main-buttons">
     <?php if ($versionCode < LATEST_VERSION): ?>
     <a href="ddrfinder.apk" class="button bg-color-greenLight fg-color-white">
-        Install New Version <i class="icon-android"></i>
+        Install New Version (<?= apkSizeMb(); ?> MB) <i class="icon-android"></i>
     </a><br>
     <?php endif; ?>
     <a href="https://raw.github.com/Andrew67/DdrFinder/master/LICENSE" class="button bg-color-greenDark fg-color-white">
@@ -72,7 +76,7 @@ define('LATEST_VERSION', 12);
         View Source on GitHub <i class="icon-github-4"></i>
     </a>
 </div>
-<h4>&copy; 2013-2015 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
+<h4>&copy; 2013-2016 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
     Using <a href="http://metroui.org.ua/">Metro UI CSS</a> for page styling<br>
     Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin<br>
