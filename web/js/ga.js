@@ -3,5 +3,15 @@
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-31274349-2', 'auto');
-ga('send', 'pageview');
+$(window).on('load', function () {
+    ga('create', 'UA-31274349-2', 'auto');
+    ga('send', 'pageview');
+
+    $('#android-app-download').on('click', function(e) {
+        ga('send', 'event', {
+            eventCategory: 'App Download Link',
+            eventAction: 'click',
+            transport: 'beacon'
+        });
+    });
+});
