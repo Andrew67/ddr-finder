@@ -1,0 +1,49 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
+/*
+    Light-weight Material-like CSS for the Android app "About" page
+    Uses class names corresponding to the MetroUICSS conventions employed originally
+*/
+
+body {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 10px;
+}
+h1, h2 {
+    margin: 0;
+}
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+}
+h4, h5 {
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+.label {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.label.warning {
+    color: #e3a21a;
+}
+.label.info {
+    color: #2d89ef;
+}
+
+.button {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 8px;
+    display: inline-block;
+}
+.button.bg-color-greenLight {
+    color: #99b433;
+}
+.button.bg-color-greenDark {
+    color: #1e7145;
+}
+.button.bg-color-pinkDark {
+    color: #7e3878;
+}

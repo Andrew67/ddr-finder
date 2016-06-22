@@ -41,9 +41,7 @@ function apkSizeMB() {
     <!-- Setting the OpenGraph URL ensures shared links point to the main page -->
     <meta property="og:url" content="http://ddrfinder.andrew67.com/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/modern.css">
-    <link rel="stylesheet" href="css/modern-responsive.css">
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/about.css">
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 </head>
@@ -56,6 +54,8 @@ function apkSizeMB() {
 </h2>
 <?php if ($versionCode < LATEST_VERSION): ?>
 <p class="label warning">New version available!</p>
+<?php else: ?>
+<p class="label info">No updates available</p>
 <?php endif; ?>
 <p>This is a work in progress proof of concept.
     No warranty is made regarding operation, and no accuracy of results is guaranteed.
