@@ -78,9 +78,9 @@ function apkSizeMB() {
 </div>
 <h4>&copy; 2013-2016 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
-    Using <a href="http://metroui.org.ua/">Metro UI CSS</a> for page styling<br>
+    Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project<br>
     Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin<br>
-    Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project
+    Loading animation provided by lsjwzh's <a href="https://github.com/lsjwzh/MaterialLoadingProgressBar">MaterialLoadingProgressBar</a> project
 </h5>
 </body>
 </html>
