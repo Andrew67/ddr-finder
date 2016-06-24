@@ -8,6 +8,6 @@
         }
     ],
     "start_url": "index.html",
-    "display": "standalone",
+    "display": "minimal-ui",
     "orientation": "portrait"
 }
