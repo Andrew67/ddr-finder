@@ -23,7 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-// Locator API v2.0/v3.0
+// Locator API v2.0/v3.0/v3.1
 
 // Whether to restrict box mode queries to a 1° by 1° box.
 // These queries are not expensive for us, but may overload certain clients.
@@ -99,11 +99,20 @@ $result = array();
 
 // Inject source information
 // v2.0 is an object keyed by shortName, while v3.0 is an array and each element contains shortName field
-if (20 <= $_GET['version'] && 30 > $_GET['version']) {
+// v3.1 onwards introduces a toggle for either format
+if (20 <= $_GET['version'] && 30 > $_GET['version']) { // API 20 through 29
     $result['sources'] = Sources::getSourceObject($datasrc);
 }
-else {
+elseif (30 == $_GET['version']) { // API 30
     $result['sources'] = Sources::getSourceArray($datasrc);
+}
+else { // API 31+
+    if (isset($_GET['sourceformat']) && 'object' === $_GET['sourceformat']) {
+        $result['sources'] = Sources::getSourceObject($datasrc);
+    }
+    else { // default is array for unset
+        $result['sources'] = Sources::getSourceArray($datasrc);
+    }
 }
 
 // Inject locations data
@@ -118,6 +127,11 @@ elseif ('radius' === $mode) {
 }
 else /* if ('box' === $mode) */ {
     $result['locations'] = $lochelper->getBox($boundingBox, $datasrc);
+}
+
+// (v3.1+) Convert locations output to GeoJSON if requested
+if (31 <= $_GET['version'] && isset($_GET['locationformat']) && 'geojson' === $_GET['locationformat']) {
+    $result['locations'] = GeoJSONConverter::convertCollection($result['locations']);
 }
 
 echo json_encode($result);
