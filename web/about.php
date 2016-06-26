@@ -39,7 +39,7 @@ function apkSizeMB() {
     <title>DDR Finder</title>
     <!-- ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE -->
     <!-- Setting the OpenGraph URL ensures shared links point to the main page -->
-    <meta property="og:url" content="http://ddrfinder.andrew67.com/">
+    <meta property="og:url" content="https://ddrfinder.andrew67.com/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/about.css">
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
@@ -69,6 +69,9 @@ function apkSizeMB() {
         Install New Version (<?= apkSizeMb(); ?> MB) <i class="icon-android"></i>
     </a><br>
     <?php endif; ?>
+    <a href="https://ddrfinder.andrew67.com/" class="button bg-color-blueDark">
+        Project Home Page
+    </a>
     <a href="https://raw.github.com/Andrew67/DdrFinder/master/LICENSE" class="button bg-color-greenDark fg-color-white">
         View Application License
     </a><br>
