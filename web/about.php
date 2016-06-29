@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 14);
+define('LATEST_VERSION', 15);
 
 function apkSizeMB() {
     return number_format(filesize('ddrfinder.apk') / (1024 * 1024), 2);
@@ -71,7 +71,7 @@ function apkSizeMB() {
     <?php endif; ?>
     <a href="https://ddrfinder.andrew67.com/" class="button bg-color-blueDark">
         Project Home Page
-    </a>
+    </a><br>
     <a href="https://raw.github.com/Andrew67/DdrFinder/master/LICENSE" class="button bg-color-greenDark fg-color-white">
         View Application License
     </a><br>
