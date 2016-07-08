@@ -18,37 +18,41 @@
 </head>
 <body id="page-index" class="metrouicss">
 <h1>DDR Finder</h1>
-<p>This is a work in progress proof of concept tool for finding DDR machine locations (or arcades in general).
+<p>Proof of concept tool for finding DDR machine locations (or arcades in general).
 No warranty is made regarding operation, and no accuracy of results is guaranteed.
 Machine location data collected from <a href="http://zenius-i-vanisher.com/">Zenius -I- vanisher.com</a>
 and <a href="http://ddr-navi.jp/">DDR-Navi</a>
-(no affiliation with said sites, data snapshots may not be up-to-date).
-No donations accepted; donate to the above sites instead, without them this app would not have been possible!</p>
+(no affiliation with said sites, data snapshots may not be up-to-date).</p>
 <div id="options-buttons">
     <h3>Options</h3>
     <div class="button-set" data-role="button-set" id="source-select">
-        <span>Source:</span>
-        <button id="ziv">Zenius -I- vanisher.com</button>
-        <button id="navi">DDR-Navi</button>
+        <div>Source:</div>
+        <button id="ziv">Zenius -I- vanisher.com (Worldwide)</button>
+        <button id="navi">DDR-Navi (Japan)</button>
     </div>
 </div>
 <div id="main-buttons">
     <h3>Actions</h3>
-    <a href="locator.html" class="button default big bg-color-orangeDark">Locate Machines <i class="icon-location"></i></a><br>
+    <a href="locator.html" class="button default big bg-color-orangeDark">
+        Locate Nearby Arcades <i class="icon-search"></i>
+    </a><br>
+    <a href="ng/" class="button bg-color-orangeDark fg-color-white" target="_blank">
+        Interactive Map <i class="icon-location"></i>
+    </a>&nbsp;
+    <a href="ddrfinder.apk" class="button bg-color-greenLight fg-color-white" id="android-app-download">
+        Install Android App <i class="icon-android"></i>
+    </a><br>
     <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white" target="_blank">
         Go to Zenius -I- vanisher.com <i class="icon-new-tab"></i>
     </a><br>
     <a href="http://ddr-navi.jp/" class="button bg-color-blueDark fg-color-white" target="_blank">
         Go to DDR-Navi <i class="icon-new-tab"></i>
     </a><br>
-    <a href="ddrfinder.apk" class="button bg-color-greenLight fg-color-white" id="android-app-download">
-        Install Android App <i class="icon-android"></i>
-    </a><br>
     <a href="https://github.com/Andrew67/ddr-finder" class="button bg-color-pinkDark fg-color-white" target="_blank">
         View Source on GitHub <i class="icon-github-4"></i>
     </a>
 </div>
-<h4>&copy; 2012-2015 <a href="http://andrew67.com/" target="_blank">Andrés Cordero</a></h4>
+<h4>&copy; 2012-2016 <a href="http://andrew67.com/" target="_blank">Andrés Cordero</a></h4>
 <h5>
     Using <a href="http://metroui.org.ua/" target="_blank">Metro UI CSS</a> for page styling<br>
     Arrow icon from the <a href="http://stepmania.com/" target="_blank">StepMania 5</a> default noteskin

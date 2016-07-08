@@ -61,8 +61,7 @@ function apkSizeMB() {
     No warranty is made regarding operation, and no accuracy of results is guaranteed.
     Machine location data collected from <a href="http://zenius-i-vanisher.com/">Zenius -I- vanisher.com</a>
     and <a href="http://ddr-navi.jp/">DDR-Navi</a>
-    (no affiliation with said sites, data snapshots may not be up-to-date).
-    No donations accepted; donate to the above sites instead, without them this app would not have been possible!</p>
+    (no affiliation with said sites, data snapshots may not be up-to-date).</p>
 <div id="main-buttons">
     <?php if ($versionCode < LATEST_VERSION): ?>
     <a href="ddrfinder.apk" class="button bg-color-greenLight fg-color-white">
