@@ -136,4 +136,9 @@ $(window).load(function () {
         $('#message-loading').hide();
         $('#message-nogeo').show();
     }
+
+    // Clicking the application title returns to main page
+    $('#app-title').on('click', function() {
+        window.location.href = "index.html";
+    });
 });
