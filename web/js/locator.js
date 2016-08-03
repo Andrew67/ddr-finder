@@ -101,6 +101,12 @@ $(window).load(function () {
         }
     };
 
+    // Arcade location API error handler
+    var handle_data_error = function() {
+        $('#message-found-searching').hide();
+        $('#message-api-failed').show();
+    };
+
     // Geolocation ok handler
     var handle_ok = function(position) {
         $('#message-waiting').hide();
@@ -122,7 +128,7 @@ $(window).load(function () {
             'datasrc': datasrc,
             'lat': position.coords.latitude,
             'lng': position.coords.longitude
-        }, handle_data);
+        }).done(handle_data).fail(handle_data_error);
     };
 
     // Geolocation feature detection from Modernizr
