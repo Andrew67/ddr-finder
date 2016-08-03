@@ -33,13 +33,13 @@ class LocationsHelper {
     // Query constants
     const SELECT_cols = '`id`, `source_type` AS `src`, `source_id` AS `sid`, `name`, `city`,
         `latitude` AS `lat`, `longitude` AS `lng`, `hasDDR`';
-    const SELECT_distance = 'TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat),2)+POW(COS(RADIANS((`latitude`+:lat)/2))*RADIANS(`longitude`-:lng),2)),2)
+    const SELECT_distance = 'TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat1),2)+POW(COS(RADIANS((`latitude`+:lat2)/2))*RADIANS(`longitude`-:lng1),2)),2)
         AS `distance`';
     const FROM = 'FROM `locations`';
-    const WHERE_radius = '`latitude` > (:lat-0.5) AND
-        `latitude` < (:lat+0.5) AND
-        `longitude` > (:lng-0.5) AND
-        `longitude` < (:lng+0.5)';
+    const WHERE_radius = '`latitude` > (:lat3-0.5) AND
+        `latitude` < (:lat4+0.5) AND
+        `longitude` > (:lng2-0.5) AND
+        `longitude` < (:lng3+0.5)';
     const WHERE_box = '`latitude` > :latlower AND
         `latitude` < :latupper AND
         `longitude` > :lnglower AND
@@ -78,8 +78,13 @@ class LocationsHelper {
         $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ', ' . self::SELECT_distance . ' ' . self::FROM .
             ' WHERE ' . $this->getSourceString($src) . ' AND ' . self::WHERE_radius . ' ORDER BY `distance` ASC');
         $stmt->execute(array(
-            ':lat' => $coords->lat,
-            ':lng' => $coords->lng
+            ':lat1' => $coords->lat,
+            ':lat2' => $coords->lat,
+            ':lat3' => $coords->lat,
+            ':lat4' => $coords->lat,
+            ':lng1' => $coords->lng,
+            ':lng2' => $coords->lng,
+            ':lng3' => $coords->lng
         ));
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
