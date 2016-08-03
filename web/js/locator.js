@@ -80,8 +80,8 @@ $(window).load(function () {
                 arcade.find('.arcade-name').text(locations[i].name);
                 arcade.find('.arcade-city').text(locations[i].city);
                 arcade.find('.arcade-distance').text(locations[i].distance);
-                arcade.find('.arcade-latitude').text(locations[i].lat);
-                arcade.find('.arcade-longitude').text(locations[i].lng);
+                arcade.find('.arcade-latitude').text(locations[i].lat.toFixed(6));
+                arcade.find('.arcade-longitude').text(locations[i].lng.toFixed(6));
                 arcade.find('.arcade-info-name').text(info_name(data.sources, locations[i].src));
                 // Encode location name as label (supported in Google Maps, at least, but they don't like () in the label)
                 var label = locations[i].name.replace(/\(/g, '[').replace(/\)/g, ']');
