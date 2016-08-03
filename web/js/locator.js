@@ -1,6 +1,9 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
 // Funcationality for locator page
 $(window).load(function () {
+    // Google Maps Static API Key
+    var GMAPS_API_KEY = 'AIzaSyAek3wRV_aVi5ZPR8tkI4WxsGcVZjz8MaE';
+
     // Prefixes for arcade item navigation links
     var GMAPS_PREFIX = 'https://maps.google.com/?q=loc:';
     var NAV_PREFIX_ANDROID = 'geo:';
@@ -106,7 +109,7 @@ $(window).load(function () {
         $('#current-location-link').attr('href', 'https://maps.google.com/maps?q='+coords+'&ll='+coords+'&z=16&t=h');
         $('#current-location-img').attr(
             'src',
-            'https://maps.google.com/maps/api/staticmap?center='+coords+'&zoom=16&size=288x216&markers='+coords+'&sensor=false'
+            'https://maps.google.com/maps/api/staticmap?center='+coords+'&zoom=16&size=288x216&markers='+coords+'&key='+GMAPS_API_KEY
         );
         var accuracy = (position.coords.accuracy >= 1000) ?
             '' + (position.coords.accuracy / 1000).toFixed(2) + 'km' :

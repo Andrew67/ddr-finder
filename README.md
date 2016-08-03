@@ -15,11 +15,15 @@ License
 -------
 MIT license (see LICENSE); excludes favicon.png, arcade-machine.jpg, apple-touch-icon.png,
 and other items that have their own license declarations (such as the fonts, icons and stylesheets from Metro UI).
-If making your own version, make sure to modify all absolute URLs and copyright notices.
 
-Database
---------
-If you don't use MySQL, you need to modify the PDO constructor in `locate.php` in order to ensure `utf-8` operation.
+Custom Version
+--------------
+* Modify all absolute URLs and copyright notices (keeping proper MIT license attribution in place).
+* Create a db-conf.php file to connect to your database, created by the schema script in the `sql/` folder.
+* Get a static maps API key for Google Maps and change the value in `locator.js` for `GMAPS_API_KEY`.
+
+## Database ##
+MySQL is used.
 
 ### db-conf.php Format ###
 ```php
@@ -50,9 +54,3 @@ Acknowledgments
   * http://msdn.microsoft.com/en-us/library/windows/apps/jj635237.aspx
   * http://stackoverflow.com/questions/3990110/how-to-show-marker-in-maps-launched-by-geo-uri-intent/7405992#7405992
 * [DDR-Navi](http://ddr-navi.jp/) for Japan data.
-
-Future Work
------------
-* Support mobile platforms beyond Android/iOS/Windows Phone.
-* Handle errors in the AJAX request (currently fails silently).
-* Rate limit for `locate.php`.
