@@ -7,6 +7,9 @@ $(window).load(function () {
         var GMAPS_API_KEY = 'AIzaSyAek3wRV_aVi5ZPR8tkI4WxsGcVZjz8MaE';
         this.url = 'https://maps.google.com/maps/api/staticmap?size=288x216&key='+GMAPS_API_KEY;
         this.nextMarkerNumber = 1;
+
+        // Support HiDPI devices
+        if (window.devicePixelRatio >= 2) this.url += '&scale=2';
     }
     MapBuilder.prototype.getURL = function() { return this.url; };
     MapBuilder.prototype.addMyLocationMarker = function(coords) { // Coords in "lat,lng" format
@@ -127,7 +130,11 @@ $(window).load(function () {
 
     // Load location map based on builder so far
     var load_location_map = function() {
-        $('#current-location-img').attr('src', locationMap.getURL());
+        $('#current-location-img').attr({
+            src: locationMap.getURL(),
+            width: 288,
+            height: 216
+        });
     };
 
     // Geolocation ok handler
