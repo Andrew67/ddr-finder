@@ -84,5 +84,10 @@ function apkSizeMB() {
     Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin<br>
     Loading animation provided by lsjwzh's <a href="https://github.com/lsjwzh/MaterialLoadingProgressBar">MaterialLoadingProgressBar</a> project
 </h5>
+<?php if (!isset($_GET['dnt'])): ?>
+<!-- Piwik Image Tracker-->
+<img src="https://analytics.andrew67.com/piwik/piwik.php?idsite=2&amp;rec=1" style="border:0" alt="" />
+<!-- End Piwik -->
+<?php endif; ?>
 </body>
 </html>
