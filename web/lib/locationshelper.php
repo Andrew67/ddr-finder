@@ -72,11 +72,15 @@ class LocationsHelper {
      * Retrieve all records within +/- 0.5 of the given lat/lng, sorted by distance.
      * @param Coords $coords
      * @param array $src Data sources to pull from.
+     * @param int|boolean $limit Number of results to limit the resultset to, or FALSE for no limit.
      * @return array API format array.
      */
-    public function getRadius($coords, $src) {
+    public function getRadius($coords, $src, $limit) {
+        $limitSql = ($limit === false) ? '' : 'LIMIT ' . $limit;
+
         $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ', ' . self::SELECT_distance . ' ' . self::FROM .
-            ' WHERE ' . $this->getSourceString($src) . ' AND ' . self::WHERE_radius . ' ORDER BY `distance` ASC');
+            ' WHERE ' . $this->getSourceString($src) . ' AND ' . self::WHERE_radius . ' ORDER BY `distance` ASC ' .
+            $limitSql);
         $stmt->execute(array(
             ':lat1' => $coords->lat,
             ':lat2' => $coords->lat,

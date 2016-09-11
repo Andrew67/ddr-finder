@@ -27,7 +27,7 @@
 
 // Whether to restrict box mode queries to a 1° by 1° box.
 // These queries are not expensive for us, but may overload certain clients.
-const RESTRICT_BOX_SIZE = true;
+define('RESTRICT_BOX_SIZE', !isset($_GET['canHandleLargeDataset']));
 
 // Test for presence of "dump" field, as it overrides all others
 if (isset($_GET['dump'])) {
@@ -123,7 +123,7 @@ if ('dump' === $mode) {
     $result['locations'] = $lochelper->getDump($_GET['dump']);
 }
 elseif ('radius' === $mode) {
-    $result['locations'] = $lochelper->getRadius($location, $datasrc);
+    $result['locations'] = $lochelper->getRadius($location, $datasrc, RESTRICT_BOX_SIZE ? 20 : false);
 }
 else /* if ('box' === $mode) */ {
     $result['locations'] = $lochelper->getBox($boundingBox, $datasrc);
