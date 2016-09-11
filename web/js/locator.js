@@ -111,8 +111,10 @@ $(function () {
                     info_url(data.sources, locations[i].src, locations[i].id, locations[i].sid));
                 arcade.appendTo(arcade_list);
 
-                // The first 5 locations get added to the "Your Location" mini-map as well
-                if (i < 5) {
+                // The first 5 locations get added to the "Your Location" mini-map as well.
+                // To keep the map from zooming out too much, the distance is capped to 15km past the first 3 results,
+                // unless result #2 already exceeded these bounds (sparse area).
+                if (i < 5 && (i < 3 || locations[i].distance < 15 || locations[1].distance >= 15)) {
                     locationMap.addMarker(locations[i].lat + ',' + locations[i].lng);
                 }
             }
