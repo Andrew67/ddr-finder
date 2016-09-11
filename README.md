@@ -1,7 +1,7 @@
 ddr-finder
 ==========
 
-HTML5 DDR Locator Application (targetted at Mobile); could be modified into a general location finder.
+HTML5 DDR Locator Application (targeted at Mobile); could be modified into a general location finder.
 
 Live Demo
 ---------
@@ -21,6 +21,7 @@ Custom Version
 * Modify all absolute URLs and copyright notices (keeping proper MIT license attribution in place).
 * Create a db-conf.php file to connect to your database, created by the schema script in the `sql/` folder.
 * Get a static maps API key for Google Maps and change the value in `locator.js` for `GMAPS_API_KEY`.
+* Strip or reconfigure the Piwik analytics server URL and ID.
 
 ## Database ##
 MySQL is used.

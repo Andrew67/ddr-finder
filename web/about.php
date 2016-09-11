@@ -86,7 +86,7 @@ function apkSizeMB() {
 </h5>
 <?php if (!isset($_GET['dnt'])): ?>
 <!-- Piwik Image Tracker-->
-<img src="https://analytics.andrew67.com/piwik/piwik.php?idsite=2&amp;rec=1" style="border:0" alt="" />
+<img src="https://analytics.andrew67.com/piwik/piwik.php?idsite=2&amp;rec=1&amp;action_name=About+%28Android%3B+Version+<?= rawurlencode($versionName); ?>%29" style="border:0" alt="" />
 <!-- End Piwik -->
 <?php endif; ?>
 </body>
