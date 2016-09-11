@@ -94,6 +94,7 @@ $(function () {
             // Grab the item layout element
             var arcade_list_item = $('.arcade-list-item:first-child');
             // For each location found, clone the main layout, fill in the details, and add it to the list
+            var arcade_list_items = [];
             for (var i = 0; i < locations.length; ++i) {
                 var arcade = arcade_list_item.clone();
                 arcade.find('.arcade-name').text(locations[i].name);
@@ -109,6 +110,12 @@ $(function () {
                 arcade.find('.arcade-gmaps').attr('href', GMAPS_PREFIX + mapsuffix);
                 arcade.find('.arcade-info').attr('href',
                     info_url(data.sources, locations[i].src, locations[i].id, locations[i].sid));
+
+                // Hide results past 5, to be revealed via "Load More Results..."
+                if (i >= 5) {
+                    arcade.hide();
+                }
+                arcade_list_items.push(arcade);
                 arcade.appendTo(arcade_list);
 
                 // The first 5 locations get added to the "Your Location" mini-map as well.
@@ -121,6 +128,29 @@ $(function () {
             // Execute accordion function on list manually after populating it,
             // since the library attaches click events to the list items themselves (attaching to nothing on page load)
             arcade_list.Accordion();
+
+            // Set up "Load More Results..." behavior
+            var loadMoreLink = $('#arcade-list-loadmore');
+            if (locations.length <= 5) {
+                loadMoreLink.hide();
+            }
+
+            var nextReveal = 5;
+            loadMoreLink.on('click', function() {
+                for (var i = nextReveal; i < nextReveal + 5 && i < arcade_list_items.length; ++i) {
+                    arcade_list_items[i].show(400);
+                }
+
+                // https://www.abeautifulsite.net/smoothly-scroll-to-an-element-without-a-jquery-plugin-2
+                $('html, body').animate({
+                    scrollTop: loadMoreLink.offset().top
+                }, 800);
+
+                nextReveal = i;
+                if (nextReveal >= arcade_list_items.length) {
+                    loadMoreLink.hide(200);
+                }
+            });
         }
     };
 
@@ -156,7 +186,8 @@ $(function () {
             'version': 20,
             'datasrc': datasrc,
             'lat': position.coords.latitude,
-            'lng': position.coords.longitude
+            'lng': position.coords.longitude,
+            'canHandleLargeDataset': true
         }).done(handle_data).fail(handle_data_error).always(load_location_map);
     };
 
