@@ -103,10 +103,9 @@ $(function () {
                 arcade.find('.arcade-latitude').text(locations[i].lat.toFixed(6));
                 arcade.find('.arcade-longitude').text(locations[i].lng.toFixed(6));
                 arcade.find('.arcade-info-name').text(info_name(data.sources, locations[i].src));
-                // Encode location name as label (supported in Google Maps, at least, but they don't like () in the label)
-                var label = locations[i].name.replace(/\(/g, '[').replace(/\)/g, ']');
-                var mapsuffix = locations[i].lat + ',' + locations[i].lng + '(' + encodeURIComponent(label) + ')';
-                arcade.find('.arcade-nav').attr('href', nav_url(locations[i].lat, locations[i].lng, label));
+
+                var mapsuffix = locations[i].lat + ',' + locations[i].lng + '(' + encodeURIComponent(locations[i].name) + ')';
+                arcade.find('.arcade-nav').attr('href', nav_url(locations[i].lat, locations[i].lng, locations[i].name));
                 arcade.find('.arcade-gmaps').attr('href', GMAPS_PREFIX + mapsuffix);
                 arcade.find('.arcade-info').attr('href',
                     info_url(data.sources, locations[i].src, locations[i].id, locations[i].sid));
