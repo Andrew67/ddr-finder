@@ -29,14 +29,14 @@ $(function () {
 
     // Navigation URL generator functions
     var nav_url = function(latitude, longitude, label) {
-        return NAV_PREFIX + latitude + ',' + longitude + '(' + encodeURI(label) + ')';
+        return NAV_PREFIX + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
     };
     var nav_url_android = function(latitude, longitude, label) {
         return NAV_PREFIX_ANDROID + latitude + ',' + longitude + '?q=' +
-            latitude + ',' + longitude + '(' + encodeURI(label) + ')';
+            latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
     };
     var nav_url_ios = function(latitude, longitude, label) {
-        return NAV_PREFIX_IOS + latitude + ',' + longitude + '(' + encodeURI(label) + ')';
+        return NAV_PREFIX_IOS + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
     };
     var nav_url_wp7 = function(latitude, longitude) {
         return NAV_PREFIX_WP7 + latitude + ' ' + longitude;
@@ -105,7 +105,7 @@ $(function () {
                 arcade.find('.arcade-info-name').text(info_name(data.sources, locations[i].src));
                 // Encode location name as label (supported in Google Maps, at least, but they don't like () in the label)
                 var label = locations[i].name.replace(/\(/g, '[').replace(/\)/g, ']');
-                var mapsuffix = locations[i].lat + ',' + locations[i].lng + '(' + encodeURI(label) + ')';
+                var mapsuffix = locations[i].lat + ',' + locations[i].lng + '(' + encodeURIComponent(label) + ')';
                 arcade.find('.arcade-nav').attr('href', nav_url(locations[i].lat, locations[i].lng, label));
                 arcade.find('.arcade-gmaps').attr('href', GMAPS_PREFIX + mapsuffix);
                 arcade.find('.arcade-info').attr('href',
