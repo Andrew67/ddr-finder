@@ -26,11 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 16);
-
-function apkSizeMB() {
-    return number_format(filesize('ddrfinder.apk') / (1024 * 1024), 2);
-}
+define('LATEST_VERSION', 17);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,8 +50,6 @@ function apkSizeMB() {
 </h2>
 <?php if ($versionCode < LATEST_VERSION): ?>
 <p class="label warning">New version available!</p>
-<?php else: ?>
-<p class="label info">No updates available</p>
 <?php endif; ?>
 <p>This is a work in progress proof of concept.
     No warranty is made regarding operation, and no accuracy of results is guaranteed.
@@ -65,7 +59,7 @@ function apkSizeMB() {
 <div id="main-buttons">
     <?php if ($versionCode < LATEST_VERSION): ?>
     <a href="ddrfinder.apk" class="button bg-color-greenLight fg-color-white">
-        Install New Version (<?= apkSizeMb(); ?> MB) <i class="icon-android"></i>
+        Install New Version <i class="icon-android"></i>
     </a><br>
     <?php endif; ?>
     <a href="https://ddrfinder.andrew67.com/" class="button bg-color-blueDark">
@@ -84,10 +78,5 @@ function apkSizeMB() {
     Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin<br>
     Loading animation provided by lsjwzh's <a href="https://github.com/lsjwzh/MaterialLoadingProgressBar">MaterialLoadingProgressBar</a> project
 </h5>
-<?php if (!isset($_GET['dnt'])): ?>
-<!-- Piwik Image Tracker-->
-<img src="https://analytics.andrew67.com/piwik/piwik.php?idsite=2&amp;rec=1&amp;action_name=About+%28Android%3B+Version+<?= rawurlencode($versionName); ?>%29" style="border:0" alt="" />
-<!-- End Piwik -->
-<?php endif; ?>
 </body>
 </html>
