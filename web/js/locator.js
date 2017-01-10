@@ -9,7 +9,7 @@ $(function () {
         this.nextMarkerNumber = 1;
 
         // Support HiDPI devices
-        if (window.devicePixelRatio >= 2) this.url += '&scale=2';
+        if (window.devicePixelRatio > 1) this.url += '&scale=2';
     }
     MapBuilder.prototype.getURL = function() { return this.url; };
     MapBuilder.prototype.addMyLocationMarker = function(coords) { // Coords in "lat,lng" format
