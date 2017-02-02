@@ -35,8 +35,8 @@ class Sources {
         'ziv' => array(
             'shortName' => 'ziv',
             'name' => 'Zenius -I- vanisher.com',
-            'infoURL' => 'http://zenius-i-vanisher.com/v5.2/arcadelocations.php?locationid=${sid}',
-            'mInfoURL' => 'http://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid=${sid}',
+            'infoURL' => 'https://zenius-i-vanisher.com/v5.2/arcadelocations.php?locationid=${sid}',
+            'mInfoURL' => 'https://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid=${sid}',
             'hasDDR' => false
         ),
         'navi' => array(
@@ -50,8 +50,8 @@ class Sources {
         'fallback' => array(
             'shortName' => 'fallback',
             'name' => 'Source Website',
-            'infoURL' => 'http://ddrfinder.andrew67.com/info.php?id=${id}',
-            'mInfoURL' => 'http://ddrfinder.andrew67.com/info.php?id=${id}',
+            'infoURL' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
+            'mInfoURL' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
             'hasDDR' => false
         )
     );
