@@ -62,7 +62,7 @@ class LocationsHelper {
      */
     public function getDump($timestamp) {
         $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ' ' . self::FROM .
-            ' WHERE `last_update` > :timestamp ORDER BY `last_update` ASC');
+            ' WHERE `last_update` > FROM_UNIXTIME(:timestamp) ORDER BY `last_update` ASC');
         $stmt->bindValue(':timestamp', $timestamp, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
