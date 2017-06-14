@@ -1,13 +1,16 @@
 {
-    "name": "DDR Finder",
-    "icons": [
-        {
-            "src": "images/apple-touch-icon.png",
-            "sizes": "144x144",
-            "type": "image/png"
-        }
-    ],
-    "start_url": "index.html",
-    "display": "minimal-ui",
-    "orientation": "portrait"
+  "name": "DDR Finder",
+  "short_name": "DDR Finder",
+  "icons": [
+    {
+      "src": "images/apple-touch-icon.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "minimal-ui",
+  "orientation": "portrait",
+  "theme_color": "#33b5e5",
+  "background_color": "#ffffff"
 }

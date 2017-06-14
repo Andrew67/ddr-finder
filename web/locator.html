@@ -26,7 +26,7 @@
 <div id="message-loading">
     <h2>Loading...</h2>
     <p>
-        <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
+        <a href="index.html" class="button bg-color-red fg-color-white"><i class="icon-cancel-2"></i> Cancel</a>
     </p>
 </div>
 <!-- ERROR: HTML5 Geolocation API not supported -->
@@ -35,10 +35,10 @@
     <p>Your web browser does not support the HTML5 Geolocation API!</p>
     <p>
         <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i>
+            <i class="icon-new-tab"></i> Go to Zenius -I- vanisher.com Arcade Locations
         </a>
         <a href="http://ddr-navi.jp/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            Go to DDR-Navi <i class="icon-new-tab"></i>
+            <i class="icon-new-tab"></i> Go to DDR-Navi
         </a>
     </p>
 </div>
@@ -47,7 +47,7 @@
     <h2>Waiting for location...</h2>
     <p>
         <img src="images/preloader-w8-line-black.gif" alt="Loading..."><br>
-        <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
+        <a href="index.html" class="button bg-color-red fg-color-white"><i class="icon-cancel-2"></i> Cancel</a>
     </p>
 </div>
 <!-- ERROR: Location data denied -->
@@ -56,7 +56,7 @@
     <p>Reload this page and make sure to allow location detection!</p>
     <p>
         <button onclick="location.reload()" class="bg-color-green fg-color-white">
-            Reload <i class="icon-loop"></i>
+            <i class="icon-loop"></i> Reload
         </button>
     </p>
 </div>
@@ -66,13 +66,13 @@
     <p>Unable to locate your current position</p>
     <p>
         <button onclick="location.reload()" class="bg-color-green fg-color-white">
-            Retry <i class="icon-loop"></i>
+            <i class="icon-loop"></i> Retry
         </button><br>
         <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i>
+            <i class="icon-new-tab"></i> Go to Zenius -I- vanisher.com Arcade Locations
         </a>
         <a href="http://ddr-navi.jp/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            Go to DDR-Navi <i class="icon-new-tab"></i>
+            <i class="icon-new-tab"></i> Go to DDR-Navi
         </a>
     </p>
 </div>
@@ -81,7 +81,7 @@
     <h2>Found you! Locating arcades...</h2>
     <p>
         <img src="images/preloader-w8-line-black.gif" alt="Loading..."><br>
-        <a href="index.html" class="button bg-color-red fg-color-white">Cancel <i class="icon-cancel-2"></i></a>
+        <a href="index.html" class="button bg-color-red fg-color-white"><i class="icon-cancel-2"> Cancel</i></a>
     </p>
 </div>
 <!-- ERROR: API error -->
@@ -90,20 +90,20 @@
     <p>Temporary error while attempting to load or process data from the database</p>
     <p>
         <button onclick="location.reload()" class="bg-color-green fg-color-white">
-            Retry <i class="icon-loop"></i>
+            <i class="icon-loop"></i> Retry
         </button><br>
         <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            Go to Zenius -I- vanisher.com Arcade Locations <i class="icon-new-tab"></i>
+            <i class="icon-new-tab"></i> Go to Zenius -I- vanisher.com Arcade Locations
         </a>
         <a href="http://ddr-navi.jp/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            Go to DDR-Navi <i class="icon-new-tab"></i>
+            <i class="icon-new-tab"></i> Go to DDR-Navi
         </a>
     </p>
 </div>
 <!-- Final results screen -->
 <div id="message-arcade-list" class="message-hidden">
     <h2>Your Location:</h2>
-    <a id="current-location-link" target="_blank">
+    <a id="current-location-link" target="_blank" rel="noopener">
         <img id="current-location-img" src="images/preloader-w8-line-black.gif" alt="Current Location">
     </a>
     <h4>Accurate to within <span id="current-location-accuracy">??? meters</span></h4>
@@ -116,16 +116,18 @@
                 <div>
                     <h3 class="arcade-city">City</h3>
                     <h4>Approximately <span class="arcade-distance">???</span> km away</h4>
-                    <h5>Latitude: <span class="arcade-latitude">???</span>°</h5>
-                    <h5>Longitude: <span class="arcade-longitude">???</span>°</h5>
+                    <h5>
+                        GPS Coordinates:
+                        <span class="arcade-latitude">???</span>°, <span class="arcade-longitude">???</span>°
+                    </h5>
                     <a class="arcade-nav button bg-color-purple fg-color-white" href="#">
-                        Navigate <i class="icon-location-2"></i>
+                        <i class="icon-location-2"></i> Navigate
                     </a>
                     <a class="arcade-gmaps button bg-color-green fg-color-white" target="_blank" rel="noopener">
-                        Show in Google Maps <i class="icon-location"></i>
+                        <i class="icon-location"></i> Show in Google Maps
                     </a><br>
                     <a class="arcade-info button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-                        Info on <span class="arcade-info-name">???</span> <i class="icon-new-tab"></i>
+                        <i class="icon-new-tab"></i> Info on <span class="arcade-info-name">???</span>
                     </a>
                 </div>
             </li>
@@ -138,13 +140,13 @@
         <p>Sorry! Try going back and selecting a different source database or check out the full websites.</p>
         <p>
             <button onclick="location.reload()" class="bg-color-green fg-color-white">
-                Retry <i class="icon-loop"></i>
+                <i class="icon-loop"></i> Retry
             </button><br>
             <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-                Go to Zenius -I- vanisher.com <i class="icon-new-tab"></i>
+                <i class="icon-new-tab"></i> Go to Zenius -I- vanisher.com
             </a><br>
             <a href="http://ddr-navi.jp/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-                Go to DDR-Navi <i class="icon-new-tab"></i>
+                <i class="icon-new-tab"></i> Go to DDR-Navi
             </a>
         </p>
     </div>
@@ -156,6 +158,6 @@
     var _paq = _paq || [];
     _paq.push(['setDocumentTitle', 'Locator']);
 </script>
-<script src="js/piwik.js"></script>
+<script src="js/piwik.js" async defer></script>
 </body>
 </html>

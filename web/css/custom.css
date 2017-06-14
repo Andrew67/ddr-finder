@@ -12,3 +12,7 @@ body {
 #app-title {
     cursor: pointer;
 }
+
+#source-select {
+    width: auto;
+}

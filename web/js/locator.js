@@ -1,5 +1,5 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
-// Funcationality for locator page
+// Functionality for locator page
 $(function () {
     // Google Maps Static API builder
     function MapBuilder() {
@@ -44,9 +44,9 @@ $(function () {
 
     // Detect platform and set generator function
     var platform = 'mobile';
-    if (/Android/i.test(navigator.userAgent)) nav_url = nav_url_android;
+    if (/Windows Phone/i.test(navigator.userAgent)) nav_url = nav_url_wp7;
+    else if (/Android/i.test(navigator.userAgent)) nav_url = nav_url_android;
     else if (/(iPhone)|(iPad)/i.test(navigator.userAgent)) nav_url = nav_url_ios;
-    else if (/Windows Phone/i.test(navigator.userAgent)) nav_url = nav_url_wp7;
     else platform = 'pc';
 
     // Get user-selected data source(s) or set to default (Z-I-v)
@@ -80,8 +80,8 @@ $(function () {
     };
 
     // Arcade location data handler function
-    var handle_data = function(data) {
-        var locations = data['locations'];
+    var handle_data = function(/*APIData*/ data) {
+        var locations = data.locations;
 
         $('#message-found-searching').hide();
         $('#message-arcade-list').show();

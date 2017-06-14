@@ -22,48 +22,47 @@
 <h1>DDR Finder</h1>
 <p>Proof of concept tool for finding DDR machine locations (or arcades in general).
 No warranty is made regarding operation, and no accuracy of results is guaranteed.
-Machine location data collected from <a href="http://zenius-i-vanisher.com/">Zenius -I- vanisher.com</a>
-and <a href="http://ddr-navi.jp/">DDR-Navi</a>
+Machine location data collected from <a href="http://zenius-i-vanisher.com/" target="_blank" rel="noopener">Zenius -I- vanisher.com</a>
+and <a href="http://ddr-navi.jp/" target="_blank" rel="noopener">DDR-Navi</a>
 (no affiliation with said sites, data snapshots may not be up-to-date).</p>
-<div id="options-buttons">
-    <h3>Options</h3>
-    <div class="button-set" data-role="button-set" id="source-select">
-        <div>Source:</div>
-        <button id="ziv">Zenius -I- vanisher.com (Worldwide)</button>
-        <button id="navi">DDR-Navi (Japan)</button>
-    </div>
-</div>
+
 <div id="main-buttons">
     <h3>Actions</h3>
     <a href="locator.html" class="button default big bg-color-orangeDark">
-        Locate Nearby Arcades <i class="icon-search"></i>
+        <i class="icon-search"></i> Locate Nearby Arcades
     </a><br>
-    <a href="ng/" class="button bg-color-orangeDark fg-color-white">
-        Interactive Map <i class="icon-location"></i>
+    <a href="ng/" class="button bg-color-blue fg-color-white">
+        <i class="icon-location"></i> Interactive Map
     </a><br>
-    <span id="android-app-download">
-        <a href="https://play.google.com/store/apps/details?id=com.andrew67.ddrfinder" class="button bg-color-greenLight fg-color-white">
-            Google Play <i class="icon-android"></i>
-        </a>
-        <a href="ddrfinder.apk" class="button bg-color-greenLight fg-color-white">
-            APK Download <i class="icon-download"></i>
-        </a><br>
-    </span>
-    <a href="http://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-        Go to Zenius -I- vanisher.com <i class="icon-new-tab"></i>
-    </a><br>
-    <a href="http://ddr-navi.jp/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-        Go to DDR-Navi <i class="icon-new-tab"></i>
-    </a><br>
-    <a href="https://github.com/Andrew67/ddr-finder" class="button bg-color-pinkDark fg-color-white" target="_blank" rel="noopener">
-        View Source on GitHub <i class="icon-github-4"></i>
+    <a id="android-app-download"
+       href='https://play.google.com/store/apps/details?id=com.andrew67.ddrfinder&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+        <img alt='Get it on Google Play' width="150"
+             src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' />
     </a>
 </div>
-<h4>&copy; 2012-2016 <a href="http://andrew67.com/" target="_blank">Andrés Cordero</a></h4>
-<h5>
-    Using <a href="http://metroui.org.ua/" target="_blank" rel="noopener">Metro UI CSS</a> for page styling<br>
-    Arrow icon from the <a href="http://stepmania.com/" target="_blank" rel="noopener">StepMania 5</a> default noteskin
-</h5>
+
+<div id="options-buttons">
+    <h3>Options</h3>
+    <label>
+        Source:
+        <div class="input-control">
+            <select id="source-select">
+                <option value="ziv">Zenius -I- vanisher.com (Worldwide)</option>
+                <option value="navi">DDR-Navi (Japan)</option>
+            </select>
+        </div>
+    </label>
+</div>
+
+<p id="footer">
+    &copy; 2012-2017 <a href="http://andrew67.com/" target="_blank" rel="noopener">Andrés Cordero</a><br>
+    Using <a href="http://metroui.org.ua/" target="_blank" rel="noopener">Metro UI CSS</a> for page styling.<br>
+    Google Play and the Google Play logo are trademarks of Google Inc.<br>
+    Arrow icon from the <a href="http://stepmania.com/" target="_blank" rel="noopener">StepMania 5</a> default noteskin.<br>
+    Open sourced under the MIT license.
+    <a href="https://github.com/Andrew67/ddr-finder" target="_blank" rel="noopener">View Source on GitHub</a>
+</p>
+
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/buttonset.js"></script>
 <script src="js/options.js"></script>
@@ -71,6 +70,6 @@ and <a href="http://ddr-navi.jp/">DDR-Navi</a>
     var _paq = _paq || [];
     _paq.push(['setDocumentTitle', 'Home']);
 </script>
-<script src="js/piwik.js"></script>
+<script src="js/piwik.js" async defer></script>
 </body>
 </html>
