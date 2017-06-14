@@ -16,3 +16,7 @@ body {
 #source-select {
     width: auto;
 }
+
+#footer {
+    margin-top: 20px;
+}
