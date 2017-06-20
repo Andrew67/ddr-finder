@@ -120,12 +120,14 @@ $result['locations'] = array();
 $lochelper = new LocationsHelper(PDOHelper::getConnection());
 // Dump mode
 if ('dump' === $mode) {
-    $result['locations'] = $lochelper->getDump($_GET['dump']);
+    $result['locations'] = $lochelper->getDump($_GET['dump'], (31 <= $_GET['version']));
 }
 elseif ('radius' === $mode) {
+    /** @var Coords $location */
     $result['locations'] = $lochelper->getRadius($location, $datasrc, RESTRICT_BOX_SIZE ? 20 : false);
 }
 else /* if ('box' === $mode) */ {
+    /** @var CoordsBox $boundingBox */
     $result['locations'] = $lochelper->getBox($boundingBox, $datasrc);
 }
 
