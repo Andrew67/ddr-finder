@@ -13,6 +13,15 @@
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
     <meta property="og:url" content="https://ddrfinder.andrew67.com/">
     <link rel="manifest" href="manifest.json">
+
+    <script src="js/jquery-1.11.3.js" defer></script>
+    <script src="js/accordion.js" defer></script>
+    <script src="js/locator.js" defer></script>
+    <script>
+        var _paq = _paq || [];
+        _paq.push(['setDocumentTitle', 'Locator']);
+    </script>
+    <script src="js/piwik.js" async></script>
 </head>
 <body id="page-locator" class="metrouicss">
 <h1 id="app-title">DDR Finder</h1>
@@ -106,7 +115,11 @@
     <a id="current-location-link" target="_blank" rel="noopener">
         <img id="current-location-img" src="images/preloader-w8-line-black.gif" alt="Current Location">
     </a>
-    <h4>Accurate to within <span id="current-location-accuracy">??? meters</span></h4>
+    <h4>Accurate to within <span id="current-location-accuracy">??? meters</span>.</h4>
+    <h5 class="has-ddr-unavailable-disclaimer">
+        Game availability data not available for this source.
+        Use the "Info" button to confirm game listings on the original site.
+    </h5>
     <div id="arcade-list-container">
         <h2>Located Arcades:</h2>
         <ul class="accordion" data-role="accordion" id="arcade-list">
@@ -116,6 +129,7 @@
                 <div>
                     <h3 class="arcade-city">City</h3>
                     <h4>Approximately <span class="arcade-distance">???</span> km away</h4>
+                    <h4 class="arcade-has-ddr">DDR available: <i class="arcade-has-ddr-value"></i></h4>
                     <h5>
                         GPS Coordinates:
                         <span class="arcade-latitude">???</span>°, <span class="arcade-longitude">???</span>°
@@ -151,13 +165,13 @@
         </p>
     </div>
 </div>
-<script src="js/jquery-1.11.3.js" defer></script>
-<script src="js/accordion.js" defer></script>
-<script src="js/locator.js" defer></script>
-<script>
-    var _paq = _paq || [];
-    _paq.push(['setDocumentTitle', 'Locator']);
-</script>
-<script src="js/piwik.js" async></script>
+
+<p id="footer">
+    &copy; 2012-2017 <a href="http://andrew67.com/" target="_blank" rel="noopener">Andrés Cordero</a><br>
+    Location data &copy; <a href="http://zenius-i-vanisher.com/" target="_blank" rel="noopener">Zenius -I- vanisher.com</a>
+    and/or <a href="http://ddr-navi.jp/" target="_blank" rel="noopener">DDR-Navi</a>.<br>
+    No warranty is made regarding operation, and no accuracy or freshness of results is guaranteed.<br>
+    Arrow icon from the <a href="http://stepmania.com/" target="_blank" rel="noopener">StepMania 5</a> default noteskin.<br>
+</p>
 </body>
 </html>

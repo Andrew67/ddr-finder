@@ -1,8 +1,14 @@
 .message-hidden,
 li.arcade-list-item:first-child,
 .arcade-nav[href^="#"],
-.arcade-city:empty {
+.arcade-city:empty,
+.has-ddr-unavailable .arcade-has-ddr,
+.has-ddr-unavailable-disclaimer {
     display: none;
+}
+
+.has-ddr-unavailable .has-ddr-unavailable-disclaimer {
+    display: block;
 }
 
 body {

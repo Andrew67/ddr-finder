@@ -65,15 +65,20 @@ $(function () {
         return metadata[src].name;
     };
 
+    // Returns the classes for green checkmark on true, red cross on false.
+    var checkmark_cross = function (value) {
+        return value ? 'icon-checkmark fg-color-green' : 'icon-cancel-2 fg-color-red';
+    };
+
     // Geolocation error handler
     var handle_error = function(error) {
         // Permission denied
-        if (error.code == 1) {
+        if (error.code === 1) {
             $('#message-waiting').hide();
             $('#message-denied').show();
         }
         // Position unavailable or timeout
-        else if (error.code == 2 || error.code == 3) {
+        else if (error.code === 2 || error.code === 3) {
             $('#message-waiting').hide();
             $('#message-failed').show();
         }
@@ -81,19 +86,26 @@ $(function () {
 
     // Arcade location data handler function
     var handle_data = function(/*APIData*/ data) {
-        var locations = data.locations;
+        var locations = data.locations,
+            message_arcade_list = $('#message-arcade-list'),
+            arcade_list = $('#arcade-list');
 
         $('#message-found-searching').hide();
-        $('#message-arcade-list').show();
-        var arcade_list = $('#arcade-list');
-        if (locations.length == 0) {
+        message_arcade_list.show();
+
+        if (locations.length === 0) {
             $('#arcade-list-container').hide();
             $('#arcade-noresults-container').show();
         }
         else {
-            // Grab the item layout element
+            // Determine if the selected source has DDR availability provided; set a class if not the case.
+            if (!data.sources[datasrc].hasDDR) {
+                message_arcade_list.addClass('has-ddr-unavailable');
+            }
+
+            // Grab the item layout element.
+            // For each location found, clone the layout, fill in the details, and add it to the list.
             var arcade_list_item = $('.arcade-list-item:first-child');
-            // For each location found, clone the main layout, fill in the details, and add it to the list
             var arcade_list_items = [];
             for (var i = 0; i < locations.length; ++i) {
                 var arcade = arcade_list_item.clone();
@@ -103,6 +115,7 @@ $(function () {
                 arcade.find('.arcade-latitude').text(locations[i].lat.toFixed(6));
                 arcade.find('.arcade-longitude').text(locations[i].lng.toFixed(6));
                 arcade.find('.arcade-info-name').text(info_name(data.sources, locations[i].src));
+                arcade.find('.arcade-has-ddr-value').addClass(checkmark_cross(locations[i].hasDDR));
 
                 var mapsuffix = locations[i].lat + ',' + locations[i].lng + '(' + encodeURIComponent(locations[i].name) + ')';
                 arcade.find('.arcade-nav').attr('href', nav_url(locations[i].lat, locations[i].lng, locations[i].name));
@@ -124,6 +137,7 @@ $(function () {
                     locationMap.addMarker(locations[i].lat + ',' + locations[i].lng);
                 }
             }
+
             // Execute accordion function on list manually after populating it,
             // since the library attaches click events to the list items themselves (attaching to nothing on page load)
             arcade_list.Accordion();
