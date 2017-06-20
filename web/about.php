@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 17);
+define('LATEST_VERSION', 18);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,15 +51,14 @@ define('LATEST_VERSION', 17);
 <?php if ($versionCode < LATEST_VERSION): ?>
 <p class="label warning">New version available!</p>
 <?php endif; ?>
-<p>This is a work in progress proof of concept.
-    No warranty is made regarding operation, and no accuracy of results is guaranteed.
+<p>No warranty is made regarding operation, and no accuracy or freshness of results is guaranteed.
     Machine location data collected from <a href="http://zenius-i-vanisher.com/">Zenius -I- vanisher.com</a>
     and <a href="http://ddr-navi.jp/">DDR-Navi</a>
-    (no affiliation with said sites, data snapshots may not be up-to-date).</p>
+    (no affiliation).</p>
 <div id="main-buttons">
     <?php if ($versionCode < LATEST_VERSION): ?>
-    <a href="ddrfinder.apk" class="button bg-color-greenLight fg-color-white">
-        Install New Version <i class="icon-android"></i>
+    <a href="https://play.google.com/store/apps/details?id=com.andrew67.ddrfinder" class="button bg-color-greenLight fg-color-white">
+        Install New Version
     </a><br>
     <?php endif; ?>
     <a href="https://ddrfinder.andrew67.com/" class="button bg-color-blueDark">
@@ -69,14 +68,14 @@ define('LATEST_VERSION', 17);
         View Application License
     </a><br>
     <a href="https://github.com/Andrew67/ddr-finder" class="button bg-color-pinkDark fg-color-white">
-        View Source on GitHub <i class="icon-github-4"></i>
+        View Source on GitHub
     </a>
 </div>
-<h4>&copy; 2013-2016 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
+<h4>&copy; 2013-2017 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
-    Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project<br>
-    Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin<br>
-    Loading animation provided by lsjwzh's <a href="https://github.com/lsjwzh/MaterialLoadingProgressBar">MaterialLoadingProgressBar</a> project
+    Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>
+    Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin.<br>
+    Loading animation provided by lsjwzh's <a href="https://github.com/lsjwzh/MaterialLoadingProgressBar">MaterialLoadingProgressBar</a> project.
 </h5>
 </body>
 </html>
