@@ -1,3 +1,4 @@
+"use strict";
 var _paq = _paq || [];
 _paq.push(["setDomains", ["*.ddrfinder.andrew67.com"]]);
 _paq.push(['trackPageView']);

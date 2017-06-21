@@ -1,4 +1,5 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
+"use strict";
 // Functionality for locator page
 $(function () {
     // Google Maps Static API builder
