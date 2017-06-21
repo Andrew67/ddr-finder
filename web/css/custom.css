@@ -26,3 +26,32 @@ body {
 #footer {
     margin-top: 20px;
 }
+
+/*
+    Loading spinner animation back-ported from Metro UI CSS 3.x metro-icons.css
+    https://metroui.org.ua/font.html
+*/
+@-webkit-keyframes ani-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+@keyframes ani-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+.icon-ani-spin {
+    -webkit-animation: ani-spin 1.5s linear infinite;
+    animation: ani-spin 1.5s linear infinite;
+}

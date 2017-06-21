@@ -205,23 +205,39 @@ $(function () {
         }).done(handle_data).fail(handle_data_error).always(load_location_map);
     };
 
-    // Geolocation feature detection from Modernizr
-    if ('geolocation' in navigator) {
-        $('#message-loading').hide();
-        $('#message-waiting').show();
-        // Function explained in http://diveintohtml5.info/geolocation.html
-        navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {
-            enableHighAccuracy: false,
-            maximumAge: 75000
-        });
-    }
-    else {
-        $('#message-loading').hide();
-        $('#message-nogeo').show();
-    }
+    // Code below executes on page load.
 
-    // Clicking the application title returns to main page
+    // Clicking the application title returns to main page.
     $('#app-title').on('click', function() {
-        window.location.href = "index.html";
+        location.href = 'index.html';
     });
+
+    // Passing in #loc=accuracy/latitude/longitude bypasses original behavior of geolocation on page load.
+    $('#message-loading').hide();
+
+    var loc_pattern = /#loc=(.*)\/(.*)\/(.*)/;
+    if (loc_pattern.test(location.hash)) {
+        var loc_params = loc_pattern.exec(location.hash);
+        handle_ok({
+            coords: {
+                accuracy: Number(loc_params[1]),
+                latitude: Number(loc_params[2]),
+                longitude: Number(loc_params[3])
+            }
+        });
+    } else {
+        // Geolocation feature detection from Modernizr
+        if ('geolocation' in navigator) {
+            $('#message-waiting').show();
+            // Function explained in http://diveintohtml5.info/geolocation.html
+            navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {
+                enableHighAccuracy: false,
+                timeout: 5000,
+                maximumAge: 300000
+            });
+        }
+        else {
+            $('#message-nogeo').show();
+        }
+    }
 });
