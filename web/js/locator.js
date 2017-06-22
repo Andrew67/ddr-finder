@@ -7,7 +7,7 @@ $(function () {
         // Google Maps Static API Key
         var GMAPS_API_KEY = 'AIzaSyAek3wRV_aVi5ZPR8tkI4WxsGcVZjz8MaE';
         this.url = 'https://maps.google.com/maps/api/staticmap?size=288x216&key='+GMAPS_API_KEY;
-        this.nextMarkerNumber = 1;
+        this.nextMarkerNumber = 0;
 
         // Support HiDPI devices
         if (window.devicePixelRatio > 1) this.url += '&scale=2';
@@ -17,7 +17,7 @@ $(function () {
         this.url += '&markers='+coords;
     };
     MapBuilder.prototype.addMarker = function(coords) { // Warning: Static Maps API limited to 9 for labels
-        this.url += '&markers=color:blue|label:'+(this.nextMarkerNumber++)+'|'+coords;
+        this.url += '&markers=color:blue|label:'+(++this.nextMarkerNumber)+'|'+coords;
     };
     var locationMap = new MapBuilder();
 
@@ -72,7 +72,7 @@ $(function () {
     };
 
     // Geolocation error handler
-    var handle_error = function(error) {
+    var handle_geolocation_error = function(error) {
         // Permission denied
         if (error.code === 1) {
             $('#message-waiting').hide();
@@ -90,6 +90,9 @@ $(function () {
         var locations = data.locations,
             message_arcade_list = $('#message-arcade-list'),
             arcade_list = $('#arcade-list');
+
+        // Empty out arcade list container from previous runs (when changing hash only, previous entries remained).
+        $('.arcade-list-item:not(:first-child)').remove();
 
         $('#message-found-searching').hide();
         message_arcade_list.show();
@@ -184,11 +187,12 @@ $(function () {
     };
 
     // Geolocation ok handler
-    var handle_ok = function(position) {
+    var handle_geolocation_ok = function(position) {
         $('#message-waiting').hide();
         $('#message-found-searching').show();
         var coords = '' + position.coords.latitude + ',' + position.coords.longitude;
         $('#current-location-link').attr('href', 'https://maps.google.com/maps?q='+coords+'&ll='+coords+'&z=16&t=h');
+        locationMap = new MapBuilder();
         locationMap.addMyLocationMarker(coords);
         var accuracy = (position.coords.accuracy >= 1000) ?
             '' + (position.coords.accuracy / 1000).toFixed(2) + 'km' :
@@ -216,21 +220,36 @@ $(function () {
     $('#message-loading').hide();
 
     var loc_pattern = /#loc=(.*)\/(.*)\/(.*)/;
-    if (loc_pattern.test(location.hash)) {
-        var loc_params = loc_pattern.exec(location.hash);
-        handle_ok({
-            coords: {
-                accuracy: Number(loc_params[1]),
-                latitude: Number(loc_params[2]),
-                longitude: Number(loc_params[3])
-            }
-        });
-    } else {
+    var handle_loc_hash = function () {
+        if (loc_pattern.test(location.hash)) {
+            var loc_params = loc_pattern.exec(location.hash);
+            handle_geolocation_ok({
+                coords: {
+                    accuracy: Number(loc_params[1]),
+                    latitude: Number(loc_params[2]),
+                    longitude: Number(loc_params[3])
+                }
+            });
+        }
+    };
+    $(window).on('hashchange', handle_loc_hash);
+    handle_loc_hash();
+
+    // If no #loc=, calculate location then add to URL.
+    // TODO: Good candidate for moving to shared library since also used by index.js
+    var add_position_hash = function (position) {
+        // Trim to 4 digits, good for ~10m precision.
+        var accuracy = Math.max(10, Math.round(position.coords.accuracy));
+        location.href = '#loc=' +
+            accuracy + '/' + position.coords.latitude.toFixed(4) + '/' + position.coords.longitude.toFixed(4);
+    };
+
+    if (!loc_pattern.test(location.hash)) {
         // Geolocation feature detection from Modernizr
         if ('geolocation' in navigator) {
             $('#message-waiting').show();
             // Function explained in http://diveintohtml5.info/geolocation.html
-            navigator.geolocation.getCurrentPosition(handle_ok, handle_error, {
+            navigator.geolocation.getCurrentPosition(add_position_hash, handle_geolocation_error, {
                 enableHighAccuracy: false,
                 timeout: 5000,
                 maximumAge: 300000
