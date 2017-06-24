@@ -22,7 +22,7 @@
   },
   "scripts": {
     "unzip:metroui": "decompress metroui.zip --out-dir=web/",
-    "purifycss:metroui": "purifycss web/metroui/css/modern*.css web/metroui/js/accordion.js web/*.html web/*.js --out web/metroui/css/modern.min.css --min",
+    "purifycss:metroui": "purifycss web/metroui/css/modern*.css web/metroui/js/accordion.js web/*.html web/js/*.js --out web/metroui/css/modern.min.css --min",
     "build:metroui": "npm run unzip:metroui && npm run purifycss:metroui",
     "build": "npm run build:metroui"
   }
