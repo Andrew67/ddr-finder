@@ -37,14 +37,13 @@ class Sources {
             'name' => 'Zenius -I- vanisher.com',
             'infoURL' => 'https://zenius-i-vanisher.com/v5.2/arcadelocations.php?locationid=${sid}',
             'mInfoURL' => 'https://zenius-i-vanisher.com/v5.2/arcadelocations.php?locationid=${sid}',
-            //'mInfoURL' => 'https://m.zenius-i-vanisher.com/arcadelocations_viewarcade.php?locationid=${sid}',
             'hasDDR' => false
         ),
         'navi' => array(
             'shortName' => 'navi',
             'name' => 'DDR-Navi',
             'infoURL' => 'http://www.ddr-navi.jp/db/herodb.cgi?search=${sid}',
-            'mInfoURL' => 'http://www.ddr-navi.jp/db/herodb.cgi?search=${sid}',
+            'mInfoURL' => 'http://www.ddr-navi.jp/db/heroskin.cgi?table=ddr&search=${sid}',
             'hasDDR' => true
         ),
         // The intention with "fallback" is to provide a URL that redirects to source, based on actual database ID
