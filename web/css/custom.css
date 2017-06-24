@@ -28,6 +28,13 @@ body {
     margin-top: 20px;
 }
 
+#current-location-link {
+    width: 290px;
+    height: 218px;
+    display: block;
+    border: 1px solid black;
+}
+
 /* Begin Metro UI CSS enhancements, overrides and backports */
 
 /* Override colors to increase contrast and pass Lighthouse/aXe tests */
@@ -69,6 +76,15 @@ body {
 .icon-ani-spin {
     -webkit-animation: ani-spin 1.5s linear infinite;
     animation: ani-spin 1.5s linear infinite;
+}
+
+/*
+    Icon size multipliers backported from Metro UI CSS 3.x metro-icons.css
+    https://metroui.org.ua/font.html
+ */
+.icon-4x {
+    font-size: 3.5rem;
+    vertical-align: -35%;
 }
 
 /*

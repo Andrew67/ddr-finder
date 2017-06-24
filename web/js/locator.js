@@ -179,11 +179,9 @@ $(function () {
 
     // Load location map based on builder so far
     var load_location_map = function() {
-        $('#current-location-img').attr({
-            src: locationMap.getURL(),
-            width: 288,
-            height: 216
-        });
+        $('#current-location-link').empty();
+        $('<img id="current-location-img" alt="Current Location" width="288" height="216" src="' + locationMap.getURL() + '">')
+            .appendTo('#current-location-link');
     };
 
     // Geolocation ok handler
