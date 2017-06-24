@@ -17,9 +17,13 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "decompress-cli": "^2.0.0"
+    "decompress-cli": "^2.0.0",
+    "purify-css": "^1.2.5"
   },
   "scripts": {
-    "unzip:metroui": "decompress metroui.zip --out-dir=web/"
+    "unzip:metroui": "decompress metroui.zip --out-dir=web/",
+    "purifycss:metroui": "purifycss web/metroui/css/modern*.css web/metroui/js/accordion.js web/*.html web/*.js --out web/metroui/css/modern.min.css --min",
+    "build:metroui": "npm run unzip:metroui && npm run purifycss:metroui",
+    "build": "npm run build:metroui"
   }
 }
