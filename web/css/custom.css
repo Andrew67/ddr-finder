@@ -30,6 +30,18 @@ body {
 
 /* Begin Metro UI CSS enhancements, overrides and backports */
 
+/* Override colors to increase contrast and pass Lighthouse/aXe tests */
+#ddrfinder.metrouicss a {
+    color: #0c70cf;
+}
+#ddrfinder.metrouicss a:hover, #ddrfinder.metrouicss a:focus,
+#ddrfinder.metrouicss .accordion > li.active > a {
+    color: #0040cf;
+}
+#ddrfinder.metrouicss .bg-color-orangeDark {
+    background-color: #c0421b !important;
+}
+
 /*
     Loading spinner animation backported from Metro UI CSS 3.x metro-icons.css
     https://metroui.org.ua/font.html
