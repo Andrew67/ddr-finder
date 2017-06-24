@@ -1,3 +1,4 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
 .message-hidden,
 li.arcade-list-item:first-child,
 .arcade-nav[href^="#"],
@@ -27,10 +28,12 @@ body {
     margin-top: 20px;
 }
 
+/* Begin Metro UI CSS enhancements, overrides and backports */
+
 /*
-    Loading spinner animation back-ported from Metro UI CSS 3.x metro-icons.css
+    Loading spinner animation backported from Metro UI CSS 3.x metro-icons.css
     https://metroui.org.ua/font.html
-*/
+ */
 @-webkit-keyframes ani-spin {
     0% {
         -webkit-transform: rotate(0deg);
@@ -54,4 +57,39 @@ body {
 .icon-ani-spin {
     -webkit-animation: ani-spin 1.5s linear infinite;
     animation: ani-spin 1.5s linear infinite;
+}
+
+/*
+    Override +/- accordion icon with backported from Metro UI CSS 3.x metro.css
+    https://metroui.org.ua/accordion.html
+ */
+#ddrfinder.metrouicss .accordion > li.active > a,
+#ddrfinder.metrouicss .accordion > li > a {
+    background-image: none;
+    padding-left: 16px;
+}
+
+#ddrfinder.metrouicss .accordion > li > a:before {
+    position: relative;
+    display: inline-block;
+    left: -10px;
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid black;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    transition: all 0.3s ease;
+}
+
+#ddrfinder.metrouicss .accordion > li.active > a:before {
+    left: -6px;
+    border-bottom-color: #ffffff;
+    transition: all 0.3s ease;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
 }
