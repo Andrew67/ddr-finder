@@ -223,10 +223,10 @@ $(function () {
         window.matchMedia('print').addListener(accordion_remove_style);
     }
 
-    // Passing in #loc=accuracy/latitude/longitude bypasses original behavior of geolocation on page load.
     $('#message-loading').hide();
 
-    var loc_pattern = /#loc=(.*)\/(.*)\/(.*)/;
+    // Passing in loc=accuracy/latitude/longitude in hash bypasses original behavior of geolocation on page load.
+    var loc_pattern = /[#&]loc=(.*)\/(.*)\/([^&]*)/;
     var handle_loc_hash = function () {
         if (loc_pattern.test(location.hash)) {
             var loc_params = loc_pattern.exec(location.hash);
@@ -239,24 +239,31 @@ $(function () {
             });
         }
     };
-    $(window).on('hashchange', handle_loc_hash);
-    handle_loc_hash();
 
-    // If no #loc=, calculate location then add to URL.
-    // TODO: Good candidate for moving to shared library since also used by index.js
-    var add_position_hash = function (position) {
-        // Trim to 4 digits, good for ~10m precision.
-        var accuracy = Math.max(10, Math.round(position.coords.accuracy));
-        location.href = '#loc=' +
-            accuracy + '/' + position.coords.latitude.toFixed(4) + '/' + position.coords.longitude.toFixed(4);
+    // Passing in src=datasrc in hash bypasses original behavior of picking data source from localStorage on page load.
+    var src_pattern = /[#&]src=([^&]*)/;
+    var handle_src_hash = function () {
+        if (src_pattern.test(location.hash)) {
+            var src_param = src_pattern.exec(location.hash);
+            datasrc = src_param[1];
+        }
     };
 
+    // Combination hash handler, attach to hash change plus page load.
+    var handle_hash = function () {
+        handle_src_hash();
+        handle_loc_hash();
+    };
+    $(window).on('hashchange', handle_hash);
+    handle_hash();
+
+    // If no #loc=, use original behavior of calculating location and using localStorage for data source.
     if (!loc_pattern.test(location.hash)) {
         // Geolocation feature detection from Modernizr
         if ('geolocation' in navigator) {
             $('#message-waiting').show();
             // Function explained in http://diveintohtml5.info/geolocation.html
-            navigator.geolocation.getCurrentPosition(add_position_hash, handle_geolocation_error, {
+            navigator.geolocation.getCurrentPosition(handle_geolocation_ok, handle_geolocation_error, {
                 enableHighAccuracy: false,
                 timeout: 5000,
                 maximumAge: 300000

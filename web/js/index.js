@@ -10,9 +10,7 @@ $(function() {
     });
 
     // Set current source as selected button
-    var datasrc = localStorage.getItem('datasrc');
-    if (null === datasrc) datasrc = 'ziv';
-    sourceSelect.val(datasrc);
+    sourceSelect.val(localStorage.getItem('datasrc') || 'ziv');
 
     // When possible, do geolocation check on main site page, then redirect to a locator with location in URL.
     // This allows us to bypass the "don't request geolocation on page load" violation.
@@ -24,7 +22,8 @@ $(function() {
                 // Trim to 4 digits, good for ~10m precision.
                 var accuracy = Math.max(10, Math.round(position.coords.accuracy));
                 location.href = 'locator.html#loc=' +
-                    accuracy + '/' + position.coords.latitude.toFixed(4) + '/' + position.coords.longitude.toFixed(4);
+                    accuracy + '/' + position.coords.latitude.toFixed(4) + '/' + position.coords.longitude.toFixed(4) +
+                    '&src=' + (localStorage.getItem('datasrc') || 'ziv');
             };
 
         // Convert search icon to loading spinner.
