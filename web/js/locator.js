@@ -214,6 +214,15 @@ $(function () {
         location.href = 'index.html';
     });
 
+    // Remove "display: none" from accordion elements after slideUp() animation complete; for print support.
+    // Attached to beforeprint (IE, Firefox) and mediaQueryList (WebKit).
+    var accordion_remove_style = function () { $('[data-role="accordion"] > li > div').removeAttr('style') };
+    if (typeof window['onbeforeprint'] !== 'undefined') {
+        window['onbeforeprint'] = accordion_remove_style;
+    } else if (window.matchMedia) {
+        window.matchMedia('print').addListener(accordion_remove_style);
+    }
+
     // Passing in #loc=accuracy/latitude/longitude bypasses original behavior of geolocation on page load.
     $('#message-loading').hide();
 

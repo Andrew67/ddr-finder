@@ -49,6 +49,16 @@ body {
     background-color: #c0421b !important;
 }
 
+/* Force open accordion entries and hide buttons on print */
+@media print {
+    #ddrfinder.metrouicss .accordion > li > div {
+        display: block;
+    }
+    .arcade-action-buttons {
+        display: none;
+    }
+}
+
 /*
     Loading spinner animation backported from Metro UI CSS 3.x metro-icons.css
     https://metroui.org.ua/font.html
@@ -76,15 +86,6 @@ body {
 .icon-ani-spin {
     -webkit-animation: ani-spin 1.5s linear infinite;
     animation: ani-spin 1.5s linear infinite;
-}
-
-/*
-    Icon size multipliers backported from Metro UI CSS 3.x metro-icons.css
-    https://metroui.org.ua/font.html
- */
-.icon-4x {
-    font-size: 3.5rem;
-    vertical-align: -35%;
 }
 
 /*
