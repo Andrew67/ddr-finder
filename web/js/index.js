@@ -21,7 +21,7 @@ $(function() {
             navigateToLocatorWithPosition = function (position) {
                 // Trim to 4 digits, good for ~10m precision.
                 var accuracy = Math.max(10, Math.round(position.coords.accuracy));
-                location.href = 'locator.html#loc=' +
+                location.href = 'locator?loc=' +
                     accuracy + '/' + position.coords.latitude.toFixed(4) + '/' + position.coords.longitude.toFixed(4) +
                     '&src=' + (localStorage.getItem('datasrc') || 'ziv');
             };

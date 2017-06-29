@@ -211,7 +211,7 @@ $(function () {
 
     // Clicking the application title returns to main page.
     $('#app-title').on('click', function() {
-        location.href = 'index.html';
+        location.href = './';
     });
 
     // Remove "display: none" from accordion elements after slideUp() animation complete; for print support.
@@ -225,11 +225,11 @@ $(function () {
 
     $('#message-loading').hide();
 
-    // Passing in loc=accuracy/latitude/longitude in hash bypasses original behavior of geolocation on page load.
-    var loc_pattern = /[#&]loc=(.*)\/(.*)\/([^&]*)/;
+    // Passing in loc=accuracy/latitude/longitude in hash/search bypasses original behavior of geolocation on page load.
+    var loc_pattern = /[#&?]loc=(.*)\/(.*)\/([^&]*)/;
     var handle_loc_hash = function () {
-        if (loc_pattern.test(location.hash)) {
-            var loc_params = loc_pattern.exec(location.hash);
+        if (loc_pattern.test(location.href)) {
+            var loc_params = loc_pattern.exec(location.href);
             handle_geolocation_ok({
                 coords: {
                     accuracy: Number(loc_params[1]),
@@ -240,11 +240,11 @@ $(function () {
         }
     };
 
-    // Passing in src=datasrc in hash bypasses original behavior of picking data source from localStorage on page load.
-    var src_pattern = /[#&]src=([^&]*)/;
+    // Passing in src=datasrc in hash/search bypasses original behavior of picking data source from localStorage on page load.
+    var src_pattern = /[#&?]src=([^&]*)/;
     var handle_src_hash = function () {
-        if (src_pattern.test(location.hash)) {
-            var src_param = src_pattern.exec(location.hash);
+        if (src_pattern.test(location.href)) {
+            var src_param = src_pattern.exec(location.href);
             datasrc = src_param[1];
         }
     };
@@ -257,8 +257,8 @@ $(function () {
     $(window).on('hashchange', handle_hash);
     handle_hash();
 
-    // If no #loc=, use original behavior of calculating location and using localStorage for data source.
-    if (!loc_pattern.test(location.hash)) {
+    // If no loc=, use original behavior of calculating location and using localStorage for data source.
+    if (!loc_pattern.test(location.href)) {
         // Geolocation feature detection from Modernizr
         if ('geolocation' in navigator) {
             $('#message-waiting').show();
