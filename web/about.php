@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2012-2016 Andrés Cordero
+ * Copyright (c) 2012-2018 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -71,7 +71,7 @@ define('LATEST_VERSION', 19);
         View Source on GitHub
     </a>
 </div>
-<h4>&copy; 2013-2017 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
+<h4>&copy; 2013-2018 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>
     Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin.<br>
