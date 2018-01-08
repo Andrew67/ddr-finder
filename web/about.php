@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 18);
+define('LATEST_VERSION', 19);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +75,15 @@ define('LATEST_VERSION', 18);
 <h5>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>
     Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin.<br>
-    Loading animation provided by lsjwzh's <a href="https://github.com/lsjwzh/MaterialLoadingProgressBar">MaterialLoadingProgressBar</a> project.
+    Maps provided by the <a href="https://developers.google.com/maps/documentation/android-api/">Google Maps Android API</a>.<br>
+    Map marker clustering provided by the <a href="https://github.com/googlemaps/android-maps-utils/">Google Maps Android API utility library</a>.<br>
+    <?php if ($versionCode < 19): ?>
+    Loading animation from lsjwzh's <a href="https://github.com/lsjwzh/MaterialLoadingProgressBar">MaterialLoadingProgressBar</a> library.<br>
+    <?php else: ?>
+    Map style based on <a href="https://snazzymaps.com/style/7/icy-blue">Icy Blue</a> by Sahir Memon.<br>
+    <?php endif; ?>
+    HTTP requests handled by Square's <a href="https://github.com/square/okhttp/">OkHttp</a> library.<br>
+    JSON serialization handled by Google's <a href="https://github.com/google/gson">Gson</a> library.
 </h5>
 </body>
 </html>
