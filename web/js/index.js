@@ -15,9 +15,9 @@ $(function() {
     // When possible, do geolocation check on main site page, then redirect to a locator with location in URL.
     // This allows us to bypass the "don't request geolocation on page load" violation.
     // As a bonus, the user can share the results screen URL for their location.
-    // In case of error, keep original behavior of navigating to locator.html with no location in URL, to retry or show error.
+    // In case of error, keep original behavior of navigating to locator with no location in URL, to retry or show error.
     $('#locate-nearby').on('click', function () {
-        var navigateToLocator = function () { location.href = 'locator.html'; },
+        var navigateToLocator = function () { location.href = 'locator'; },
             navigateToLocatorWithPosition = function (position) {
                 // Trim to 4 digits, good for ~10m precision.
                 var accuracy = Math.max(10, Math.round(position.coords.accuracy));
