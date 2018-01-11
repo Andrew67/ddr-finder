@@ -35,8 +35,8 @@ class Sources {
         'ziv' => array(
             'shortName' => 'ziv',
             'name' => 'Zenius -I- vanisher.com',
-            'infoURL' => 'https://zenius-i-vanisher.com/v5.2/arcadelocations.php?locationid=${sid}',
-            'mInfoURL' => 'https://zenius-i-vanisher.com/v5.2/arcadelocations.php?locationid=${sid}',
+            'infoURL' => 'https://zenius-i-vanisher.com/v5.2/arcade.php?locationid=${sid}#summary',
+            'mInfoURL' => 'https://ddrfinder-proxy.andrew67.com/ziv/info/${sid}',
             'hasDDR' => false
         ),
         'navi' => array(
