@@ -11,10 +11,18 @@ Apps may not have to handle these as server-side redirects will be set up or oth
 See API.md and APIv4.md.
 APIv4 is still in the design phase.
 
+## App(-like) ##
+* /app
+
+
+* Lacks activity name (e.g. nearby/map).
+* Default is nearby for web, map on phone.
+
 ## Nearby search ##
 * */locator(.html)*
 * */locator(.html)#loc={accuracy}/{latitude}/{longitude}&src={datasrc}*
 * */locator(.html)?loc={accuracy}/{latitude}/{longitude}&src={datasrc}*
+* /app/nearby
 * /app/nearby/@{latitude},{longitude}
 * /app/nearby/{datasrc}/@{latitude},{longitude}
 
@@ -29,6 +37,7 @@ APIv4 is still in the design phase.
 * */ng(/index.html)*
 * */ng/index.html?mode=standalone*
 * */ng(/index.html)?ll={latitude},{longitude}&z={zoom}*
+* /app/map
 * /app/map/@{latitude},{longitude},{zoom}z
 * /app/map/{datasrc}/@{latitude},{longitude},{zoom}z
 
