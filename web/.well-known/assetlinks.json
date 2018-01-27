@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.andrew67.ddrfinder",
+    "sha256_cert_fingerprints":
+    ["26:26:58:A4:46:38:14:9F:90:CA:60:F8:60:68:78:8F:61:43:6D:D7:64:56:01:EA:22:06:D3:E8:4F:03:43:35",
+      "C9:D5:14:E8:69:C2:FA:CD:A1:EA:DA:E0:EA:35:52:D3:01:A2:E5:22:D1:2B:40:B3:FB:4F:D7:02:90:8A:7D:26"]
+  }
+}]
