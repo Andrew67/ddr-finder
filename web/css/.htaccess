@@ -1,0 +1,3 @@
+<Files "about.css">
+    Header set Cache-Control "public, s-maxage=604800, max-age=86400"
+</Files>

@@ -26,9 +26,11 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 19);
-?>
-<!DOCTYPE html>
+define('LATEST_VERSION', 20);
+
+header('Cache-Control: public, max-age=86400');
+header('Referrer-Policy: strict-origin');
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -83,7 +85,11 @@ define('LATEST_VERSION', 19);
     Map style based on <a href="https://snazzymaps.com/style/7/icy-blue">Icy Blue</a> by Sahir Memon.<br>
     <?php endif; ?>
     HTTP requests handled by Square's <a href="https://github.com/square/okhttp/">OkHttp</a> library.<br>
+    <?php if ($versionCode < 21): ?>
     JSON serialization handled by Google's <a href="https://github.com/google/gson">Gson</a> library.
+    <?php else: ?>
+    JSON serialization handled by Square's <a href="https://github.com/square/moshi">Moshi</a> library.
+    <?php endif; ?>
 </h5>
 </body>
 </html>
