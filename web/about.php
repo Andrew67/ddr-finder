@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 21);
+define('LATEST_VERSION', 23);
 
 header('Cache-Control: public, max-age=86400');
 header('Referrer-Policy: strict-origin');
@@ -39,7 +39,7 @@ header('Referrer-Policy: strict-origin');
     <!-- Setting the OpenGraph URL ensures shared links point to the main page -->
     <meta property="og:url" content="https://ddrfinder.andrew67.com/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/minimal.css">
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 </head>
@@ -73,10 +73,10 @@ header('Referrer-Policy: strict-origin');
         View Source on GitHub
     </a>
 </div>
-<h4>&copy; 2013-2018 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
+<h4>&copy; 2013&ndash;2018 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>
-    Arrow icon from the <a href="http://stepmania.com/">StepMania 5</a> default noteskin.<br>
+    Arrow icon from the <a href="https://www.stepmania.com/">StepMania 5</a> default noteskin.<br>
     Maps provided by the <a href="https://developers.google.com/maps/documentation/android-api/">Google Maps Android API</a>.<br>
     Map marker clustering provided by the <a href="https://github.com/googlemaps/android-maps-utils/">Google Maps Android API utility library</a>.<br>
     <?php if ($versionCode < 19): ?>
