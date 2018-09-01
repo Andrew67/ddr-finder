@@ -18,7 +18,7 @@ a:hover, a:visited, a:link, a:active {
 }
 h4, h5 {
     font-size: 12px;
-    font-weight: lighter;
+    font-weight: normal;
 }
 
 .label {

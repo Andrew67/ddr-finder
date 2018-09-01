@@ -81,8 +81,10 @@ header('Referrer-Policy: strict-origin');
     Map marker clustering provided by the <a href="https://github.com/googlemaps/android-maps-utils/">Google Maps Android API utility library</a>.<br>
     <?php if ($versionCode < 19): ?>
     Loading animation from lsjwzh's <a href="https://github.com/lsjwzh/MaterialLoadingProgressBar">MaterialLoadingProgressBar</a> library.<br>
-    <?php else: ?>
+    <?php elseif ($versionCode < 24): ?>
     Map style based on <a href="https://snazzymaps.com/style/7/icy-blue">Icy Blue</a> by Sahir Memon.<br>
+    <?php else: ?>
+    Map style based on <a href="https://mapstyle.withgoogle.com/">Aubergine</a> by Google.<br>
     <?php endif; ?>
     HTTP requests handled by Square's <a href="https://github.com/square/okhttp/">OkHttp</a> library.<br>
     <?php if ($versionCode < 21): ?>
