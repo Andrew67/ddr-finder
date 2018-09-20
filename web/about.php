@@ -75,6 +75,9 @@ header('Referrer-Policy: strict-origin');
 </div>
 <h4>&copy; 2013&ndash;2018 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
+    <?php if ($versionCode >= 24): ?>
+    Chinese Simplified Translation provided by <a href="https://github.com/AndiZ23">Andi Zhou</a>.<br>
+    <?php endif; ?>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>
     Arrow icon from the <a href="https://www.stepmania.com/">StepMania 5</a> default noteskin.<br>
     Maps provided by the <a href="https://developers.google.com/maps/documentation/android-api/">Google Maps Android API</a>.<br>
