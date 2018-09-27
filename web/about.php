@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 23);
+define('LATEST_VERSION', 25);
 
 header('Cache-Control: public, max-age=86400');
 header('Referrer-Policy: strict-origin');
