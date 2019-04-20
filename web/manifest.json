@@ -9,7 +9,7 @@
     }
   ],
   "start_url": "index.html",
-  "display": "minimal-ui",
+  "display": "browser",
   "orientation": "portrait",
   "theme_color": "#2e7d32",
   "background_color": "#2e7d32"

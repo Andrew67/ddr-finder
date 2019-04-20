@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2012-2018 Andrés Cordero
+ * Copyright (c) 2012-2019 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 25);
+define('LATEST_VERSION', 28);
 
 header('Cache-Control: public, max-age=86400');
 header('Referrer-Policy: strict-origin');
@@ -39,9 +39,9 @@ header('Referrer-Policy: strict-origin');
     <!-- Setting the OpenGraph URL ensures shared links point to the main page -->
     <meta property="og:url" content="https://ddrfinder.andrew67.com/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/minimal.css">
-    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/minimal.css">
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
 </head>
 <body id="page-about" class="metrouicss">
 <!-- This page is meant to be displayed in the About dialog of the Android app -->
@@ -73,13 +73,13 @@ header('Referrer-Policy: strict-origin');
         View Source on GitHub
     </a>
 </div>
-<h4>&copy; 2013&ndash;2018 <a href="http://andrew67.com/">Andrés Cordero</a></h4>
+<h4>&copy; 2013&ndash;2019 <a href="https://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
     <?php if ($versionCode >= 24): ?>
     Chinese Simplified Translation provided by <a href="https://github.com/AndiZ23">Andi Zhou</a>.<br>
     <?php endif; ?>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>
-    Arrow icon from the <a href="https://www.stepmania.com/">StepMania 5</a> default noteskin.<br>
+    Arrow icon from the <a href="https://www.stepmania.com/">StepMania 5</a> <?php echo $versionCode < 29 ? 'default' : 'lambda'; ?> noteskin.<br>
     Maps provided by the <a href="https://developers.google.com/maps/documentation/android-api/">Google Maps Android API</a>.<br>
     Map marker clustering provided by the <a href="https://github.com/googlemaps/android-maps-utils/">Google Maps Android API utility library</a>.<br>
     <?php if ($versionCode < 19): ?>

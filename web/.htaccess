@@ -11,6 +11,9 @@ RewriteRule "^/?locator$" "locator.html" [QSA,L]
 # Redirect new unimplemented "app/map" links to the equivalent "ng" path
 RewriteRule "^/?app/map/(.*/)?@(.*),(.*),(.*)z$" "/ng/?ll=$2,$3&z=$4" [R,QSA,L]
 
+# Redirect old app versions to the new about path
+RewriteRule "^/?about.php$" "/android/about.php" [R,QSA,L]
+
 # http://wiki.dreamhost.com/Htaccess_tricks#Faster_page_loading
 <ifmodule mod_deflate.c>
 AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript text/javascript application/json image/svg+xml
