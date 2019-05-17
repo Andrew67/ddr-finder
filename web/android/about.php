@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 28);
+define('LATEST_VERSION', 29);
 
 header('Cache-Control: public, max-age=86400');
 header('Referrer-Policy: strict-origin');
@@ -34,7 +34,7 @@ header('Referrer-Policy: strict-origin');
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>DDR Finder</title>
+    <title>About</title>
     <!-- ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE -->
     <!-- Setting the OpenGraph URL ensures shared links point to the main page -->
     <meta property="og:url" content="https://ddrfinder.andrew67.com/">
