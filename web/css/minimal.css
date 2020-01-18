@@ -7,39 +7,40 @@
 body {
     font-family: 'Roboto', 'Noto', sans-serif;
     font-size: 14px;
+    color: rgba(0,0,0,.87);
     margin: 0;
     padding: 10px;
 }
+@media(prefers-color-scheme: dark) {
+    body {
+        background: #1b2024;
+        filter: invert() hue-rotate(180deg);
+    }
+}
+a {
+    color: #1a237e;
+}
 h1, h2 {
     margin: 0;
-}
-a:hover, a:visited, a:link, a:active {
-    text-decoration: none;
 }
 h4, h5 {
     font-size: 12px;
     font-weight: normal;
 }
 
-.label {
-    font-weight: bold;
-    text-transform: uppercase;
+.warning {
+    color: #bb4d00;
 }
-.label.warning {
-    color: #e3a21a;
-}
-.label.info {
+.info {
     color: #2d89ef;
 }
 
 .button {
     font-weight: bold;
     text-transform: uppercase;
+    text-decoration: none;
     margin: 8px;
     display: inline-block;
-}
-.button.bg-color-greenLight {
-    color: #99b433;
 }
 .button.bg-color-greenDark {
     color: #1e7145;

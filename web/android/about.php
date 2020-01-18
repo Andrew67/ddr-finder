@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2012-2019 Andrés Cordero
+ * Copyright (c) 2012-2020 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 29);
+define('LATEST_VERSION', 30);
 
 header('Cache-Control: public, max-age=86400');
 header('Referrer-Policy: strict-origin');
@@ -43,58 +43,53 @@ header('Referrer-Policy: strict-origin');
     <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
 </head>
-<body id="page-about" class="metrouicss">
+<body id="page-about">
 <!-- This page is meant to be displayed in the About dialog of the Android app -->
 <h1>DDR Finder</h1>
-<h2>
-    Version <?= htmlspecialchars($versionName); ?>
-    (Revision <?= htmlspecialchars($versionCode); ?>)
-</h2>
+<h2>Version <?= htmlspecialchars($versionName); ?></h2>
 <?php if ($versionCode < LATEST_VERSION): ?>
-<p class="label warning">New version available!</p>
+<p>
+    <a href="https://play.google.com/store/apps/details?id=com.andrew67.ddrfinder" class="button warning">
+        New version available!
+    </a>
+</p>
 <?php endif; ?>
 <p>No warranty is made regarding operation, and no accuracy or freshness of results is guaranteed.
-    Machine location data collected from <a href="http://zenius-i-vanisher.com/">Zenius -I- vanisher.com</a>
-    and <a href="http://ddr-navi.jp/">DDR-Navi</a>
+    Machine location data collected from <a href="https://zenius-i-vanisher.com/">Zenius -I- vanisher.com</a>
+    and <a href="https://ddr-navi.jp/">DDR-Navi</a>
     (no affiliation).</p>
 <div id="main-buttons">
-    <?php if ($versionCode < LATEST_VERSION): ?>
-    <a href="https://play.google.com/store/apps/details?id=com.andrew67.ddrfinder" class="button bg-color-greenLight fg-color-white">
-        Install New Version
-    </a><br>
-    <?php endif; ?>
     <a href="https://ddrfinder.andrew67.com/" class="button bg-color-blueDark">
         Project Home Page
     </a><br>
-    <a href="https://raw.github.com/Andrew67/DdrFinder/master/LICENSE" class="button bg-color-greenDark fg-color-white">
+    <a href="https://raw.github.com/Andrew67/DdrFinder/master/LICENSE" class="button bg-color-greenDark">
         View Application License
     </a><br>
-    <a href="https://github.com/Andrew67/ddr-finder" class="button bg-color-pinkDark fg-color-white">
+    <a href="https://github.com/Andrew67/ddr-finder" class="button bg-color-pinkDark">
         View Source on GitHub
     </a>
 </div>
-<h4>&copy; 2013&ndash;2019 <a href="https://andrew67.com/">Andrés Cordero</a></h4>
+<h4>&copy; 2013&ndash;2020 <a href="https://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
-    <?php if ($versionCode >= 24): ?>
     Chinese Simplified Translation provided by <a href="https://github.com/AndiZ23">Andi Zhou</a>.<br>
-    <?php endif; ?>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>
-    Arrow icon from the <a href="https://www.stepmania.com/">StepMania 5</a> <?php echo $versionCode < 29 ? 'default' : 'lambda'; ?> noteskin.<br>
-    Maps provided by the <a href="https://developers.google.com/maps/documentation/android-api/">Google Maps Android API</a>.<br>
-    Map marker clustering provided by the <a href="https://github.com/googlemaps/android-maps-utils/">Google Maps Android API utility library</a>.<br>
-    <?php if ($versionCode < 19): ?>
-    Loading animation from lsjwzh's <a href="https://github.com/lsjwzh/MaterialLoadingProgressBar">MaterialLoadingProgressBar</a> library.<br>
-    <?php elseif ($versionCode < 24): ?>
-    Map style based on <a href="https://snazzymaps.com/style/7/icy-blue">Icy Blue</a> by Sahir Memon.<br>
-    <?php else: ?>
-    Map style based on <a href="https://mapstyle.withgoogle.com/">Aubergine</a> by Google.<br>
+    App arrow icon from the <a href="https://www.stepmania.com/">StepMania 5</a> lambda noteskin.<br>
+    <?php if ($versionCode >= 40): ?>
+        "<a href="https://thenounproject.com/icon/25579/">Map Marker</a>" icon by meghan hade from
+            <a href="https://thenounproject.com">the Noun Project</a>.<br>
+        "<a href="https://thenounproject.com/icon/237640/">arcade</a>" icon by Icon 54 from
+            <a href="https://thenounproject.com">the Noun Project</a>.<br>
+        "<a href="https://thenounproject.com/icon/3044571/">Arrow</a>" icon by Al Haddad, ID from
+            <a href="https://thenounproject.com">the Noun Project</a>.<br>
     <?php endif; ?>
+    Maps provided by the
+        <a href="https://developers.google.com/maps/documentation/android-api/">Google Maps Android API</a>.<br>
+    Map marker clustering provided by the
+        <a href="https://github.com/googlemaps/android-maps-utils/">Google Maps Android API utility library</a>.<br>
+    Map style <?php if ($versionCode >= 40) echo '(dark mode)'; ?> based on
+        <a href="https://mapstyle.withgoogle.com/">Aubergine</a> by Google.<br>
     HTTP requests handled by Square's <a href="https://github.com/square/okhttp/">OkHttp</a> library.<br>
-    <?php if ($versionCode < 21): ?>
-    JSON serialization handled by Google's <a href="https://github.com/google/gson">Gson</a> library.
-    <?php else: ?>
     JSON serialization handled by Square's <a href="https://github.com/square/moshi">Moshi</a> library.
-    <?php endif; ?>
 </h5>
 </body>
 </html>
