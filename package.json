@@ -1,13 +1,13 @@
 {
   "name": "ddr-finder",
   "version": "0.0.1",
-  "description": "HTML5 DDR Locator Application (targetted at Mobile)",
+  "description": "HTML5 DDR Locator Application (targeted at Mobile)",
   "homepage": "https://github.com/Andrew67/ddr-finder",
   "license": "MIT",
   "author": {
     "name": "Andrés Cordero",
     "email": "andres@andrew67.com",
-    "url": "http://andrew67.com/"
+    "url": "https://andrew67.com/"
   },
   "contributors": [],
   "repository": {

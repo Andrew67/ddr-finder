@@ -49,6 +49,7 @@ $(function () {
     else if (/Android/i.test(navigator.userAgent)) nav_url = nav_url_android;
     else if (/(iPhone)|(iPad)/i.test(navigator.userAgent)) nav_url = nav_url_ios;
     else platform = 'pc';
+    if (/Mac OS X/i.test(navigator.userAgent)) nav_url = nav_url_ios;
 
     // Get user-selected data source(s) or set to default (Z-I-v)
     var datasrc = localStorage.getItem('datasrc');
@@ -116,8 +117,8 @@ $(function () {
                 arcade.find('.arcade-name').text(locations[i].name);
                 arcade.find('.arcade-city').text(locations[i].city);
                 arcade.find('.arcade-distance').text(locations[i].distance);
-                arcade.find('.arcade-latitude').text(locations[i].lat.toFixed(6));
-                arcade.find('.arcade-longitude').text(locations[i].lng.toFixed(6));
+                arcade.find('.arcade-latitude').text(locations[i].lat.toFixed(5));
+                arcade.find('.arcade-longitude').text(locations[i].lng.toFixed(5));
                 arcade.find('.arcade-info-name').text(info_name(data.sources, locations[i].src));
                 arcade.find('.arcade-has-ddr-value').addClass(checkmark_cross(locations[i].hasDDR));
 

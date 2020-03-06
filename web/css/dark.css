@@ -1,0 +1,52 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
+body, .metrouicss .input-control > select {
+    background: #1b2024;
+}
+
+body,
+.metrouicss h1, .metrouicss h1:hover,
+.metrouicss h2, .metrouicss h2:hover,
+.metrouicss h3, .metrouicss h3:hover,
+.metrouicss h4, .metrouicss h4:hover,
+.metrouicss h5, .metrouicss h5:hover,
+.metrouicss .input-control > select
+{
+    color: rgba(255,255,255,.87);
+}
+
+#ddrfinder.metrouicss .accordion > li > a:before {
+    border-bottom-color: rgba(255,255,255,.87);
+}
+
+#ddrfinder.metrouicss a {
+     color: #90caf9;
+ }
+#ddrfinder.metrouicss a:hover {
+    color: #bbdefb;
+}
+#ddrfinder.metrouicss a:hover, #ddrfinder.metrouicss a:focus,
+#ddrfinder.metrouicss .accordion > li.active > a {
+    color: #bbdefb;
+}
+
+#ddrfinder.metrouicss .accordion > li.active > a {
+    background: rgba(217,217,217,.16);
+}
+
+#current-location-link,
+.metrouicss .input-control > select:focus
+{
+    border-color: rgba(255,255,255,.87);
+}
+
+#current-location-img {
+    opacity: .8;
+}
+
+.metrouicss .fg-color-red {
+    color: #ef9a9a !important;
+}
+
+.metrouicss .fg-color-green {
+    color: #a5d6a7 !important;
+}

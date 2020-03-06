@@ -21,3 +21,34 @@ AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css a
 
 # http://stackoverflow.com/questions/3673008/download-apk-from-own-webserver/11366500#11366500
 AddType application/vnd.android.package-archive .apk
+
+<FilesMatch "\.html$">
+# Security headers as recommended by securityheaders.com
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Referrer-Policy "strict-origin"
+
+Header always set Feature-Policy "\
+vibrate 'none'; \
+geolocation 'self'; \
+microphone 'none'; \
+camera 'none'; \
+autoplay 'none'; \
+payment 'none'; \
+"
+</FilesMatch>
+
+# TODO: Un-apply from ng/ (Interactive Map) path
+#<FilesMatch "^(index|locator)\.html$">
+#Header always set Content-Security-Policy "\
+#default-src 'self'; \
+#img-src 'self' https://play.google.com https://maps.google.com; \
+#script-src 'self' https://code.jquery.com; \
+#font-src 'self' https://themes.googleusercontent.com; \
+#object-src 'none'; \
+#"
+#</FilesMatch>
+
+Header set Cache-Control "public, max-age=600, s-maxage=86400"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
