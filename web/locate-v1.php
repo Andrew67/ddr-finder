@@ -66,7 +66,7 @@ $dbh = new PDO($dsn, $db_conf['username'], $db_conf['password'], array(PDO::MYSQ
 
 // Set reasonable latitude/longitude lower and upper boundaries in radius mode
 // If in box mode, these have already been set by the request
-// See http://en.wikipedia.org/wiki/Latitude#The_length_of_a_degree_of_latitude for a rough idea of the radius represented
+// See https://en.wikipedia.org/wiki/Latitude#The_length_of_a_degree_of_latitude for a rough idea of the radius represented
 if ('radius' === $mode) {
     $latlower = $latitude - 0.5;
     $latupper = $latitude + 0.5;
@@ -74,7 +74,7 @@ if ('radius' === $mode) {
     $longupper = $longitude + 0.5;
 
     // Using distance formula as defined in
-    // http://en.wikipedia.org/wiki/Geographical_distance#Spherical_Earth_projected_to_a_plane
+    // https://en.wikipedia.org/wiki/Geographical_distance#Spherical_Earth_projected_to_a_plane
     $query = "SELECT `source_id` AS `id`,`name`,`city`,`latitude`,`longitude`,`hasDDR`,
       TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat),2)+POW(COS(RADIANS((`latitude`+:lat)/2))*RADIANS(`longitude`-:long),2)),2) AS `distance`
       FROM `locations`
