@@ -33,6 +33,7 @@ body {
     height: 218px;
     display: block;
     border: 1px solid black;
+    margin-bottom: 10px;
 }
 
 /* Begin Metro UI CSS enhancements, overrides and backports */
