@@ -23,6 +23,7 @@ $(function () {
     var NAV_PREFIX_ANDROID = 'geo:';
     var NAV_PREFIX_IOS = 'maps:?q=&saddr=Current%20Location&daddr=loc:';
     var NAV_PREFIX_WP7 = 'maps:';
+    var NAV_PREFIX_W10 = 'bingmaps:?rtp=~pos.';
     var NAV_PREFIX = '#';
 
     // Navigation URL generator functions
@@ -39,14 +40,19 @@ $(function () {
     var nav_url_wp7 = function(latitude, longitude) {
         return NAV_PREFIX_WP7 + latitude + ' ' + longitude;
     };
+    var nav_url_w10 = function(latitude, longitude, label) {
+        return NAV_PREFIX_W10 + latitude + '_' + longitude + '_' + encodeURIComponent(label);
+    };
 
     // Detect platform and set generator function
     var platform = 'mobile';
     if (/Windows Phone/i.test(navigator.userAgent)) nav_url = nav_url_wp7;
+    else if (/WM 10/i.test(navigator.userAgent)) nav_url = nav_url_w10;
     else if (/Android/i.test(navigator.userAgent)) nav_url = nav_url_android;
     else if (/(iPhone)|(iPad)/i.test(navigator.userAgent)) nav_url = nav_url_ios;
     else platform = 'pc';
     if (/Mac OS X/i.test(navigator.userAgent)) nav_url = nav_url_ios;
+    else if (/Windows NT 10/i.test(navigator.userAgent)) nav_url = nav_url_w10;
 
     // Get user-selected data source(s) or set to default (Z-I-v)
     var datasrc = localStorage.getItem('datasrc');
