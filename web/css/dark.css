@@ -36,7 +36,7 @@ body,
 #current-location-link,
 .metrouicss .input-control > select:focus
 {
-    border-color: rgba(255,255,255,.87);
+    border-color: rgba(255,255,255,.8);
 }
 
 #current-location-img {

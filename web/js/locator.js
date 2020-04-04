@@ -2,19 +2,18 @@
 "use strict";
 // Functionality for locator page
 $(function () {
-    // Google Maps Static API builder
+    // Stadia Maps Static API URL Builder
     function MapBuilder() {
-        // Google Maps Static API Key
-        var GMAPS_API_KEY = 'AIzaSyAek3wRV_aVi5ZPR8tkI4WxsGcVZjz8MaE';
-        this.url = 'https://maps.google.com/maps/api/staticmap?size=288x216&scale=2&key='+GMAPS_API_KEY;
+        this.url = 'https://stadiamaps.com/static/osm_bright?size=296x216@2x&markers=';
         this.nextMarkerNumber = 0;
     }
     MapBuilder.prototype.getURL = function() { return this.url; };
-    MapBuilder.prototype.addMyLocationMarker = function(coords) { // Coords in "lat,lng" format
-        this.url += '&markers='+coords;
+    MapBuilder.prototype.addMyLocationMarker = function(lat, lng) { // Must be called before any addMarker calls
+        this.url += lat.toFixed(4) + ',' + lng.toFixed(4) + ',aledide_smooth,d32f2f';
     };
-    MapBuilder.prototype.addMarker = function(coords) { // Warning: Static Maps API limited to 9 for labels
-        this.url += '&markers=color:blue|label:'+(++this.nextMarkerNumber)+'|'+coords;
+    MapBuilder.prototype.addMarker = function(lat, lng) { // Warning: limited to 9 for labels
+        this.url += '|' + lat.toFixed(4) + ',' + lng.toFixed(4)
+            + ',,darkblue,' + ++this.nextMarkerNumber;
     };
     var locationMap = new MapBuilder();
 
@@ -142,7 +141,7 @@ $(function () {
                 // To keep the map from zooming out too much, the distance is capped to 15km past the first 3 results,
                 // unless result #2 already exceeded these bounds (sparse area).
                 if (i < 5 && (i < 3 || locations[i].distance < 15 || locations[1].distance >= 15)) {
-                    locationMap.addMarker(locations[i].lat + ',' + locations[i].lng);
+                    locationMap.addMarker(locations[i].lat, locations[i].lng);
                 }
             }
 
@@ -184,7 +183,7 @@ $(function () {
     // Load location map based on builder so far
     var load_location_map = function() {
         $('#current-location-link').empty();
-        $('<img id="current-location-img" alt="Current Location" width="288" height="216" src="' + locationMap.getURL() + '">')
+        $('<img id="current-location-img" alt="Current Location" width="296" height="216" src="' + locationMap.getURL() + '">')
             .appendTo('#current-location-link');
     };
 
@@ -192,10 +191,10 @@ $(function () {
     var handle_geolocation_ok = function(position) {
         $('#message-waiting').hide();
         $('#message-found-searching').show();
-        var coords = '' + position.coords.latitude + ',' + position.coords.longitude;
-        $('#current-location-link').attr('href', 'https://maps.google.com/maps?q='+coords+'&ll='+coords+'&z=16&t=h');
+        var coords = position.coords.latitude.toFixed(4) + ',' + position.coords.longitude.toFixed(4);
+        $('#current-location-link').attr('href', 'ng/?ll='+coords+'&z=16');
         locationMap = new MapBuilder();
-        locationMap.addMyLocationMarker(coords);
+        locationMap.addMyLocationMarker(position.coords.latitude, position.coords.longitude);
 
         // Locate nearby machines and populate/show list
         $.getJSON('locate.php', {
