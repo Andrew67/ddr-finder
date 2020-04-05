@@ -58,6 +58,9 @@ body {
     .arcade-action-buttons {
         display: none;
     }
+    #message-arcade-list > h4 {
+        display: none;
+    }
 }
 
 /*

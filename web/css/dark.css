@@ -39,10 +39,6 @@ body,
     border-color: rgba(255,255,255,.8);
 }
 
-#current-location-img {
-    opacity: .8;
-}
-
 .metrouicss .fg-color-red {
     color: #ef9a9a !important;
 }

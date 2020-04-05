@@ -5,15 +5,21 @@ $(function () {
     // Stadia Maps Static API URL Builder
     function MapBuilder() {
         this.url = 'https://stadiamaps.com/static/osm_bright?size=296x216@2x&markers=';
+        this.darkUrl = 'https://stadiamaps.com/static/alidade_smooth_dark?size=296x216@2x&markers=';
         this.nextMarkerNumber = 0;
     }
     MapBuilder.prototype.getURL = function() { return this.url; };
+    MapBuilder.prototype.getDarkURL = function() { return this.darkUrl; };
     MapBuilder.prototype.addMyLocationMarker = function(lat, lng) { // Must be called before any addMarker calls
-        this.url += lat.toFixed(4) + ',' + lng.toFixed(4) + ',aledide_smooth,d32f2f';
+        this.url += lat.toFixed(4) + ',' + lng.toFixed(4) + ',alidade_smooth,d32f2f';
+        this.darkUrl += lat.toFixed(4) + ',' + lng.toFixed(4) + ',,ef9a9a';
     };
     MapBuilder.prototype.addMarker = function(lat, lng) { // Warning: limited to 9 for labels
+        var label = ++this.nextMarkerNumber;
         this.url += '|' + lat.toFixed(4) + ',' + lng.toFixed(4)
-            + ',,darkblue,' + ++this.nextMarkerNumber;
+            + ',,darkblue,' + label;
+        this.darkUrl += '|' + lat.toFixed(4) + ',' + lng.toFixed(4)
+            + ',,lightblue,' + label;
     };
     var locationMap = new MapBuilder();
 
@@ -181,10 +187,17 @@ $(function () {
     };
 
     // Load location map based on builder so far
-    var load_location_map = function() {
+    var load_location_map_real = function() {
         $('#current-location-link').empty();
-        $('<img id="current-location-img" alt="Current Location" width="296" height="216" src="' + locationMap.getURL() + '">')
+        $('<img id="current-location-img" alt="Current Location" width="296" height="216">')
             .appendTo('#current-location-link');
+        $('#current-location-img').attr('src',
+            window.matchMedia('screen and (prefers-color-scheme: dark)').matches ?
+                    locationMap.getDarkURL() : locationMap.getURL());
+    };
+    var load_location_map = function() {
+        load_location_map_real();
+        window.matchMedia('screen and (prefers-color-scheme: dark)').addListener(load_location_map_real);
     };
 
     // Geolocation ok handler
