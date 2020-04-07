@@ -42,7 +42,7 @@ payment 'none'; \
 #<FilesMatch "^(index|locator)\.html$">
 #Header always set Content-Security-Policy "\
 #default-src 'self'; \
-#img-src 'self' https://play.google.com https://maps.google.com; \
+#img-src 'self' https://play.google.com https://stadiamaps.com; \
 #script-src 'self' https://code.jquery.com; \
 #font-src 'self' https://themes.googleusercontent.com; \
 #object-src 'none'; \
