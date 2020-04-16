@@ -1,4 +1,10 @@
+# Disable default directory file listings
 Options -Indexes
+
+# Disable default automatic Expires headers
+<ifmodule mod_expires.c>
+ExpiresActive Off
+</ifmodule>
 
 # http://wiki.apache.org/httpd/RewriteHTTPToHTTPS
 RewriteEngine On
@@ -41,9 +47,10 @@ payment 'none'; \
 # TODO: Un-apply from ng/ (Interactive Map) path
 #<FilesMatch "^(index|locator)\.html$">
 #Header always set Content-Security-Policy "\
-#default-src 'self'; \
+#default-src 'none'; \
 #img-src 'self' https://play.google.com https://stadiamaps.com; \
 #script-src 'self' https://code.jquery.com; \
+#style-src 'self'; \
 #font-src 'self' https://themes.googleusercontent.com; \
 #object-src 'none'; \
 #"
