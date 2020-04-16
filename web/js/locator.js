@@ -188,19 +188,13 @@ $(function () {
 
     // Load location map based on builder so far
     var load_location_map = function() {
-        var map_img = $('#current-location-img');
-        if (!map_img.length) {
-            $('#current-location-link').empty();
-            map_img =
-                $('<img id="current-location-img" alt="Current Location" width="296" height="216" src="'
-                    + locationMap.getURL() + '">')
-                .appendTo('#current-location-link');
-        }
-        map_img.attr('src',
-            window.matchMedia('screen and (prefers-color-scheme: dark)').matches ?
-                locationMap.getDarkURL() : locationMap.getURL());
+        $('#current-location-link').empty();
+        $('<picture>' +
+            '<source media="screen and (prefers-color-scheme: dark)" srcset="' + locationMap.getDarkURL() + '">' +
+            '<img id="current-location-img" alt="Current Location" width="296" height="216" src="'
+                + locationMap.getURL() + '">' +
+            '</picture>').appendTo('#current-location-link');
     };
-    window.matchMedia('screen and (prefers-color-scheme: dark)').addListener(load_location_map);
 
     // Geolocation ok handler
     var handle_geolocation_ok = function(position) {
