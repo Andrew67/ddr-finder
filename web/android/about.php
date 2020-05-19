@@ -26,7 +26,8 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 30);
+define('LATEST_VERSION', 41);
+define('LATEST_VERSION_ANDROID_19', 30);
 
 header('Cache-Control: public, max-age=86400');
 header('Referrer-Policy: strict-origin');
@@ -47,7 +48,7 @@ header('Referrer-Policy: strict-origin');
 <!-- This page is meant to be displayed in the About dialog of the Android app -->
 <h1>DDR Finder</h1>
 <h2>Version <?= htmlspecialchars($versionName); ?></h2>
-<?php if ($versionCode < LATEST_VERSION): ?>
+<?php if ($versionCode < LATEST_VERSION && $versionCode !== LATEST_VERSION_ANDROID_19): ?>
 <p>
     <a href="https://play.google.com/store/apps/details?id=com.andrew67.ddrfinder" class="button warning">
         New version available!
