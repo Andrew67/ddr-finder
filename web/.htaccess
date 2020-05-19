@@ -44,17 +44,18 @@ payment 'none'; \
 "
 </FilesMatch>
 
-# TODO: Un-apply from ng/ (Interactive Map) path
-#<FilesMatch "^(index|locator)\.html$">
-#Header always set Content-Security-Policy "\
-#default-src 'none'; \
-#img-src 'self' https://play.google.com https://stadiamaps.com; \
-#script-src 'self' https://code.jquery.com; \
-#style-src 'self'; \
-#font-src 'self' https://themes.googleusercontent.com; \
-#object-src 'none'; \
-#"
-#</FilesMatch>
+<FilesMatch "^(index|locator)\.html$">
+Header always set Content-Security-Policy "\
+default-src 'none'; \
+img-src 'self' https://play.google.com https://stadiamaps.com; \
+script-src 'self' https://code.jquery.com; \
+connect-src 'self'; \
+style-src 'self'; \
+font-src 'self' https://themes.googleusercontent.com; \
+manifest-src 'self'; \
+object-src 'none'; \
+"
+</FilesMatch>
 
 Header set Cache-Control "public, max-age=600, s-maxage=86400"
 Header always set X-Content-Type-Options "nosniff"
