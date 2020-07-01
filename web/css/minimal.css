@@ -14,6 +14,9 @@ body {
 a {
     color: #1a237e;
 }
+a:visited:not(.button) {
+    color: #4a148c;
+}
 h1, h2 {
     margin: 0;
 }
@@ -49,7 +52,10 @@ h4, h5 {
         color: rgba(255,255,255,.87);
     }
     a {
-        color: #90caf9;
+        color: #9fa8da;
+    }
+    a:visited:not(.button) {
+        color: #ce93d8;
     }
     .warning {
         color: #ffb74d;
