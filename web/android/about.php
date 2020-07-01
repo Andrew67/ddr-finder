@@ -60,13 +60,13 @@ header('Referrer-Policy: strict-origin');
     and <a href="https://ddr-navi.jp/">DDR-Navi</a>
     (no affiliation).</p>
 <div id="main-buttons">
-    <a href="https://ddrfinder.andrew67.com/" class="button bg-color-blueDark">
+    <a href="https://ddrfinder.andrew67.com/" class="button color-blueDark">
         Project Home Page
     </a><br>
-    <a href="https://raw.github.com/Andrew67/DdrFinder/master/LICENSE" class="button bg-color-greenDark">
+    <a href="https://raw.github.com/Andrew67/DdrFinder/master/LICENSE" class="button color-greenDark">
         View Application License
     </a><br>
-    <a href="https://github.com/Andrew67/ddr-finder" class="button bg-color-pinkDark">
+    <a href="https://github.com/Andrew67/ddr-finder" class="button color-pinkDark">
         View Source on GitHub
     </a>
 </div>

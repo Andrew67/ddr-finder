@@ -10,14 +10,17 @@
             padding: 1em;
             color: rgba(0,0,0,.87);
         }
-        @media(prefers-color-scheme: dark) {
-            body {
-                background: #1b2024;
-                filter: invert() hue-rotate(180deg);
-            }
-        }
         a {
             color: #1a237e;
+        }
+        @media screen and (prefers-color-scheme: dark) {
+            body {
+                background: #1b2024;
+                color: rgba(255,255,255,.87);
+            }
+            a {
+                color: #90caf9;
+            }
         }
     </style>
 </head>
