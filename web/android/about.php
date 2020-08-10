@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 41);
+define('LATEST_VERSION', 42);
 define('LATEST_VERSION_ANDROID_19', 30);
 
 header('Cache-Control: public, max-age=86400');
@@ -75,20 +75,17 @@ header('Referrer-Policy: strict-origin');
     Chinese Simplified Translation provided by <a href="https://github.com/AndiZ23">Andi Zhou</a>.<br>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>
     App arrow icon from the <a href="https://www.stepmania.com/">StepMania 5</a> lambda noteskin.<br>
-    <?php if ($versionCode >= 40): ?>
-        "<a href="https://thenounproject.com/icon/25579/">Map Marker</a>" icon by meghan hade from
-            <a href="https://thenounproject.com">the Noun Project</a>.<br>
-        "<a href="https://thenounproject.com/icon/237640/">arcade</a>" icon by Icon 54 from
-            <a href="https://thenounproject.com">the Noun Project</a>.<br>
-        "<a href="https://thenounproject.com/icon/3044571/">Arrow</a>" icon by Al Haddad, ID from
-            <a href="https://thenounproject.com">the Noun Project</a>.<br>
-    <?php endif; ?>
+    "<a href="https://thenounproject.com/icon/25579/">Map Marker</a>" icon by meghan hade from
+        <a href="https://thenounproject.com">the Noun Project</a>.<br>
+    "<a href="https://thenounproject.com/icon/237640/">arcade</a>" icon by Icon 54 from
+        <a href="https://thenounproject.com">the Noun Project</a>.<br>
+    "<a href="https://thenounproject.com/icon/3044571/">Arrow</a>" icon by Al Haddad, ID from
+        <a href="https://thenounproject.com">the Noun Project</a>.<br>
     Maps provided by the
         <a href="https://developers.google.com/maps/documentation/android-api/">Google Maps Android API</a>.<br>
     Map marker clustering provided by the
         <a href="https://github.com/googlemaps/android-maps-utils/">Google Maps Android API utility library</a>.<br>
-    Map style <?php if ($versionCode >= 40) echo '(dark mode)'; ?> based on
-        <a href="https://mapstyle.withgoogle.com/">Aubergine</a> by Google.<br>
+    Map style (dark mode) based on <a href="https://mapstyle.withgoogle.com/">Aubergine</a> by Google.<br>
     HTTP requests handled by Square's <a href="https://github.com/square/okhttp/">OkHttp</a> library.<br>
     JSON serialization handled by Square's <a href="https://github.com/square/moshi">Moshi</a> library.
 </h5>
