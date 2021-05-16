@@ -32,7 +32,9 @@
 <div id="message-loading">
     <h2>Loading...</h2>
     <p>
-        <a href="index.html" class="button bg-color-red fg-color-white"><i class="icon-cancel-2"></i> Cancel</a>
+        <a href="index.html" class="button bg-color-red fg-color-white">
+            <i class="icon-cancel-2" aria-hidden="true"></i> Cancel
+        </a>
     </p>
 </div>
 <!-- ERROR: HTML5 Geolocation API not supported -->
@@ -41,10 +43,10 @@
     <p>Your web browser does not support the HTML5 Geolocation API!</p>
     <p>
         <a href="https://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            <i class="icon-new-tab"></i> Go to Zenius -I- vanisher.com Arcade Locations
+            <i class="icon-new-tab" aria-hidden="true"></i> Go to Zenius -I- vanisher.com Arcade Locations
         </a>
         <a href="https://www.ddr-navi.jp/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            <i class="icon-new-tab"></i> Go to DDR-Navi
+            <i class="icon-new-tab" aria-hidden="true"></i> Go to DDR-Navi
         </a>
     </p>
 </div>
@@ -52,8 +54,10 @@
 <div id="message-waiting" class="message-hidden">
     <h2>Waiting for location...</h2>
     <p>
-        <i class="icon-loading icon-ani-spin icon-4x"></i><br>
-        <a href="index.html" class="button bg-color-red fg-color-white"><i class="icon-cancel-2"></i> Cancel</a>
+        <i class="icon-loading icon-ani-spin icon-4x" aria-hidden="true"></i><br>
+        <a href="index.html" class="button bg-color-red fg-color-white">
+            <i class="icon-cancel-2" aria-hidden="true"></i> Cancel
+        </a>
     </p>
 </div>
 <!-- ERROR: Location data denied -->
@@ -62,7 +66,7 @@
     <p>Reload this page and make sure to allow location detection!</p>
     <p>
         <button onclick="location.reload()" class="bg-color-greenDark fg-color-white">
-            <i class="icon-loop"></i> Reload
+            <i class="icon-loop" aria-hidden="true"></i> Reload
         </button>
     </p>
 </div>
@@ -72,13 +76,13 @@
     <p>Unable to locate your current position</p>
     <p>
         <button onclick="location.reload()" class="bg-color-greenDark fg-color-white">
-            <i class="icon-loop"></i> Retry
+            <i class="icon-loop" aria-hidden="true"></i> Retry
         </button><br>
         <a href="https://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            <i class="icon-new-tab"></i> Go to Zenius -I- vanisher.com Arcade Locations
+            <i class="icon-new-tab" aria-hidden="true"></i> Go to Zenius -I- vanisher.com Arcade Locations
         </a>
         <a href="https://www.ddr-navi.jp/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            <i class="icon-new-tab"></i> Go to DDR-Navi
+            <i class="icon-new-tab" aria-hidden="true"></i> Go to DDR-Navi
         </a>
     </p>
 </div>
@@ -86,8 +90,10 @@
 <div id="message-found-searching" class="message-hidden">
     <h2>Found you! Locating arcades...</h2>
     <p>
-        <i class="icon-loading icon-ani-spin icon-4x"></i><br>
-        <a href="index.html" class="button bg-color-red fg-color-white"><i class="icon-cancel-2"></i> Cancel</a>
+        <i class="icon-loading icon-ani-spin icon-4x" aria-hidden="true"></i><br>
+        <a href="index.html" class="button bg-color-red fg-color-white">
+            <i class="icon-cancel-2" aria-hidden="true"></i> Cancel
+        </a>
     </p>
 </div>
 <!-- ERROR: API error -->
@@ -96,13 +102,13 @@
     <p>Temporary error while attempting to load or process data from the database</p>
     <p>
         <button onclick="location.reload()" class="bg-color-greenDark fg-color-white">
-            <i class="icon-loop"></i> Retry
+            <i class="icon-loop" aria-hidden="true"></i> Retry
         </button><br>
         <a href="https://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            <i class="icon-new-tab"></i> Go to Zenius -I- vanisher.com Arcade Locations
+            <i class="icon-new-tab" aria-hidden="true"></i> Go to Zenius -I- vanisher.com Arcade Locations
         </a>
         <a href="https://www.ddr-navi.jp/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-            <i class="icon-new-tab"></i> Go to DDR-Navi
+            <i class="icon-new-tab" aria-hidden="true"></i> Go to DDR-Navi
         </a>
     </p>
 </div>
@@ -126,20 +132,23 @@
                 <div>
                     <h3 class="arcade-city">City</h3>
                     <h4>Approximately <span class="arcade-distance">???</span> km away</h4>
-                    <h4 class="arcade-has-ddr">DDR available: <i class="arcade-has-ddr-value"></i></h4>
+                    <h4 class="arcade-has-ddr">DDR available:
+                        <i class="arcade-has-ddr-value" aria-hidden="true"></i>
+                        <span class="arcade-has-ddr-text">???</span>
+                    </h4>
                     <h5>
                         GPS Coordinates:
                         <span class="arcade-latitude">???</span>°, <span class="arcade-longitude">???</span>°
                     </h5>
                     <div class="arcade-action-buttons">
                         <a class="arcade-nav button bg-color-purple fg-color-white" href="#">
-                            <i class="icon-location-2"></i> Navigate
+                            <i class="icon-location-2" aria-hidden="true"></i> Navigate
                         </a>
                         <a class="arcade-gmaps button bg-color-greenDark fg-color-white" target="_blank" rel="noopener">
-                            <i class="icon-location"></i> Show in Google Maps
+                            <i class="icon-location" aria-hidden="true"></i> Show in Google Maps
                         </a><br>
                         <a class="arcade-info button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-                            <i class="icon-new-tab"></i> Info on <span class="arcade-info-name">???</span>
+                            <i class="icon-new-tab" aria-hidden="true"></i> Info on <span class="arcade-info-name">???</span>
                         </a>
                     </div>
                 </div>
@@ -153,13 +162,13 @@
         <p>Sorry! Try going back and selecting a different source database or check out the full websites.</p>
         <p>
             <button onclick="location.reload()" class="bg-color-greenDark fg-color-white">
-                <i class="icon-loop"></i> Retry
+                <i class="icon-loop" aria-hidden="true"></i> Retry
             </button><br>
             <a href="https://zenius-i-vanisher.com/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-                <i class="icon-new-tab"></i> Go to Zenius -I- vanisher.com
+                <i class="icon-new-tab" aria-hidden="true"></i> Go to Zenius -I- vanisher.com
             </a><br>
             <a href="https://www.ddr-navi.jp/" class="button bg-color-blueDark fg-color-white" target="_blank" rel="noopener">
-                <i class="icon-new-tab"></i> Go to DDR-Navi
+                <i class="icon-new-tab" aria-hidden="true"></i> Go to DDR-Navi
             </a>
         </p>
     </div>

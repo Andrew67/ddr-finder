@@ -129,6 +129,7 @@ $(function () {
                 arcade.find('.arcade-longitude').text(locations[i].lng.toFixed(5));
                 arcade.find('.arcade-info-name').text(info_name(data.sources, locations[i].src));
                 arcade.find('.arcade-has-ddr-value').addClass(checkmark_cross(locations[i].hasDDR));
+                arcade.find('.arcade-has-ddr-text').text(locations[i].hasDDR ? 'Yes' : 'No');
 
                 var mapsuffix = locations[i].lat + ',' + locations[i].lng + '(' + encodeURIComponent(locations[i].name) + ')';
                 arcade.find('.arcade-nav').attr('href', nav_url(locations[i].lat, locations[i].lng, locations[i].name));
