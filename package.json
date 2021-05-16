@@ -15,7 +15,9 @@
     "url": "https://github.com/Andrew67/ddr-finder.git"
   },
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
   "devDependencies": {
     "minify": "^7.0.2",
     "purgecss": "^4.0.3"
@@ -25,6 +27,7 @@
     "purgecss:metroui": "purgecss --css web/metroui/css/modern*.css --content web/metroui/js/accordion.js web/*.html web/js/*.js --output web/metroui/css/purged",
     "minify:metroui": "minify web/metroui/css/purged/modern*.css > web/metroui/css/modern.min.css",
     "build:metroui": "npm run unzip:metroui && mkdir -p web/metroui/css/purged && npm run purgecss:metroui && npm run minify:metroui",
-    "build": "npm run build:metroui"
+    "copy:jquery": "cp node_modules/jquery/dist/jquery.min.js web/js/",
+    "build": "npm run build:metroui && npm run copy:jquery"
   }
 }

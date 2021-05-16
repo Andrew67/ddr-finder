@@ -48,7 +48,7 @@ payment 'none'; \
 Header always set Content-Security-Policy "\
 default-src 'none'; \
 img-src 'self' https://play.google.com https://stadiamaps.com; \
-script-src 'self' https://code.jquery.com; \
+script-src 'self'; \
 connect-src 'self'; \
 style-src 'self'; \
 font-src 'self' https://themes.googleusercontent.com; \
