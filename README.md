@@ -20,7 +20,7 @@ Custom Version
 --------------
 * Modify all absolute URLs and copyright notices (keeping proper MIT license attribution in place).
 * Create a db-conf.php file to connect to your database, created by the schema script in the `sql/` folder.
-* Get a static maps API key for Google Maps and change the value in `locator.js` for `GMAPS_API_KEY`.
+* Get an API key for Stadia Maps and authorize it for your new URL.
 
 ## Database ##
 MySQL is used.
@@ -53,4 +53,4 @@ Acknowledgments
   * http://developer.apple.com/library/ios/#featuredarticles/iPhoneURLScheme_Reference/Articles/MapLinks.html (dead link)
   * https://msdn.microsoft.com/en-us/library/windows/apps/jj635237.aspx (for WP7; now redirects to Windows 10 URIs)
   * https://stackoverflow.com/questions/3990110/how-to-show-marker-in-maps-launched-by-geo-uri-intent/7405992#7405992
-* [DDR-Navi](http://ddr-navi.jp/) for Japan data.
+* [DDR-Navi](https://www.ddr-navi.jp/) for Japan data.

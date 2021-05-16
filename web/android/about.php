@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2012-2020 Andrés Cordero
+ * Copyright (c) 2012-2021 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -26,8 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 42);
-define('LATEST_VERSION_ANDROID_19', 30);
+define('LATEST_VERSION', 43);
 
 header('Cache-Control: public, max-age=86400');
 header('Referrer-Policy: strict-origin');
@@ -48,7 +47,7 @@ header('Referrer-Policy: strict-origin');
 <!-- This page is meant to be displayed in the About dialog of the Android app -->
 <h1>DDR Finder</h1>
 <h2>Version <?= htmlspecialchars($versionName); ?></h2>
-<?php if ($versionCode < LATEST_VERSION && $versionCode !== LATEST_VERSION_ANDROID_19): ?>
+<?php if ($versionCode < LATEST_VERSION): ?>
 <p>
     <a href="https://play.google.com/store/apps/details?id=com.andrew67.ddrfinder" class="button warning">
         New version available!
@@ -57,7 +56,7 @@ header('Referrer-Policy: strict-origin');
 <?php endif; ?>
 <p>No warranty is made regarding operation, and no accuracy or freshness of results is guaranteed.
     Machine location data collected from <a href="https://zenius-i-vanisher.com/">Zenius -I- vanisher.com</a>
-    and <a href="https://ddr-navi.jp/">DDR-Navi</a>
+    and <a href="https://www.ddr-navi.jp/">DDR-Navi</a>
     (no affiliation).</p>
 <div id="main-buttons">
     <a href="https://ddrfinder.andrew67.com/" class="button color-blueDark">
@@ -70,7 +69,7 @@ header('Referrer-Policy: strict-origin');
         View Source on GitHub
     </a>
 </div>
-<h4>&copy; 2013&ndash;2020 <a href="https://andrew67.com/">Andrés Cordero</a></h4>
+<h4>&copy; 2013&ndash;2021 <a href="https://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
     Chinese Simplified Translation provided by <a href="https://github.com/AndiZ23">Andi Zhou</a>.<br>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>

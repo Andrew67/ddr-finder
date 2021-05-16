@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015 Andrés Cordero
+ * Copyright (c) 2015-2021 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -42,8 +42,8 @@ class Sources {
         'navi' => array(
             'shortName' => 'navi',
             'name' => 'DDR-Navi',
-            'infoURL' => 'http://www.ddr-navi.jp/db/herodb.cgi?search=${sid}',
-            'mInfoURL' => 'http://www.ddr-navi.jp/db/heroskin.cgi?table=ddr&search=${sid}',
+            'infoURL' => 'https://www.ddr-navi.jp/shop/?id=${sid}',
+            'mInfoURL' => 'https://www.ddr-navi.jp/shop/?id=${sid}',
             'hasDDR' => true
         ),
         // The intention with "fallback" is to provide a URL that redirects to source, based on actual database ID
