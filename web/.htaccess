@@ -29,19 +29,17 @@ AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css a
 AddType application/vnd.android.package-archive .apk
 
 <FilesMatch "\.html$">
-# Security headers as recommended by securityheaders.com
-Header always set X-Frame-Options "SAMEORIGIN"
+# Security headers as recommended by securityheaders.com / observatory.mozilla.org
 Header always set X-XSS-Protection "1; mode=block"
 Header always set Referrer-Policy "strict-origin"
 
-Header always set Feature-Policy "\
-vibrate 'none'; \
-geolocation 'self'; \
-microphone 'none'; \
-camera 'none'; \
-autoplay 'none'; \
-payment 'none'; \
-"
+Header always set Permissions-Policy "\
+geolocation=(self), \
+microphone=(), \
+camera=(), \
+autoplay=(), \
+payment=()"
+# Chrome 89 does not like trailing commas in Permissions-Policy
 </FilesMatch>
 
 <FilesMatch "^(index|locator)\.html$">
@@ -51,9 +49,10 @@ img-src 'self' https://play.google.com https://stadiamaps.com; \
 script-src 'self'; \
 connect-src 'self'; \
 style-src 'self'; \
-font-src 'self' https://themes.googleusercontent.com; \
 manifest-src 'self'; \
-object-src 'none'; \
+frame-ancestors 'self'; \
+base-uri 'self'; \
+form-action 'none'; \
 "
 </FilesMatch>
 

@@ -16,6 +16,10 @@ body {
     padding: 10px;
 }
 
+* {
+    font-family: system-ui, -apple-system, sans-serif !important;
+}
+
 #app-title {
     cursor: pointer;
 }
@@ -64,6 +68,9 @@ body {
 }
 #ddrfinder.metrouicss .bg-color-orangeDark {
     background-color: #c0421b !important;
+}
+#ddrfinder.metrouicss h3, #ddrfinder.metrouicss h3:hover {
+    color: rgba(0,0,0,.8);
 }
 
 /* Align new SVG <img> icons in buttons */

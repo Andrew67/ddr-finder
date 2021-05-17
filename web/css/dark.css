@@ -4,12 +4,12 @@ body, .metrouicss .input-control > select {
 }
 
 body,
-.metrouicss h1, .metrouicss h1:hover,
-.metrouicss h2, .metrouicss h2:hover,
-.metrouicss h3, .metrouicss h3:hover,
-.metrouicss h4, .metrouicss h4:hover,
-.metrouicss h5, .metrouicss h5:hover,
-.metrouicss .input-control > select
+#ddrfinder.metrouicss h1, #ddrfinder.metrouicss h1:hover,
+#ddrfinder.metrouicss h2, #ddrfinder.metrouicss h2:hover,
+#ddrfinder.metrouicss h3, #ddrfinder.metrouicss h3:hover,
+#ddrfinder.metrouicss h4, #ddrfinder.metrouicss h4:hover,
+#ddrfinder.metrouicss h5, #ddrfinder.metrouicss h5:hover,
+#ddrfinder.metrouicss .input-control > select
 {
     color: rgba(255,255,255,.87);
 }

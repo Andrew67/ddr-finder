@@ -229,6 +229,11 @@ $(function () {
         location.href = './';
     });
 
+    // Activate all Retry buttons.
+    $('.retry-button').on('click', function () {
+        location.reload();
+    });
+
     // Remove "display: none" from accordion elements after slideUp() animation complete; for print support.
     // Attached to beforeprint (IE, Firefox) and mediaQueryList (WebKit).
     var accordion_remove_style = function () { $('[data-role="accordion"] > li > div').removeAttr('style') };
