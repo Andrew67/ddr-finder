@@ -23,8 +23,8 @@
     "purgecss": "^4.0.3"
   },
   "scripts": {
-    "unzip:metroui": "unzip metroui.zip -d web/",
-    "purgecss:metroui": "purgecss --css web/metroui/css/modern*.css --content web/metroui/js/accordion.js web/*.html web/js/*.js --output web/metroui/css/purged",
+    "unzip:metroui": "unzip -o metroui.zip -d web/",
+    "purgecss:metroui": "purgecss --css web/metroui/css/modern.css web/metroui/css/modern-responsive.css --content web/metroui/js/accordion.js web/*.html web/js/*.js --output web/metroui/css/purged",
     "minify:metroui": "minify web/metroui/css/purged/modern*.css > web/metroui/css/modern.min.css",
     "build:metroui": "npm run unzip:metroui && mkdir -p web/metroui/css/purged && npm run purgecss:metroui && npm run minify:metroui",
     "copy:jquery": "cp node_modules/jquery/dist/jquery.min.js web/js/",

@@ -37,6 +37,21 @@ body {
     margin-bottom: 10px;
 }
 
+.loading-img {
+    filter: invert(1);
+    margin-bottom: 5px;
+}
+
+.arcade-has-ddr-value {
+    position: relative;
+    top: .125em;
+}
+
+/* Convert SVGs that have built-in color to white */
+.filter-white {
+    filter: brightness(10);
+}
+
 /* Begin Metro UI CSS enhancements, overrides and backports */
 
 /* Override colors to increase contrast and pass Lighthouse/aXe tests */
@@ -49,6 +64,14 @@ body {
 }
 #ddrfinder.metrouicss .bg-color-orangeDark {
     background-color: #c0421b !important;
+}
+
+/* Align new SVG <img> icons in buttons */
+#ddrfinder.metrouicss .button > img,
+#ddrfinder.metrouicss button > img {
+    position: relative;
+    top: .125em;
+    margin-right: 5px;
 }
 
 /* Force open accordion entries and hide buttons on print */
@@ -88,7 +111,7 @@ body {
         transform: rotate(359deg);
     }
 }
-.icon-ani-spin {
+.ani-spin {
     -webkit-animation: ani-spin 1.5s linear infinite;
     animation: ani-spin 1.5s linear infinite;
 }

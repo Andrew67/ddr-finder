@@ -75,9 +75,14 @@ $(function () {
         return metadata[src].name;
     };
 
-    // Returns the classes for green checkmark on true, red cross on false.
+    // Returns the classes for green on true, red on false.
+    var green_red = function (value) {
+        return value ? 'green' : 'red';
+    };
+
+    // Returns the image path for the checkmark on true, cross on false.
     var checkmark_cross = function (value) {
-        return value ? 'icon-checkmark fg-color-green' : 'icon-cancel-2 fg-color-red';
+        return value ? 'images/check-lg.svg' : 'images/x-lg.svg';
     };
 
     // Geolocation error handler
@@ -128,7 +133,8 @@ $(function () {
                 arcade.find('.arcade-latitude').text(locations[i].lat.toFixed(5));
                 arcade.find('.arcade-longitude').text(locations[i].lng.toFixed(5));
                 arcade.find('.arcade-info-name').text(info_name(data.sources, locations[i].src));
-                arcade.find('.arcade-has-ddr-value').addClass(checkmark_cross(locations[i].hasDDR));
+                arcade.find('.arcade-has-ddr-value').attr('src', checkmark_cross(locations[i].hasDDR));
+                arcade.find('.arcade-has-ddr-value').addClass(green_red(locations[i].hasDDR));
                 arcade.find('.arcade-has-ddr-text').text(locations[i].hasDDR ? 'Yes' : 'No');
 
                 var mapsuffix = locations[i].lat + ',' + locations[i].lng + '(' + encodeURIComponent(locations[i].name) + ')';

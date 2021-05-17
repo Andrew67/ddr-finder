@@ -17,8 +17,12 @@ $(function() {
     // As a bonus, the user can share the results screen URL for their location.
     // In case of error, keep original behavior of navigating to locator with no location in URL, to retry or show error.
     $('#locate-nearby').on('click', function () {
-        var navigateToLocator = function () { location.href = 'locator'; },
+        var locateButtonImg = $(this).find('img');
+        var restoreSearchIcon = function () { locateButtonImg.attr('src', 'images/search.svg').removeClass('ani-spin'); };
+
+        var navigateToLocator = function () { restoreSearchIcon(); location.href = 'locator'; },
             navigateToLocatorWithPosition = function (position) {
+                restoreSearchIcon();
                 // Trim to 4 digits, good for ~10m precision.
                 location.href = 'locator#loc=' +
                     position.coords.latitude.toFixed(4) + '/' +
@@ -27,7 +31,7 @@ $(function() {
             };
 
         // Convert search icon to loading spinner.
-        $(this).find('i').removeClass('icon-search').addClass('icon-loading icon-ani-spin');
+        locateButtonImg.attr('src', 'images/arrow-repeat.svg').addClass('ani-spin');
 
         // Ideal path version from locator.js; locator.html can handle error scenarios.
         try {

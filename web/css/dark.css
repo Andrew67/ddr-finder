@@ -39,10 +39,14 @@ body,
     border-color: rgba(255,255,255,.8);
 }
 
-.metrouicss .fg-color-red {
-    color: #ef9a9a !important;
+.loading-img {
+    filter: none;
 }
 
-.metrouicss .fg-color-green {
-    color: #a5d6a7 !important;
+.arcade-has-ddr-value.red {
+    filter: brightness(6);
+}
+
+.arcade-has-ddr-value.green {
+    filter: brightness(2) saturate(.5);
 }
