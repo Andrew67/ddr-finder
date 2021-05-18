@@ -20,6 +20,10 @@ body {
     font-family: system-ui, -apple-system, sans-serif !important;
 }
 
+*:focus {
+    outline: solid 2px black !important;
+}
+
 #app-title {
     cursor: pointer;
 }

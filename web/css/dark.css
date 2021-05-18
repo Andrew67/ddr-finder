@@ -1,4 +1,8 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder/blob/master/LICENSE */
+*:focus {
+    outline: solid 2px white !important;
+}
+
 body, .metrouicss .input-control > select {
     background: #1b2024;
 }
