@@ -212,6 +212,16 @@ $(function () {
         locationMap = new MapBuilder();
         locationMap.addMyLocationMarker(position.coords.latitude, position.coords.longitude);
 
+        if (position.coords.accuracy) {
+            var accuracy = (position.coords.accuracy >= 1000) ?
+                '' + (position.coords.accuracy / 1000).toFixed(2) + 'km' :
+                '' + position.coords.accuracy.toFixed() + ' meters';
+            $('#current-location-accuracy-value').text(accuracy);
+            $('#current-location-accuracy').show();
+        } else {
+            $('#current-location-accuracy').hide();
+        }
+
         // Locate nearby machines and populate/show list
         $.getJSON('locate.php', {
             'version': 20,
@@ -245,16 +255,17 @@ $(function () {
 
     $('#message-loading').hide();
 
-    // Passing in loc=latitude/longitude in hash/search bypasses original behavior of geolocation on page load.
-    // Note: the pattern is set up to accept the old loc=accuracy/latitude/longitude format while ignoring accuracy.
-    var loc_pattern = /[#&?]loc=(?:.*\/)?(.*)\/([^&]*)/;
+    // Passing in loc=accuracy/latitude/longitude in hash/search bypasses original behavior of geolocation on page load.
+    // Note: the pattern is set up to accept a loc=latitude/longitude format due to a time period where it was optional.
+    var loc_pattern = /[#&?]loc=(.*\/)?(.*)\/([^&]*)/;
     var handle_loc_hash = function () {
         if (loc_pattern.test(location.href)) {
             var loc_params = loc_pattern.exec(location.href);
             handle_geolocation_ok({
                 coords: {
-                    latitude: Number(loc_params[1]),
-                    longitude: Number(loc_params[2])
+                    accuracy: Number((loc_params[1] || '').replace('/', '')),
+                    latitude: Number(loc_params[2]),
+                    longitude: Number(loc_params[3])
                 }
             });
         }

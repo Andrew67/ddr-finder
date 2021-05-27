@@ -4,7 +4,8 @@ li.arcade-list-item:first-child,
 .arcade-nav[href^="#"],
 .arcade-city:empty,
 .has-ddr-unavailable .arcade-has-ddr,
-.has-ddr-unavailable-disclaimer {
+.has-ddr-unavailable-disclaimer,
+#current-location-accuracy {
     display: none;
 }
 
