@@ -31,30 +31,33 @@
  */
 class Sources {
     /** @var array Raw source data, in same format as v2.0 API output. */
-    public static $data = array(
-        'ziv' => array(
+    public static array $data = [
+        'ziv' => [
             'shortName' => 'ziv',
             'name' => 'Zenius -I- vanisher.com',
+            'homepageURL' => 'https://zenius-i-vanisher.com/',
             'infoURL' => 'https://zenius-i-vanisher.com/v5.2/arcade.php?id=${sid}#summary',
             'mInfoURL' => 'https://ddrfinder-proxy.andrew67.com/ziv/info/${sid}',
-            'hasDDR' => true
-        ),
-        'navi' => array(
+            'hasDDR' => true,
+        ],
+        'navi' => [
             'shortName' => 'navi',
             'name' => 'DDR-Navi',
+            'homepageURL' => 'https://www.ddr-navi.jp/',
             'infoURL' => 'https://www.ddr-navi.jp/shop/?id=${sid}',
             'mInfoURL' => 'https://www.ddr-navi.jp/shop/?id=${sid}',
-            'hasDDR' => true
-        ),
+            'hasDDR' => true,
+        ],
         // The intention with "fallback" is to provide a URL that redirects to source, based on actual database ID
-        'fallback' => array(
+        'fallback' => [
             'shortName' => 'fallback',
             'name' => 'Source Website',
+            'homepageURL' => 'https://ddrfinder.andrew67.com/',
             'infoURL' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
             'mInfoURL' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
-            'hasDDR' => false
-        )
-    );
+            'hasDDR' => false,
+        ],
+    ];
 
     /**
      * Returns a source object with information for the specified sources, and "fallback".
@@ -62,7 +65,7 @@ class Sources {
      * @param array $sources Array of source strings.
      * @return array API v2.0 output format source data.
      */
-    public static function getSourceObject($sources) {
+    public static function getSourceObject(array $sources): array {
         if ('all' === $sources[0]) return self::$data;
 
         $d = array();
@@ -82,7 +85,7 @@ class Sources {
      * @param array $sources Array of source strings.
      * @return array API v3.0 output format source data.
      */
-    public static function getSourceArray($sources) {
+    public static function getSourceArray(array $sources): array {
         if ('all' === $sources[0]) $sources = array_keys(self::$data);
         else $sources[] = 'fallback';
 
@@ -100,7 +103,7 @@ class Sources {
      * Returns the shortnames of the available sources.
      * @return array Shortnames of the available sources.
      */
-    public static function getSourceNames() {
+    public static function getSourceNames(): array {
         return array_keys(self::$data);
     }
 
@@ -109,7 +112,7 @@ class Sources {
      * @param string $source Source name to validate.
      * @return bool Whether the specified source is valid.
      */
-    public static function isValidSource($source) {
+    public static function isValidSource(string $source): bool {
         if ('all' === $source) return true;
         elseif ('fallback' === $source) return false;
         else return array_key_exists($source, self::$data);

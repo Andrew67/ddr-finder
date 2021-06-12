@@ -16,6 +16,7 @@ interface ArcadeLocation {
 
 interface DataSource {
     name: string;
+    homepageURL: string;
     infoURL: string;
     mInfoURL: string;
     hasDDR: boolean;

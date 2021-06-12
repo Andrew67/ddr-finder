@@ -116,8 +116,15 @@ $(function () {
             $('#arcade-noresults-container').show();
         }
         else {
+            // Set contributor website name and URL.
+            if (data.sources[datasrc] && data.sources[datasrc].homepageURL) {
+                var contributor_link = $('#source-website-url');
+                contributor_link.text(data.sources[datasrc].name);
+                contributor_link.attr('href', data.sources[datasrc].homepageURL);
+            }
+
             // Determine if the selected source has DDR availability provided; set a class if not the case.
-            if (!data.sources[datasrc].hasDDR) {
+            if (!data.sources[datasrc] || !data.sources[datasrc].hasDDR) {
                 message_arcade_list.addClass('has-ddr-unavailable');
             }
 

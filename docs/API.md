@@ -84,7 +84,8 @@ Return value is a JSON structure, the top level is as follows:
 Describes a data source. Use the special source "fallback" in case a piece of location data contains a source type that is not part of this array.
 
 Each element contains the following fields:
-* name (string): title of source (e.g. "Zenius-I-vanisher.com", "ddr-navi.jp").
+* name (string): title of source (e.g. "Zenius-I-vanisher.com", "DDR-Navi").
+* homepageURL (string): URL of home page for source (e.g. "zenius-i-vanisher.com", "ddr-navi.jp").
 * infoURL (string): URL of info page for source. Special strings "${sid}" and "${id}" must be replaced with the value of "source_id" or "id" fields respectively to construct full URL for a location.
 * mInfoURL (string): same as infoURL, but for mobile devices.
 * hasDDR (boolean): true/false, whether the data source contained enough information to determine a meaningful value for the "hasDDR" field.
