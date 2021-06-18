@@ -78,6 +78,11 @@ body {
     color: rgba(0,0,0,.8);
 }
 
+/* Override square buttons into modern slightly rounded ones */
+#ddrfinder.metrouicss .button, #ddrfinder.metrouicss button {
+    border-radius: 4px;
+}
+
 /* Align new SVG <img> icons in buttons */
 #ddrfinder.metrouicss .button > img,
 #ddrfinder.metrouicss button > img {
