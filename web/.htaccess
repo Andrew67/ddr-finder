@@ -6,6 +6,15 @@ Options -Indexes
 ExpiresActive Off
 </ifmodule>
 
+# Disable default Vary: User-Agent (prevents proper caching)
+Header edit Vary "User-Agent" ""
+
+# Adding charset `utf-8` to media types as recommended by webhint.io
+AddDefaultCharset utf-8
+<IfModule mod_mime.c>
+AddCharset utf-8 .css .js .json .svg
+</IfModule>
+
 # http://wiki.apache.org/httpd/RewriteHTTPToHTTPS
 RewriteEngine On
 RewriteCond %{HTTPS} !=on
