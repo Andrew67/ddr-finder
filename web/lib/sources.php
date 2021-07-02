@@ -48,6 +48,14 @@ class Sources {
             'mInfoURL' => 'https://www.ddr-navi.jp/shop/?id=${sid}',
             'hasDDR' => true,
         ],
+        'osm' => [
+            'shortName' => 'osm',
+            'name' => 'OpenStreetMap',
+            'homepageURL' => 'https://www.openstreetmap.org/',
+            'infoURL' => 'https://ddrfinder-proxy.andrew67.com/osm/redirect/${sid}',
+            'mInfoURL' => 'https://ddrfinder-proxy.andrew67.com/osm/redirect/${sid}',
+            'hasDDR' => false,
+        ],
         // The intention with "fallback" is to provide a URL that redirects to source, based on actual database ID
         'fallback' => [
             'shortName' => 'fallback',
