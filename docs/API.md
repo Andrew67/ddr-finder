@@ -55,7 +55,7 @@ Use when you want data from a different source than ZIv. v2 output is not compat
 ### Input parameters ###
 * version (int): Must be set to 20 to toggle this API version.
 * dump (int, unix timestamp, optional): when this field is present, all the below fields are ignored. Requests a dump of all data updated after the given timestamp. Use 0 to catch all data. The server is not required to implement this and may throw an error instead.
-* datasrc* (string): comma-separated list of source aliases to request data from (currently valid are "ziv" and "navi"), or the catch-all value "all".
+* datasrc* (string): comma-separated list of source aliases to request data from (currently valid are "ziv", "navi", and "osm"), or the catch-all value "all".
 * lat (double): current user latitude. The presence of this field determines radius mode.
 * lng (double): current user longitude. Required when lat is specified.
 * latlower (double): lower latitude boundary of bounding box. Required for box mode if lat is not present.

@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-define('LATEST_VERSION', 43);
+const LATEST_VERSION = 54;
 
 header('Cache-Control: public, max-age=86400');
 header('Referrer-Policy: strict-origin');
@@ -39,6 +39,7 @@ header('Referrer-Policy: strict-origin');
     <!-- Setting the OpenGraph URL ensures shared links point to the main page -->
     <meta property="og:url" content="https://ddrfinder.andrew67.com/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="../css/minimal.css">
     <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
