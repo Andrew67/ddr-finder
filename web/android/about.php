@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2012-2021 Andrés Cordero
+ * Copyright (c) 2012-2022 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -26,7 +26,7 @@
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
 $versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-const LATEST_VERSION = 54;
+const LATEST_VERSION = 55;
 
 header('Cache-Control: public, max-age=86400');
 header('Referrer-Policy: strict-origin');
@@ -56,9 +56,11 @@ header('Referrer-Policy: strict-origin');
 </p>
 <?php endif; ?>
 <p>No warranty is made regarding operation, and no accuracy or freshness of results is guaranteed.
-    Machine location data collected from <a href="https://zenius-i-vanisher.com/">Zenius -I- vanisher.com</a>
-    and <a href="https://www.ddr-navi.jp/">DDR-Navi</a>
-    (no affiliation).</p>
+    Machine location data collected from
+    <a href="https://zenius-i-vanisher.com/" target="_blank" rel="noopener">Zenius -I- vanisher.com</a>,
+    <a href="https://www.ddr-navi.jp/" target="_blank" rel="noopener">DDR-Navi</a>, and
+    <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a>
+    (no affiliation).
 <div id="main-buttons">
     <a href="https://ddrfinder.andrew67.com/" class="button color-blueDark">
         Project Home Page
@@ -70,7 +72,7 @@ header('Referrer-Policy: strict-origin');
         View Source on GitHub
     </a>
 </div>
-<h4>&copy; 2013&ndash;2021 <a href="https://andrew67.com/">Andrés Cordero</a></h4>
+<h4>&copy; 2013&ndash;2022 <a href="https://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
     Chinese Simplified Translation provided by <a href="https://github.com/AndiZ23">Andi Zhou</a>.<br>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>
