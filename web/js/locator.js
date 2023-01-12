@@ -2,25 +2,26 @@
 "use strict";
 // Functionality for locator page
 $(function () {
-    // Stadia Maps Static API URL Builder
+    // Mapbox Static API URL Builder
     function MapBuilder() {
-        this.url = 'https://stadiamaps.com/static/osm_bright?size=296x216@2x&markers=';
-        this.darkUrl = 'https://stadiamaps.com/static/alidade_smooth_dark?size=296x216@2x&markers=';
+        this.url = 'https://api.mapbox.com/styles/v1/andrew67/ck9xjbtyl1h7m1ili7y80hwus/static/';
+        this.darkUrl = 'https://api.mapbox.com/styles/v1/andrew67/ck9xjm6sg1hb21ipae71xn4jc/static/';
+        this.urlSuffix = '/auto/296x216@2x?access_token=pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw';
         this.nextMarkerNumber = 0;
     }
-    MapBuilder.prototype.getURL = function() { return this.url; };
-    MapBuilder.prototype.getDarkURL = function() { return this.darkUrl; };
+    MapBuilder.prototype.getURL = function() { return this.url + this.urlSuffix; };
+    MapBuilder.prototype.getDarkURL = function() { return this.darkUrl + this.urlSuffix; };
     MapBuilder.prototype.addMyLocationMarker = function(lat, lng) { // Must be called before any addMarker calls
-        this.url += lat.toFixed(4) + ',' + lng.toFixed(4) + ',alidade_smooth,d32f2f';
-        this.darkUrl += lat.toFixed(4) + ',' + lng.toFixed(4) + ',,ef9a9a';
+        // Material Red 700 (Light) / 100 (Dark)
+        this.url += 'pin-s+d32f2f(' + lng.toFixed(4) + ',' + lat.toFixed(4) + ')';
+        this.darkUrl += 'pin-s+ffcdd2(' + lng.toFixed(4) + ',' + lat.toFixed(4) + ')';
     };
     MapBuilder.prototype.addMarker = function(lat, lng) { // Warning: limited to 9 for labels
         var label = ++this.nextMarkerNumber;
-        this.url += '|' + lat.toFixed(4) + ',' + lng.toFixed(4)
-            + ',,darkblue,' + label;
-        this.darkUrl += '|' + lat.toFixed(4) + ',' + lng.toFixed(4)
-            + ',,lightblue,' + label;
-    };
+        // Material Blue 700 (Light) / 100 (Dark)
+        this.url += ',pin-l-' + label + '+1976d2(' + lng.toFixed(4) + ',' + lat.toFixed(4) + ')';
+        this.darkUrl += ',pin-l-' + label + '+bbdefb(' + lng.toFixed(4) + ',' + lat.toFixed(4) + ')';
+    }
     var locationMap = new MapBuilder();
 
     // Prefixes for arcade item navigation links
