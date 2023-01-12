@@ -16,11 +16,11 @@
   },
   "private": true,
   "dependencies": {
-    "jquery": "^3.6.0"
+    "jquery": "3.6.3"
   },
   "devDependencies": {
-    "minify": "^7.0.2",
-    "purgecss": "^4.0.3"
+    "minify": "9.1.0",
+    "purgecss": "5.0.0"
   },
   "scripts": {
     "unzip:metroui": "unzip -o metroui.zip -d web/",
