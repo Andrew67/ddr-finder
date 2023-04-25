@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2012-2022 Andrés Cordero
+ * Copyright (c) 2012-2023 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -25,8 +25,6 @@
  */
 
 $versionName = (isset($_GET['n'])) ? $_GET['n'] : '???';
-$versionCode = (isset($_GET['c'])) ? (int) $_GET['c'] : 0;
-const LATEST_VERSION = 55;
 
 header('Cache-Control: public, max-age=86400');
 header('Referrer-Policy: strict-origin');
@@ -48,13 +46,6 @@ header('Referrer-Policy: strict-origin');
 <!-- This page is meant to be displayed in the About dialog of the Android app -->
 <h1>DDR Finder</h1>
 <h2>Version <?= htmlspecialchars($versionName); ?></h2>
-<?php if ($versionCode < LATEST_VERSION): ?>
-<p>
-    <a href="https://play.google.com/store/apps/details?id=com.andrew67.ddrfinder" class="button warning">
-        New version available!
-    </a>
-</p>
-<?php endif; ?>
 <p>No warranty is made regarding operation, and no accuracy or freshness of results is guaranteed.
     Machine location data collected from
     <a href="https://zenius-i-vanisher.com/" target="_blank" rel="noopener">Zenius -I- vanisher.com</a>,
@@ -72,7 +63,7 @@ header('Referrer-Policy: strict-origin');
         View Source on GitHub
     </a>
 </div>
-<h4>&copy; 2013&ndash;2022 <a href="https://andrew67.com/">Andrés Cordero</a></h4>
+<h4>&copy; 2013&ndash;2023 <a href="https://andrew67.com/">Andrés Cordero</a></h4>
 <h5>
     Chinese Simplified Translation provided by <a href="https://github.com/AndiZ23">Andi Zhou</a>.<br>
     Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a> project.<br>
@@ -83,10 +74,12 @@ header('Referrer-Policy: strict-origin');
         <a href="https://thenounproject.com">the Noun Project</a>.<br>
     "<a href="https://thenounproject.com/icon/3044571/">Arrow</a>" icon by Al Haddad, ID from
         <a href="https://thenounproject.com">the Noun Project</a>.<br>
+    Calculator icon from <a href="https://icons.getbootstrap.com/">Bootstrap Icons</a>.<br>
     Maps provided by the
         <a href="https://developers.google.com/maps/documentation/android-api/">Google Maps Android API</a>.<br>
     Map marker clustering provided by the
         <a href="https://github.com/googlemaps/android-maps-utils/">Google Maps Android API utility library</a>.<br>
+    Map style (light mode) based on <a href="https://snazzymaps.com/style/83/muted-blue">Muted Blue</a> on Snazzy Maps.<br>
     Map style (dark mode) based on <a href="https://mapstyle.withgoogle.com/">Aubergine</a> by Google.<br>
     HTTP requests handled by Square's <a href="https://github.com/square/okhttp/">OkHttp</a> library.<br>
     JSON serialization handled by Square's <a href="https://github.com/square/moshi">Moshi</a> library.
