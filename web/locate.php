@@ -27,6 +27,13 @@
 
 // Set response type and encoding
 header('Content-Type: application/json; charset=utf-8');
+
+$allowed_origins = ['https://ddrfinder.andrew67.com'];
+// Prod CORS
+if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
+    header('Access-Control-Allow-Origin: *');
+}
+
 // Set up class autoloader
 set_include_path(get_include_path() . PATH_SEPARATOR . 'lib/');
 spl_autoload_extensions('.php');

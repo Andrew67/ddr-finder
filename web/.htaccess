@@ -56,7 +56,7 @@ Header always set Content-Security-Policy "\
 default-src 'none'; \
 img-src 'self' https://play.google.com https://api.mapbox.com; \
 script-src 'self'; \
-connect-src 'self'; \
+connect-src 'self' https://ddrfinder-api.andrew67.com; \
 style-src 'self'; \
 manifest-src 'self'; \
 frame-ancestors 'self'; \
