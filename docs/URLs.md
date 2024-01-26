@@ -2,11 +2,10 @@
 This document describes all site/app URLs and their purposes, including legacy and deprecated.
 
 *Italic URLs* indicate deprecated URLs.
-Apps may not have to handle these as server-side redirects will be set up or otherwise not needed.
 
 ## Locate API ##
 * /locate.php (v1, v2, v3)
-* /api/v4/locate (v4)
+* /api/v4 (v4)
 
 See API.md and APIv4.md.
 APIv4 is still in the design phase.
@@ -22,9 +21,6 @@ APIv4 is still in the design phase.
 * */locator(.html)*
 * */locator(.html)#loc={accuracy}/{latitude}/{longitude}&src={datasrc}*
 * */locator(.html)?loc={accuracy}/{latitude}/{longitude}&src={datasrc}*
-* /app/nearby
-* /app/nearby/@{latitude},{longitude}
-* /app/nearby/{datasrc}/@{latitude},{longitude}
 
 ### Description
 * locator.html is the original "nearby" Web UI (provided by this project).
@@ -37,9 +33,7 @@ APIv4 is still in the design phase.
 * */ng(/index.html)*
 * */ng/index.html?mode=standalone*
 * */ng(/index.html)?ll={latitude},{longitude}&z={zoom}*
-* /app/map
-* /app/map/@{latitude},{longitude},{zoom}z
-* /app/map/{datasrc}/@{latitude},{longitude},{zoom}z
+* */app/map/@{latitude},{longitude},{zoom}z*
 
 ### Description
 * /ng is the original "app-like" Web UI (provided by ddr-finder-ng).
