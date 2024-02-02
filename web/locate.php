@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015-2016 Andrés Cordero
+ * Copyright (c) 2015-2024 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -28,16 +28,15 @@
 // Set response type and encoding
 header('Content-Type: application/json; charset=utf-8');
 
-$allowed_origins = ['https://ddrfinder.andrew67.com'];
-// Prod CORS
-if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
-    header('Access-Control-Allow-Origin: *');
-}
-
 // Set up class autoloader
 set_include_path(get_include_path() . PATH_SEPARATOR . 'lib/');
 spl_autoload_extensions('.php');
 spl_autoload_register();
+
+// Prod / Dev CORS
+if (CORSHelper::isCORSAuthorized()) {
+    header('Access-Control-Allow-Origin: *');
+}
 
 // Empty, invalid, or below 20 version field is treated as API 1.x client
 if (empty($_GET['version']) || !is_numeric($_GET['version']) || 20 > $_GET['version']) {

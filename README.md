@@ -17,7 +17,8 @@ and other items that have their own license declarations (such as the fonts, ico
 Custom Version
 --------------
 * Modify all absolute URLs and copyright notices (keeping proper MIT license attribution in place).
-* Create a db-conf.php file to connect to your database, created by the schema script in the `sql/` folder.
+* Create a `db-conf.php` file to connect to your database, created by the schema script in the `sql/` folder.
+* Create a `cors-conf.php` file to set the web origins allowed to access the API.
 
 ## Database ##
 MySQL is used.
@@ -31,6 +32,15 @@ return array('driver' => 'mysql',
              'password' => 'pass',
              'database' => 'ddrfinder',
 );
+```
+
+### cors-conf.php Format ###
+```php
+<?php
+return [
+    'allowed-origins' => ['https://example.com', 'http://localhost:4200'],
+    'allowed-origin-suffix' => 'pages.dev',
+];
 ```
 
 ### Table Schema ###
