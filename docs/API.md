@@ -1,14 +1,25 @@
 # locator.php #
-All below descriptions are GET requests to locator.php with the given parameters, and JSON is returned as defined. Technically they're all returned as JSON strings since the PDO driver in PHP returns all results as strings by default. v1 APIs will only return ZIv-sourced data, while v2 will provide more options. v3 makes a breaking change to more easily support deserialization of data source information through libraries such as Gson.
+All below descriptions are GET requests to locator.php with the given parameters, and JSON is returned as defined.
+Technically they're all returned as JSON strings since the PDO driver in PHP returns all results as strings by default.
+v1 APIs will only return ZIv-sourced data, while v2 will provide more options.
+v3 makes a breaking change to more easily support deserialization of data source information through libraries such as Gson.
 
 ## v3.x.1 / v2.0.1 / v1.x.1 (large data set support) ##
-Adds a version-independent optional flag that clients can set to say "I can gracefully handle more than 20 results in radius mode, and box mode results for an 'oversized' box". As clients get upgraded (pagination, pin consolidation), they can start setting this flag. The server implementation is free to refuse and return the usual "oversized box" error, so box mode clients must still be prepared to show the error. Original implementations count on the server implementing these restrictions. As various clients have sprung up and the results compress well, this has made less sense to keep as-is.
+Adds a version-independent optional flag that clients can set to say "I can gracefully handle more than 20 results in
+radius mode, and box mode results for an 'oversized' box". As clients get upgraded (pagination, pin consolidation),
+they can start setting this flag. The server implementation is free to refuse and return the usual "oversized box" error,
+so box mode clients must still be prepared to show the error.
+Original implementations count on the server implementing these restrictions.
+As various clients have sprung up and the results compress well, this has made less sense to keep as-is.
 
 ### Input parameters ###
-* canHandleLargeDataset (optional): the mere presence of this field lets the server know it should feel free to send more than 20 results in radius mode, and big boxes in box mode. The absence of this field is the default legacy behavior of capping results/queries on the server side to make up for client side deficiencies.
+* canHandleLargeDataset (optional): the mere presence of this field lets the server know it should feel free to send
+  more than 20 results in radius mode, and big boxes in box mode. The absence of this field is the default legacy behavior of capping results/queries on the server side to make up for client side deficiencies.
 
 ## v3.1 (sync support, sources fluidity, GeoJSON) ##
-Adds new features to facilitate clients that want to sync using the "dump" command, clients that prefer the v2.0 data source keying, and clients that have access to GeoJSON libraries. Input/output is the same as v2.0, with the following additions/modifications:
+Adds new features to facilitate clients that want to sync using the "dump" command,
+clients that prefer the v2.0 data source keying, and clients that have access to GeoJSON libraries.
+Input/output is the same as v2.0, with the following additions/modifications:
 
 ### Input parameters ###
 * version (int): Must be set to 31 to toggle this API version.
@@ -16,8 +27,12 @@ Adds new features to facilitate clients that want to sync using the "dump" comma
 * locationformat (string, optional): "ddrfinder"/"geojson", defaults to "ddrfinder", determines the format of the locations output.
 
 ### Return value ###
-* sources: When sourceformat is set to "array", the output matches v3.0 output. When it is set to "object", it matches v2.0 output (object keyed by shortName).
-* locations: When locationformat is set to "ddrfinder", the output matches v2.0 (plus the addition below). When it is set to "geojson", this key is a proper GeoJSON data structure representing a FeatureCollection, and each location is a Feature, where every value that the "ddrfinder" format provides is provided in the "properties" object (except the coordinates). For example (note that lng goes before lat!):
+* sources: When sourceformat is set to "array", the output matches v3.0 output.
+  When it is set to "object", it matches v2.0 output (object keyed by shortName).
+* locations: When locationformat is set to "ddrfinder", the output matches v2.0 (plus the addition below).
+  When it is set to "geojson", this key is a proper GeoJSON data structure representing a FeatureCollection,
+  and each location is a Feature, where every value that the "ddrfinder" format provides is provided
+  in the "properties" object (except the coordinates). For example (note that lng goes before lat!):
 ```
 { "type": "FeatureCollection",
     "features": [
@@ -34,7 +49,11 @@ Adds new features to facilitate clients that want to sync using the "dump" comma
 ```
 #### Locations (JSON array) ####
 A new field is added to location objects:
-* deleted (boolean, optional): 0 for false, 1 for true; appears only in "dump" mode when the timestamp is not equal to 0, and when true is used to mean that the given entry represents that the entry with the given id has been removed from the database between the timestamp and now. Clients that use "dump" to sync should remove it from their cache. No other fields are guaranteed to be valid (not even src/sid). A client that calls itself API v3.1 compliant but does not intend to delete should take care to ignore entries that have this flag set to true.
+* deleted (boolean, optional): 0 for false, 1 for true; appears only in "dump" mode when the timestamp
+  is not equal to 0, and when true is used to mean that the given entry represents that the entry with the given id
+  has been removed from the database between the timestamp and now.
+  Clients that use "dump" to sync should remove it from their cache. No other fields are guaranteed to be valid (not even src/sid).
+  A client that calls itself API v3.1 compliant but does not intend to delete should take care to ignore entries that have this flag set to true.
 
 ## v3.0 (sources as array mode) ##
 Created to allow Gson and similar libraries to be used for API clients.
@@ -54,7 +73,8 @@ Use when you want data from a different source than ZIv. v2 output is not compat
 
 ### Input parameters ###
 * version (int): Must be set to 20 to toggle this API version.
-* dump (int, unix timestamp, optional): when this field is present, all the below fields are ignored. Requests a dump of all data updated after the given timestamp. Use 0 to catch all data. The server is not required to implement this and may throw an error instead.
+* dump (int, unix timestamp, optional): when this field is present, all the below fields are ignored.
+  Requests a dump of all data updated after the given timestamp. Use 0 to catch all data. The server is not required to implement this and may throw an error instead.
 * datasrc* (string): comma-separated list of source aliases to request data from (currently valid are "ziv", "navi", and "osm"), or the catch-all value "all".
 * lat (double): current user latitude. The presence of this field determines radius mode.
 * lng (double): current user longitude. Required when lat is specified.
@@ -96,11 +116,14 @@ Each element contains the following fields:
 * src (string): shortname of data source.
 * sid (string): id of the location in the source data (can be used to pull up information using infoURL).
 * name (string): name of arcade.
-* city (string): city of arcade (e.g. "Raleigh, NC" or "東京都"). Due to data source limitations, this field may be empty or represent a more vague area (such as a state or prefecture).
+* city (string): city of arcade (e.g. "Raleigh, NC" or "東京都").
+  Due to data source limitations, this field may be empty or represent a more vague area (such as a state or prefecture).
 * lat (double): latitude of arcade.
 * lng (double): longitude of arcade.
-* hasDDR (boolean, optional): 0 for false, 1 for true, whether the arcade contains dance games (DDR/ITG/PIU). Due to data source limitations, this field may not provide a meaningful value.
-* distance (double, optional): distance in km from input coordinates to arcade location coordinates. Present only when the request was made in radius mode.
+* hasDDR (boolean, optional): 0 for false, 1 for true, whether the arcade contains dance games (DDR/ITG/PIU). 
+  Due to data source limitations, this field may not provide a meaningful value.
+* distance (double, optional): distance in km from input coordinates to arcade location coordinates.
+  Present only when the request was made in radius mode.
 
 ## v1.1 (radius mode) ##
 Use when what you have is the user's current location.
