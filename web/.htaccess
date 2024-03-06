@@ -1,0 +1,23 @@
+# Disable default directory file listings
+Options -Indexes
+
+# Disable default automatic Expires headers
+<ifmodule mod_expires.c>
+ExpiresActive Off
+</ifmodule>
+
+# Disable default Vary: User-Agent (prevents proper caching)
+Header edit Vary "User-Agent" ""
+
+# Adding charset `utf-8` to media types as recommended by webhint.io
+AddDefaultCharset utf-8
+<IfModule mod_mime.c>
+AddCharset utf-8 .css .js .json .geojson .svg
+</IfModule>
+
+# http://stackoverflow.com/questions/3673008/download-apk-from-own-webserver/11366500#11366500
+# https://datatracker.ietf.org/doc/html/rfc7946#section-12
+AddType application/geo+json .geojson
+
+Header always set X-Content-Type-Options "nosniff"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
