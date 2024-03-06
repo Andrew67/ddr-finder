@@ -29,7 +29,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 // Set up class autoloader
-set_include_path(get_include_path() . PATH_SEPARATOR . 'lib/');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib/');
 spl_autoload_extensions('.php');
 spl_autoload_register();
 
