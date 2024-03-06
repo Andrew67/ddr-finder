@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015-2021 Andrés Cordero
+ * Copyright (c) 2015-2024 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -25,64 +25,90 @@
  */
 
 /**
- * Class Sources
  * Contains data and helpers for information regarding the available data sources.
- * Tweak them here!!
  */
 class Sources {
-    /** @var array Raw source data, in same format as v2.0 API output. */
+    /** Raw source data, in same format as v4.0 API output. */
     public static array $data = [
         'ziv' => [
-            'shortName' => 'ziv',
+            'id' => 'ziv',
             'name' => 'Zenius -I- vanisher.com',
-            'homepageURL' => 'https://zenius-i-vanisher.com/',
-            'infoURL' => 'https://zenius-i-vanisher.com/v5.2/arcade.php?id=${sid}#summary',
-            'mInfoURL' => 'https://ddrfinder-proxy.andrew67.com/ziv/info/${sid}',
-            'hasDDR' => true,
+            'scope' => 'world',
+            'url:homepage' => 'https://zenius-i-vanisher.com/',
+            'url:info' => 'https://zenius-i-vanisher.com/v5.2/arcade.php?id=${sid}#summary',
+            'url:info:mobile' => 'https://ddrfinder-proxy.andrew67.com/ziv/info/${sid}',
+            'has:ddr' => true,
+            'has:piu' => false,
+            'has:smx' => false,
         ],
         'navi' => [
-            'shortName' => 'navi',
+            'id' => 'navi',
             'name' => 'DDR-Navi',
-            'homepageURL' => 'https://www.ddr-navi.jp/',
-            'infoURL' => 'https://www.ddr-navi.jp/shop/?id=${sid}',
-            'mInfoURL' => 'https://www.ddr-navi.jp/shop/?id=${sid}',
-            'hasDDR' => true,
+            'scope' => 'JP',
+            'url:homepage' => 'https://www.ddr-navi.jp/',
+            'url:info' => 'https://www.ddr-navi.jp/shop/?id=${sid}',
+            'url:info:mobile' => 'https://www.ddr-navi.jp/shop/?id=${sid}',
+            'has:ddr' => true,
+            'has:piu' => false,
+            'has:smx' => false,
         ],
         'osm' => [
-            'shortName' => 'osm',
+            'id' => 'osm',
             'name' => 'OpenStreetMap',
-            'homepageURL' => 'https://www.openstreetmap.org/',
-            'infoURL' => 'https://ddrfinder-proxy.andrew67.com/osm/redirect/${sid}',
-            'mInfoURL' => 'https://ddrfinder-proxy.andrew67.com/osm/redirect/${sid}',
-            'hasDDR' => false,
+            'scope' => 'world',
+            'url:homepage' => 'https://www.openstreetmap.org/',
+            'url:info' => 'https://ddrfinder-proxy.andrew67.com/osm/redirect/${sid}',
+            'url:info:mobile' => 'https://ddrfinder-proxy.andrew67.com/osm/redirect/${sid}',
+            'has:ddr' => false,
+            'has:piu' => false,
+            'has:smx' => false,
         ],
         // The intention with "fallback" is to provide a URL that redirects to source, based on actual database ID
         'fallback' => [
-            'shortName' => 'fallback',
+            'id' => 'fallback',
             'name' => 'Source Website',
-            'homepageURL' => 'https://ddrfinder.andrew67.com/',
-            'infoURL' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
-            'mInfoURL' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
-            'hasDDR' => false,
+            'scope' => 'world',
+            'url:homepage' => 'https://ddrfinder.andrew67.com/',
+            'url:info' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
+            'url:info:mobile' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
+            'has:ddr' => false,
+            'has:piu' => false,
+            'has:smx' => false,
         ],
     ];
 
     /**
+     * Converts the given source object to a version compatible legacy APIs.
+     * @param array $source The individual source object in today's format.
+     * @return array The source object in API v2.0/v3.0 format.
+     */
+    public static function getLegacyFormat(array $source): array {
+        return [
+            'shortName' => $source['id'],
+            'name' => $source['name'],
+            'homepageURL' => $source['url:homepage'],
+            'infoURL' => $source['url:info'],
+            'mInfoURL' => $source['url:info:mobile'],
+            'hasDDR' => $source['has:ddr'],
+        ];
+    }
+
+    /**
      * Returns a source object with information for the specified sources, and "fallback".
      * Invalid sources are ignored.
-     * @param array $sources Array of source strings.
+     * @param array $sources Array of source ID strings.
      * @return array API v2.0 output format source data.
      */
     public static function getSourceObject(array $sources): array {
-        if ('all' === $sources[0]) return self::$data;
+        if ('all' === $sources[0]) $sources = array_keys(self::$data);
+        else $sources[] = 'fallback';
 
         $d = array();
         foreach ($sources as $s) {
             if (array_key_exists($s, self::$data)) {
-                $d[$s] = self::$data[$s];
+                $d[$s] = self::getLegacyFormat(self::$data[$s]);
             }
         }
-        $d['fallback'] = self::$data['fallback'];
 
         return $d;
     }
@@ -90,7 +116,7 @@ class Sources {
     /**
      * Returns a source array with information for the specified sources, and "fallback".
      * Invalid sources are ignored.
-     * @param array $sources Array of source strings.
+     * @param array $sources Array of source ID strings.
      * @return array API v3.0 output format source data.
      */
     public static function getSourceArray(array $sources): array {
@@ -100,7 +126,7 @@ class Sources {
         $d = array();
         foreach ($sources as $s) {
             if (array_key_exists($s, self::$data)) {
-                $d[] = self::$data[$s];
+                $d[] = self::getLegacyFormat(self::$data[$s]);
             }
         }
 
@@ -108,17 +134,9 @@ class Sources {
     }
 
     /**
-     * Returns the shortnames of the available sources.
-     * @return array Shortnames of the available sources.
-     */
-    public static function getSourceNames(): array {
-        return array_keys(self::$data);
-    }
-
-    /**
-     * Whether the specified source is valid. "all" is valid, while "fallback" is not.
-     * @param string $source Source name to validate.
-     * @return bool Whether the specified source is valid.
+     * Whether the specified source ID is valid. "all" is valid, while "fallback" is not.
+     * @param string $source Source ID to validate.
+     * @return bool Whether the specified source ID is valid.
      */
     public static function isValidSource(string $source): bool {
         if ('all' === $source) return true;
