@@ -26,9 +26,14 @@
 
 // Generate a static `sources.json` file from the available `sources.php`
 // Re-run as needed when data changes
-require __DIR__ . '/../web/lib/sources.php';
+require __DIR__ . '/../lib/sources.php';
 
-$sourcesJson = json_encode(Sources::$data, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+$sources = [
+    'default' => Sources::$default,
+    'sources' => Sources::$data,
+];
+
+$sourcesJson = json_encode($sources, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 $result = file_put_contents(__DIR__ . '/../web/v4/sources.json', $sourcesJson);
 
 if ($result === false) {

@@ -44,8 +44,10 @@ interface DataSource {
 
 /**
  * The full `sources.json` response.
- * Sources are keyed by their `id` property.
  */
 interface SourcesApiResponse {
-  [id: string]: DataSource;
+  /** The ID of the default source to use in API queries, present to the user, etc */
+  default: string;
+  /** Sources, keyed by their `id` property. */
+  sources: Record<string, DataSource>;
 }

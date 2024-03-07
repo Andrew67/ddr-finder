@@ -63,18 +63,25 @@ class Sources {
             'has:piu' => false,
             'has:smx' => false,
         ],
-        // The intention with "fallback" is to provide a URL that redirects to source, based on actual database ID
-        'fallback' => [
-            'id' => 'fallback',
-            'name' => 'Source Website',
-            'scope' => 'world',
-            'url:homepage' => 'https://ddrfinder.andrew67.com/',
-            'url:info' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
-            'url:info:mobile' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
-            'has:ddr' => false,
-            'has:piu' => false,
-            'has:smx' => false,
-        ],
+    ];
+
+    /** The ID of the default source to use in API queries, present to the user, etc */
+    public static string $default = 'ziv';
+
+    /**
+     * The intention with "fallback" was to provide a URL that redirects to source, based on actual database ID.
+     * Kept here for API v2.0/v3.0 reasons, it will not appear in API v4.0.
+     */
+    public static array $fallback = [
+        'id' => 'fallback',
+        'name' => 'Source Website',
+        'scope' => 'world',
+        'url:homepage' => 'https://ddrfinder.andrew67.com/',
+        'url:info' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
+        'url:info:mobile' => 'https://ddrfinder.andrew67.com/info.php?id=${id}',
+        'has:ddr' => false,
+        'has:piu' => false,
+        'has:smx' => false,
     ];
 
     /**
@@ -101,7 +108,6 @@ class Sources {
      */
     public static function getSourceObject(array $sources): array {
         if ('all' === $sources[0]) $sources = array_keys(self::$data);
-        else $sources[] = 'fallback';
 
         $d = array();
         foreach ($sources as $s) {
@@ -109,6 +115,7 @@ class Sources {
                 $d[$s] = self::getLegacyFormat(self::$data[$s]);
             }
         }
+        $d['fallback'] = self::getLegacyFormat(self::$fallback);
 
         return $d;
     }
@@ -129,6 +136,7 @@ class Sources {
                 $d[] = self::getLegacyFormat(self::$data[$s]);
             }
         }
+        $d[] = self::getLegacyFormat(self::$fallback);
 
         return $d;
     }
