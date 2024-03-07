@@ -59,7 +59,7 @@ export interface ArcadeLocation {
 
 /**
  * Extends the concept of a "FeatureCollection" in GeoJSON.
- * See {@link https://www.rfc-editor.org/rfc/rfc7946#section-3.2}.
+ * See {@link https://www.rfc-editor.org/rfc/rfc7946#section-3.3}.
  * It can be fed directly to GeoJSON consumers such as Google Maps and Mapbox GL JS.
  */
 export interface ArcadeLocationApiResponse<T extends ArcadeLocation> {

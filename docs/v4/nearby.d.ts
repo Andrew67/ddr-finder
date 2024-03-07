@@ -12,4 +12,12 @@ export interface ArcadeLocationWithDistance extends ArcadeLocation {
   distanceKm: number;
 }
 
-export interface NearbyApiResponse extends ArcadeLocationApiResponse<ArcadeLocationWithDistance> {}
+export interface NearbyApiResponse extends ArcadeLocationApiResponse<ArcadeLocationWithDistance> {
+  /**
+   * "Bounding Box" concept in GeoJSON.
+   * See {@link https://www.rfc-editor.org/rfc/rfc7946#section-5}.
+   * Provides information back to the frontend about the bounding box used in the search.
+   */
+  bbox: [southWestLongitude: number, southWestLatitude: number,
+         northEastLongitude: number, northEastLatitude: number];
+}
