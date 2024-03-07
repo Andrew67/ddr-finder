@@ -1,4 +1,4 @@
-interface DataSource {
+export interface DataSource {
   /**
    * Short ID string for this data source, which is used in API requests/responses.
    * As of API 4.0 release, the possible values are "ziv", "navi", and "osm".
@@ -45,7 +45,7 @@ interface DataSource {
 /**
  * The full `sources.json` response.
  */
-interface SourcesApiResponse {
+export interface SourcesApiResponse {
   /** The ID of the default source to use in API queries, present to the user, etc */
   default: string;
   /** Sources, keyed by their `id` property. */
