@@ -1,0 +1,2 @@
+ExpiresActive On
+ExpiresDefault "modification plus 1 week"
