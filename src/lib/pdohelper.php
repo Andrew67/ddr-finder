@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015 Andrés Cordero
+ * Copyright (c) 2015-2024 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -29,14 +29,14 @@
  * Provides a handle to the database connection, or creates it on first invocation.
  */
 class PDOHelper {
-    private static $connection = null;
+    private static ?PDO $connection = null;
 
-    public static function getConnection() {
-        if (null === self::$connection) {
+    public static function getConnection(): PDO {
+        if (self::$connection === null) {
             $db_conf = require __DIR__ . '/../db-conf.php';
             $dsn = "{$db_conf['driver']}:dbname={$db_conf['database']};host={$db_conf['host']}";
             self::$connection = new PDO($dsn, $db_conf['username'], $db_conf['password'], array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'",
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
                 PDO::ATTR_EMULATE_PREPARES => false
             ));
         }
