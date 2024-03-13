@@ -33,6 +33,7 @@ spl_autoload_extensions('.php');
 spl_autoload_register();
 
 // For each source, set up the file path and file handle
+// TODO: Open file variations for game-specific outputs
 $sources = [];
 foreach (Sources::$data as $source) {
     $filename = __DIR__ . "/../web/v4/all/{$source['id']}.geojson";
@@ -42,6 +43,8 @@ foreach (Sources::$data as $source) {
     }
 
     $sources[$source['id']] = (object) [
+        'id' => $source['id'],
+        'hasDDR' => $source['has:ddr'],
         'filename' => $filename,
         'handle' => $handle,
         'locations' => 0,
@@ -53,6 +56,10 @@ foreach (Sources::$data as $source) {
 foreach ($sources as $source) {
     fwrite($source->handle, '{"type": "FeatureCollection","features": [');
 }
+
+// Used below in for the game availability field logic
+$minRand = rand(1, 512);
+$maxRand = $minRand + 10;
 
 // Set up database connection, query database table once, then sort out the results into the different files
 $dbh = PDOHelper::getConnection();
@@ -69,15 +76,19 @@ while ($location = $locations->fetch()) {
     $city = json_encode($location['city'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 
     // Game availability field logic
-    // TODO: -1 for no data available sources, random positive integer when available
-    // TODO: With respect for DDR Navi, keep it 1 when available
+    // TODO: Extract to separate function
+    // Using a random number to keep implementations honest, while binding each iteration to 10 at a time
+    // so compression isn't totally destroyed
+    $hasDDR = $location['hasDDR'] ? rand($minRand, $maxRand) : 0;
+    // Since DDR Navi has all locations with DDR, let's set it back to 1 for max compression
+    if ($source->id === 'navi' && $hasDDR) $hasDDR = 1;
+    // If the data source itself lacks the information, set to -1
+    if (!$source->hasDDR) $hasDDR = -1;
 
     $geoJson = <<<JSON
-    {$leadingComma}{
-      "type": "Feature",
+    {$leadingComma}{"type": "Feature",
       "id": {$location['id']},
-      "geometry": {
-        "type": "Point",
+      "geometry": {"type": "Point",
         "coordinates": [{$longitude}, {$latitude}]
       },
       "properties": {
@@ -86,7 +97,7 @@ while ($location = $locations->fetch()) {
         "name": {$name},
         "city": {$city},
         "country": "",
-        "has:ddr": {$location['hasDDR']},
+        "has:ddr": {$hasDDR},
         "has:piu": -1,
         "has:smx": -1
       }
