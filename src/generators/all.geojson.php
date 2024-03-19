@@ -33,28 +33,43 @@ spl_autoload_extensions('.php');
 spl_autoload_register();
 
 // For each source, set up the file path and file handle
-// TODO: Open file variations for game-specific outputs
 $sources = [];
 foreach (Sources::$data as $source) {
-    $filename = __DIR__ . "/../web/v4/all/{$source['id']}.geojson";
-    $handle = fopen($filename, 'w');
+    $baseFilename = __DIR__ . "/../web/v4/all/{$source['id']}";
+    $mainFilename = "{$baseFilename}.geojson";
+    $handle = fopen($mainFilename, 'w');
     if ($handle === false) {
-        die("Unable to open file {$filename} for writing");
+        die("Unable to open file {$mainFilename} for writing");
+    }
+
+    $ddrHandle = null;
+    if ($source['has:ddr']) {
+        $ddrFilename = "{$baseFilename}/ddr.geojson";
+        $ddrHandle = fopen($ddrFilename, 'w');
+        if ($ddrHandle === false) {
+            die("Unable to open file {$ddrFilename} for writing");
+        }
     }
 
     $sources[$source['id']] = (object) [
         'id' => $source['id'],
         'hasDDR' => $source['has:ddr'],
-        'filename' => $filename,
         'handle' => $handle,
         'locations' => 0,
         'bytesWritten' => 0,
+        'ddr' => (object) [
+            'handle' => $ddrHandle,
+            'locations' => 0,
+            'bytesWritten' => 0,
+        ]
     ];
 }
 
 // Prepare GeoJSON FeatureCollection wrapper in each file
 foreach ($sources as $source) {
-    fwrite($source->handle, '{"type": "FeatureCollection","features": [');
+    $geoJsonHeader = '{"type": "FeatureCollection","features": [';
+    fwrite($source->handle, $geoJsonHeader);
+    if ($source->ddr->handle) fwrite($source->ddr->handle, $geoJsonHeader);
 }
 
 // Used below in for the game availability field logic
@@ -67,6 +82,7 @@ $locations = $dbh->query("SELECT * FROM `locations`", PDO::FETCH_ASSOC);
 while ($location = $locations->fetch()) {
     $source = $sources[$location['source_type']];
     $leadingComma = $source->locations > 0 ? ',' : '';
+    $ddrLeadingComma = $source->ddr->locations > 0 ? ',' : '';
 
     // Writing the GeoJSON manually to ensure things like numbers are rounded out
     $latitude = number_format($location['latitude'], 4);
@@ -76,7 +92,6 @@ while ($location = $locations->fetch()) {
     $city = json_encode($location['city'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 
     // Game availability field logic
-    // TODO: Extract to separate function
     // Using a random number to keep implementations honest, while binding each iteration to 10 at a time
     // so compression isn't totally destroyed
     $hasDDR = $location['hasDDR'] ? rand($minRand, $maxRand) : 0;
@@ -86,7 +101,7 @@ while ($location = $locations->fetch()) {
     if (!$source->hasDDR) $hasDDR = -1;
 
     $geoJson = <<<JSON
-    {$leadingComma}{"type": "Feature",
+    {"type": "Feature",
       "id": {$location['id']},
       "geometry": {"type": "Point",
         "coordinates": [{$longitude}, {$latitude}]
@@ -105,13 +120,23 @@ while ($location = $locations->fetch()) {
     JSON;
 
     $source->locations += 1;
-    $source->bytesWritten += fwrite($source->handle, $geoJson . PHP_EOL);
+    $source->bytesWritten += fwrite($source->handle, $leadingComma . $geoJson . PHP_EOL);
+
+    if ($source->ddr->handle && $hasDDR > 0) {
+        $source->ddr->locations += 1;
+        $source->ddr->bytesWritten += fwrite($source->ddr->handle, $ddrLeadingComma . $geoJson . PHP_EOL);
+    }
 }
 
 // Wrap up the GeoJSON FeatureCollection wrapper and close each file
 foreach ($sources as $source) {
     fwrite($source->handle, ']}');
     fclose($source->handle);
+
+    if ($source->ddr->handle) {
+        fwrite($source->ddr->handle, ']}');
+        fclose($source->ddr->handle);
+    }
 }
 
 var_dump($sources);
