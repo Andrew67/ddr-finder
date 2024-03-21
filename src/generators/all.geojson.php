@@ -51,6 +51,24 @@ foreach (Sources::$data as $source) {
         }
     }
 
+    $piuHandle = null;
+    if ($source['has:piu']) {
+        $piuFilename = "{$baseFilename}/piu.geojson";
+        $piuHandle = fopen($piuFilename, 'w');
+        if ($piuHandle === false) {
+            die("Unable to open file {$piuFilename} for writing");
+        }
+    }
+
+    $smxHandle = null;
+    if ($source['has:smx']) {
+        $smxFilename = "{$baseFilename}/smx.geojson";
+        $smxHandle = fopen($smxFilename, 'w');
+        if ($smxHandle === false) {
+            die("Unable to open file {$smxFilename} for writing");
+        }
+    }
+
     $sources[$source['id']] = (object) [
         'id' => $source['id'],
         'hasDDR' => $source['has:ddr'],
@@ -63,9 +81,17 @@ foreach (Sources::$data as $source) {
             'handle' => $ddrHandle,
             'locations' => 0,
             'bytesWritten' => 0,
+        ],
+        'piu' => (object) [
+            'handle' => $piuHandle,
+            'locations' => 0,
+            'bytesWritten' => 0,
+        ],
+        'smx' => (object) [
+            'handle' => $smxHandle,
+            'locations' => 0,
+            'bytesWritten' => 0,
         ]
-        // TODO: PIU file
-        // TODO: SMX file
     ];
 }
 
@@ -86,6 +112,8 @@ while ($location = $locations->fetch()) {
     $source = $sources[$location['source_type']];
     $leadingComma = $source->locations > 0 ? ',' : '';
     $ddrLeadingComma = $source->ddr->locations > 0 ? ',' : '';
+    $piuLeadingComma = $source->piu->locations > 0 ? ',' : '';
+    $smxLeadingComma = $source->smx->locations > 0 ? ',' : '';
 
     // Writing the GeoJSON manually to ensure things like numbers are rounded out
     $latitude = number_format($location['latitude'], 4);
@@ -126,6 +154,14 @@ while ($location = $locations->fetch()) {
     if ($source->ddr->handle && $hasDDR > 0) {
         $source->ddr->locations += 1;
         $source->ddr->bytesWritten += fwrite($source->ddr->handle, $ddrLeadingComma . $geoJson . PHP_EOL);
+    }
+    if ($source->piu->handle && $hasPIU > 0) {
+        $source->piu->locations += 1;
+        $source->piu->bytesWritten += fwrite($source->piu->handle, $piuLeadingComma . $geoJson . PHP_EOL);
+    }
+    if ($source->smx->handle && $hasSMX > 0) {
+        $source->smx->locations += 1;
+        $source->smx->bytesWritten += fwrite($source->smx->handle, $smxLeadingComma . $geoJson . PHP_EOL);
     }
 }
 
