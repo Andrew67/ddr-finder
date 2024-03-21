@@ -36,7 +36,7 @@ class PDOHelper {
             $db_conf = require __DIR__ . '/../db-conf.php';
             $dsn = "{$db_conf['driver']}:dbname={$db_conf['database']};host={$db_conf['host']}";
             self::$connection = new PDO($dsn, $db_conf['username'], $db_conf['password'], array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'",
                 PDO::ATTR_EMULATE_PREPARES => false
             ));
         }
