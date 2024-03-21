@@ -54,6 +54,8 @@ foreach (Sources::$data as $source) {
     $sources[$source['id']] = (object) [
         'id' => $source['id'],
         'hasDDR' => $source['has:ddr'],
+        'hasPIU' => $source['has:piu'],
+        'hasSMX' => $source['has:smx'],
         'handle' => $handle,
         'locations' => 0,
         'bytesWritten' => 0,
@@ -62,6 +64,8 @@ foreach (Sources::$data as $source) {
             'locations' => 0,
             'bytesWritten' => 0,
         ]
+        // TODO: PIU file
+        // TODO: SMX file
     ];
 }
 
@@ -73,8 +77,7 @@ foreach ($sources as $source) {
 }
 
 // Used below in for the game availability field logic
-$minRand = rand(1, 512);
-$maxRand = $minRand + 10;
+$gah = new GameAvailabilityHelper();
 
 // Set up database connection, query database table once, then sort out the results into the different files
 $dbh = PDOHelper::getConnection();
@@ -90,15 +93,13 @@ while ($location = $locations->fetch()) {
     $sid = json_encode($location['source_id'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
     $name = json_encode($location['name'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
     $city = json_encode($location['city'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+    $country = json_encode($location['country'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 
-    // Game availability field logic
-    // Using a random number to keep implementations honest, while binding each iteration to 10 at a time
-    // so compression isn't totally destroyed
-    $hasDDR = $location['hasDDR'] ? rand($minRand, $maxRand) : 0;
-    // Since DDR Navi has all locations with DDR, let's set it back to 1 for max compression
-    if ($source->id === 'navi' && $hasDDR) $hasDDR = 1;
-    // If the data source itself lacks the information, set to -1
-    if (!$source->hasDDR) $hasDDR = -1;
+    // Game availability fields
+    // Since DDR Navi has all locations with DDR, let's set all to 1 for max compression
+    $hasDDR = ($source->id === 'navi') ? 1 : $gah->getAvailability($source->hasDDR, $location['hasDDR']);
+    $hasPIU = $gah->getAvailability($source->hasPIU, $location['hasPIU']);
+    $hasSMX = $gah->getAvailability($source->hasSMX, $location['hasSMX']);
 
     $geoJson = <<<JSON
     {"type": "Feature",
@@ -111,10 +112,10 @@ while ($location = $locations->fetch()) {
         "sid": {$sid},
         "name": {$name},
         "city": {$city},
-        "country": "",
+        "country": {$country},
         "has:ddr": {$hasDDR},
-        "has:piu": -1,
-        "has:smx": -1
+        "has:piu": {$hasPIU},
+        "has:smx": {$hasSMX}
       }
     }
     JSON;
