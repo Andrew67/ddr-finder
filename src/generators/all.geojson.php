@@ -176,5 +176,5 @@ foreach ($sources as $source) {
     }
 }
 
-var_dump($sources);
+echo json_encode($sources, JSON_PRETTY_PRINT | JSON_PARTIAL_OUTPUT_ON_ERROR);
 echo 'Success' . PHP_EOL;

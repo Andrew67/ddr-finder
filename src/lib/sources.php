@@ -38,8 +38,8 @@ class Sources {
             'url:info' => 'https://zenius-i-vanisher.com/v5.2/arcade.php?id=${sid}#summary',
             'url:info:mobile' => 'https://ddrfinder-proxy.andrew67.com/ziv/info/${sid}',
             'has:ddr' => true,
-            'has:piu' => false,
-            'has:smx' => false,
+            'has:piu' => true,
+            'has:smx' => true,
         ],
         'navi' => [
             'id' => 'navi',
