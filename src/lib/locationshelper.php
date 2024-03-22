@@ -31,8 +31,8 @@
 class LocationsHelper {
 
     // Query constants
-    const string SELECT_cols = '`id`, `source_type` AS `src`, `source_id` AS `sid`, `name`, `city`,
-        `latitude` AS `lat`, `longitude` AS `lng`, `hasDDR`';
+    const string SELECT_cols = '`id`, `source_type` AS `src`, `source_id` AS `sid`, `name`, `city`, `country`,
+        TRUNCATE(`latitude`,4) AS `lat`, TRUNCATE(`longitude`,4) AS `lng`, `hasDDR`, `hasPIU`, `hasSMX`';
     const string SELECT_distance = 'TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat1),2)+POW(COS(RADIANS((`latitude`+:lat2)/2))*RADIANS(`longitude`-:lng1),2)),2)
         AS `distance`';
     const string FROM = 'FROM `locations`';

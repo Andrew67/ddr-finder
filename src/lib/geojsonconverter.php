@@ -27,9 +27,47 @@
 /**
  * Class GeoJSONConverter
  * Provides helper methods for converting location data from LocationsHelper into a data structure that becomes
- * valid GeoJSON when passed through json_encode(), for API v3.1 output support.
+ * valid GeoJSON when passed through json_encode(), for API v3.1/v4.0 output support.
  */
 class GeoJSONConverter {
+    // Used by convertFeatureV4
+    private GameAvailabilityHelper $gah;
+    private array $source;
+
+    public function __construct(GameAvailabilityHelper $gah, array $source) {
+        $this->gah = $gah;
+        $this->source = $source;
+    }
+
+    /**
+     * Takes in a single location entry and converts into a GeoJSON feature (for API v4).
+     * @param array $location A location entry from the database, from a LocationsHelper result array.
+     * @return array GeoJSON format array for a Feature (in API v4 format).
+     */
+    public function convertFeatureV4(array $location): array {
+        $output = [
+            'type' => 'Feature',
+            'id' => (int) $location['id'],
+            'geometry' => [
+                'type' => 'Point',
+                'coordinates' => [(float) $location['lng'], (float) $location['lat']]
+            ],
+            'properties' => [
+                'src' => $location['src'],
+                'sid' => $location['sid'],
+                'name' => $location['name'],
+                'city' => $location['city'],
+                'country' => $location['country'],
+                'has:ddr' => $this->gah->getAvailability($this->source['has:ddr'], $location['hasDDR']),
+                'has:piu' => $this->gah->getAvailability($this->source['has:piu'], $location['hasPIU']),
+                'has:smx' => $this->gah->getAvailability($this->source['has:smx'], $location['hasSMX'])
+            ]
+        ];
+        if (isset($location['distance'])) {
+            $output['properties']['distanceKm'] = (float) $location['distance'];
+        }
+        return $output;
+    }
 
     /**
      * Takes in a single location entry and converts into a GeoJSON feature.

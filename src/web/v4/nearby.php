@@ -50,8 +50,9 @@ if (empty($_GET['src'])) {
 }
 
 $sourceId = $_GET['src'];
+$source = Sources::$data[$sourceId];
 // Validate data source and throw error if invalid data source encountered
-if (Sources::$data[$sourceId] === null) {
+if ($source === null) {
     echo APIError::getError(APIError::INVALID_DATA_SOURCE, "Invalid 'src' value specified: {$sourceId}");
     exit(1);
 }
@@ -73,20 +74,37 @@ if (preg_match("/\.\d{5,}$/", $latLng[0]) || preg_match("/\.\d{5,}$/", $latLng[1
     exit(1);
 }
 
+// Set Expires header to the time the database update scripts run
+$expiresTimestamp = strtotime("next Tuesday 1:20AM");
+$expiresTimeString = gmdate('D, d M Y H:i:s \G\M\T', $expiresTimestamp);
+header("Expires: {$expiresTimeString}");
+
 $coordinates = new Coords((float) $latLng[0], (float) $latLng[1]);
 
 // TODO: Game filters
 
 // Grab limit parameter if available, otherwise set to 10 (max 50)
-$limit = min((is_numeric($_GET['limit'])) ? $_GET['limit'] : 10, 50);
+$limit = (is_numeric($_GET['limit'])) ? $_GET['limit'] : 10;
+if ($limit < 1 || $limit > 50) {
+    echo APIError::getError(APIError::OUT_OF_BOUNDS_LIMIT, "The 'limit' field was provided, but was not between 1 and 50 (inclusive).");
+    exit(1);
+}
 
 // Set up JSON result
 // Inject locations data
 $locationsHelper = new LocationsHelper(PDOHelper::getConnection());
 $locations = $locationsHelper->getRadius($coordinates, [$sourceId], $limit);
-// TODO: APIv4 shape converter
-$locations = GeoJSONConverter::convertCollection($locations);
+$geoJSONConverter = new GeoJSONConverter(new GameAvailabilityHelper(), $source);
 
-// TODO: Expires header
+// bbox: SW point, NE point
+$bbox = json_encode([
+    $coordinates->lng - 0.5, $coordinates->lat - 0.5,
+    $coordinates->lng + 0.5, $coordinates->lat + 0.5]);
 
-echo json_encode($locations, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+echo "{\"type\":\"FeatureCollection\",\"bbox\":{$bbox},\"features\":[";
+$leadingComma = '';
+foreach ($locations as $item) {
+    echo $leadingComma . json_encode($geoJSONConverter->convertFeatureV4($item), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    $leadingComma = ',';
+}
+echo ']}';

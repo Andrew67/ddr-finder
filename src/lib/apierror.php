@@ -40,6 +40,7 @@ class APIError {
     const TOO_MANY_DECIMALS_COORDINATES = 50;
     const OUT_OF_ORDER_PARAMETERS = 51;
     const OUT_OF_ORDER_FILTERS = 52;
+    const OUT_OF_BOUNDS_LIMIT = 53;
 
     /**
      * Returns the v2.0 API error structure.
