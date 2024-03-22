@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015 Andrés Cordero
+ * Copyright (c) 2015-2024 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -31,26 +31,22 @@
 class LocationsHelper {
 
     // Query constants
-    const SELECT_cols = '`id`, `source_type` AS `src`, `source_id` AS `sid`, `name`, `city`,
+    const string SELECT_cols = '`id`, `source_type` AS `src`, `source_id` AS `sid`, `name`, `city`,
         `latitude` AS `lat`, `longitude` AS `lng`, `hasDDR`';
-    const SELECT_distance = 'TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat1),2)+POW(COS(RADIANS((`latitude`+:lat2)/2))*RADIANS(`longitude`-:lng1),2)),2)
+    const string SELECT_distance = 'TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat1),2)+POW(COS(RADIANS((`latitude`+:lat2)/2))*RADIANS(`longitude`-:lng1),2)),2)
         AS `distance`';
-    const FROM = 'FROM `locations`';
-    const WHERE_radius = '`latitude` > (:lat3-0.5) AND
+    const string FROM = 'FROM `locations`';
+    const string WHERE_radius = '`latitude` > (:lat3-0.5) AND
         `latitude` < (:lat4+0.5) AND
         `longitude` > (:lng2-0.5) AND
         `longitude` < (:lng3+0.5)';
-    const WHERE_box = '`latitude` > :latlower AND
+    const string WHERE_box = '`latitude` > :latlower AND
         `latitude` < :latupper AND
         `longitude` > :lnglower AND
         `longitude` < :lngupper';
 
-    /** @var PDO Database connection handle. */
-    private $dbh;
+    private PDO $dbh;
 
-    /**
-     * @param PDO $dbh Previously established connection to the database.
-     */
     function __construct(PDO $dbh) {
         $this->dbh = $dbh;
     }
@@ -61,7 +57,7 @@ class LocationsHelper {
      * @param boolean $includeDeletions Whether to include deleted entries since given timestamp (see API v3.1).
      * @return array API format array.
      */
-    public function getDump($timestamp, $includeDeletions) {
+    public function getDump(int $timestamp, bool $includeDeletions): array {
         $notDeletedSql = ($includeDeletions) ? ', 0 AS `deleted`' : '';
 
         $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ' ' . $notDeletedSql . ' ' . self::FROM .
@@ -88,10 +84,10 @@ class LocationsHelper {
      * Retrieve all records within +/- 0.5 of the given lat/lng, sorted by distance.
      * @param Coords $coords
      * @param array $src Data sources to pull from.
-     * @param int|boolean $limit Number of results to limit the resultset to, or FALSE for no limit.
+     * @param boolean|int $limit Number of results to limit the resultset to, or FALSE for no limit.
      * @return array API format array.
      */
-    public function getRadius($coords, $src, $limit) {
+    public function getRadius(Coords $coords, array $src, bool|int $limit): array {
         $limitSql = ($limit === false) ? '' : 'LIMIT ' . $limit;
 
         $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ', ' . self::SELECT_distance . ' ' . self::FROM .
@@ -115,7 +111,7 @@ class LocationsHelper {
      * @param array $src Data sources to pull from.
      * @return array API format array.
      */
-    public function getBox(CoordsBox $boundingBox, $src) {
+    public function getBox(CoordsBox $boundingBox, array $src): array {
         $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ' ' . self::FROM .
             ' WHERE ' . $this->getSourceString($src) . ' AND ' . self::WHERE_box);
         $stmt->execute(array(
@@ -133,7 +129,7 @@ class LocationsHelper {
      * @param array $src
      * @return string SQL fragment with safe values.
      */
-    private function getSourceString($src) {
+    private function getSourceString(array $src): string {
         // Handle special value "all"
         if ('all' === $src[0]) return '1=1';
 

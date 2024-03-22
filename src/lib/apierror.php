@@ -31,13 +31,15 @@
 class APIError {
 
     // Error code constants
-    // See API description: https://github.com/Andrew67/ddr-finder/wiki/API-Description
     const VERSION_NOT_SUPPORTED = 1;
     const MISSING_REQUIRED_FIELD = 20;
     const INVALID_DATA_SOURCE = 21;
     const DUMP_FORBIDDEN = 22;
     const OVERSIZED_BOX_FORBIDDEN = 23;
     const TOO_MANY_REQUESTS = 42;
+    const TOO_MANY_DECIMALS_COORDINATES = 50;
+    const OUT_OF_ORDER_PARAMETERS = 51;
+    const OUT_OF_ORDER_FILTERS = 52;
 
     /**
      * Returns the v2.0 API error structure.

@@ -87,5 +87,6 @@ See `/v4/nearby.d.ts` for exact field definitions with full JSDocs.
 
 ### Errors
 - `HTTP 404`: The given data source ID does not exist.
+- `HTTP 403`: The origin webserver does not have authorization for this API.
 - `HTTP 400`: Will contain a human-readable message about which strict URL construction rule was violated
   (parameter order, value order, too many decimal digits in the coordinates, etc).

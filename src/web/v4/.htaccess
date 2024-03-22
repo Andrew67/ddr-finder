@@ -4,3 +4,6 @@ Header always set Access-Control-Allow-Origin "*"
   Header set Cache-Control "public, max-age=180, must-revalidate"
   Header set Cloudflare-CDN-Cache-Control "maxage=86400"
 </Files>
+
+RewriteEngine On
+RewriteRule "^nearby/(.*)\.geojson$" "nearby.php?src=$1" [QSA,L]

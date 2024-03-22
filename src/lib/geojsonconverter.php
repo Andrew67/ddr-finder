@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2016 Andrés Cordero
+ * Copyright (c) 2016-2024 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -36,22 +36,22 @@ class GeoJSONConverter {
      * @param array $location A location entry from the database, from a LocationsHelper result array.
      * @return array GeoJSON format array for a Feature.
      */
-    public static function convertFeature($location) {
-        $output = array(
+    public static function convertFeature(array $location): array {
+        $output = [
             'type' => 'Feature',
-            'geometry' => array(
+            'geometry' => [
                 'type' => 'Point',
-                'coordinates' => array((float) $location['lng'], (float) $location['lat'])
-            ),
-            'properties' => array(
+                'coordinates' => [(float) $location['lng'], (float) $location['lat']]
+            ],
+            'properties' => [
                 'id' => (int) $location['id'],
                 'src' => $location['src'],
                 'sid' => $location['sid'],
                 'name' => $location['name'],
                 'city' => $location['city'],
                 'hasDDR' => (int) $location['hasDDR']
-            )
-        );
+            ]
+        ];
         if (isset($location['distance'])) {
             $output['properties']['distance'] = (float) $location['distance'];
         }
@@ -59,15 +59,15 @@ class GeoJSONConverter {
     }
 
     /**
-     * Takes in a resultset of locations and converts into a GeoJSON feature collection.
+     * Takes in a result set of locations and converts into a GeoJSON feature collection.
      * @param array $locations A location array from the database, from LocationsHelper.
      * @return array GeoJSON format array for a FeatureCollection.
      */
-    public static function convertCollection($locations) {
-        $output = array(
+    public static function convertCollection(array $locations): array {
+        $output = [
             'type' => 'FeatureCollection',
-            'features' => array()
-        );
+            'features' => []
+        ];
         foreach ($locations as $item) {
             $output['features'][] = self::convertFeature($item);
         }
