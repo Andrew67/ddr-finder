@@ -30,6 +30,7 @@
  */
 class CORSHelper {
     public static function isCORSAuthorized(): bool {
+        if (empty($_SERVER['HTTP_ORIGIN'])) return false;
         $corsConf = require __DIR__ . '/../cors-conf.php';
         return in_array($_SERVER['HTTP_ORIGIN'], $corsConf['allowed-origins']) ||
             str_ends_with($_SERVER['HTTP_ORIGIN'], $corsConf['allowed-origin-suffix']);

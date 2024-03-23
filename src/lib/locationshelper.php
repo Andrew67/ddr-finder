@@ -44,6 +44,11 @@ class LocationsHelper {
         `latitude` < :latupper AND
         `longitude` > :lnglower AND
         `longitude` < :lngupper';
+    const array WHERE_hasGame = [
+        'ddr' => '`hasDDR` = 1',
+        'piu' => '`hasPIU` = 1',
+        'smx' => '`hasSMX` = 1',
+    ];
 
     private PDO $dbh;
 
@@ -85,14 +90,16 @@ class LocationsHelper {
      * @param Coords $coords
      * @param array $src Data sources to pull from.
      * @param boolean|int $limit Number of results to limit the resultset to, or FALSE for no limit.
+     * @param array $games Game IDs (from WHERE_hasGame keys) an arcade should have at least one of, or empty for no filter.
      * @return array API format array.
      */
-    public function getRadius(Coords $coords, array $src, bool|int $limit): array {
+    public function getRadius(Coords $coords, array $src, bool|int $limit, array $games = []): array {
         $limitSql = ($limit === false) ? '' : 'LIMIT ' . $limit;
 
-        $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ', ' . self::SELECT_distance . ' ' . self::FROM .
-            ' WHERE ' . $this->getSourceString($src) . ' AND ' . self::WHERE_radius . ' ORDER BY `distance` ASC ' .
-            $limitSql);
+        $stmt = $this->dbh->prepare(
+            sprintf("SELECT %s, %s %s WHERE %s AND %s %s ORDER BY `distance` ASC %s",
+                self::SELECT_cols, self::SELECT_distance, self::FROM,
+                $this->getSourceString($src), self::WHERE_radius, $this->getGameFilter($games), $limitSql));
         $stmt->execute(array(
             ':lat1' => $coords->lat,
             ':lat2' => $coords->lat,
@@ -144,6 +151,22 @@ class LocationsHelper {
 
         $q .= ')';
         return $q;
+    }
+
+    /**
+     * Builds a conditional string based on game availability filters.
+     * Example output: AND (`hasDDR` = 1 OR `hasPIU` = 1)
+     * @param array $games Game values from WHERE_hasGame keys.
+     * @return string SQL fragment with safe values.
+     */
+    private function getGameFilter(array $games): string {
+        if (count($games) === 0) return '';
+        $queryParts = [];
+        foreach ($games as $game) {
+            $queryParts[] = self::WHERE_hasGame[$game];
+        }
+        $query = implode(' OR ', $queryParts);
+        return "AND {$query}";
     }
 
 }

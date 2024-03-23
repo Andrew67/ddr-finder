@@ -113,8 +113,7 @@ header("Expires: {$expiresTimeString}");
 // Set up JSON result
 // Inject locations data
 $locationsHelper = new LocationsHelper(PDOHelper::getConnection());
-// TODO: Pass filters to getRadius call
-$locations = $locationsHelper->getRadius($coordinates, [$sourceId], $limit);
+$locations = $locationsHelper->getRadius($coordinates, [$sourceId], $limit, $filters);
 $geoJSONConverter = new GeoJSONConverter(new GameAvailabilityHelper(), $source);
 
 // bbox: SW point, NE point
