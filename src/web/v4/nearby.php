@@ -45,15 +45,17 @@ if (CORSHelper::isCORSAuthorized()) {
 
 // Input field validations
 if (empty($_GET['src'])) {
-    echo APIError::getError(APIError::MISSING_REQUIRED_FIELD, "The 'src' field is required, but was not specified.");
+    header('HTTP/1.1 404 Not Found');
+    echo APIError::getError(APIError::MISSING_REQUIRED_FIELD, "The 'src' field is required, but was not specified.", false);
     exit(1);
 }
 
 $sourceId = $_GET['src'];
-$source = Sources::$data[$sourceId];
+$source = array_key_exists($sourceId, Sources::$data) ? Sources::$data[$sourceId] : null;
 // Validate data source and throw error if invalid data source encountered
 if ($source === null) {
-    echo APIError::getError(APIError::INVALID_DATA_SOURCE, "Invalid 'src' value specified: {$sourceId}");
+    header('HTTP/1.1 404 Not Found');
+    echo APIError::getError(APIError::INVALID_DATA_SOURCE, "Invalid 'src' value specified: {$sourceId}", false);
     exit(1);
 }
 
@@ -97,8 +99,8 @@ foreach ($filters as $v) {
 }
 
 // Grab limit parameter if available, otherwise set to 10 (max 50)
-$limit = (is_numeric($_GET['limit'])) ? $_GET['limit'] : 10;
-if ($limit < 1 || $limit > 50) {
+$limit = $_GET['limit'] ?? 10;
+if (!is_numeric($limit) || $limit < 1 || $limit > 50) {
     echo APIError::getError(APIError::OUT_OF_BOUNDS_LIMIT, "The 'limit' field was provided, but was not between 1 and 50 (inclusive).");
     exit(1);
 }

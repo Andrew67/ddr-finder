@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015 Andrés Cordero
+ * Copyright (c) 2015-2024 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -52,8 +52,8 @@ class APIError {
      * @param string $message User-readable message.
      * @return string API error structure in JSON format.
      */
-    public static function getError($code, $message) {
-        header('HTTP/1.1 400 Bad Request');
+    public static function getError(int $code, string $message, bool $set400Error = true): string {
+        if ($set400Error) header('HTTP/1.1 400 Bad Request');
         return json_encode(array(
             'error' => $message,
             'errorCode' => $code
