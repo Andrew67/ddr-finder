@@ -41,6 +41,7 @@ class APIError {
     const OUT_OF_ORDER_PARAMETERS = 51;
     const OUT_OF_ORDER_FILTERS = 52;
     const OUT_OF_BOUNDS_LIMIT = 53;
+    const INVALID_FILTER = 54;
 
     /**
      * Returns the v2.0 API error structure.

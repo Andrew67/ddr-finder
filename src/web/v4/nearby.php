@@ -74,14 +74,27 @@ if (preg_match("/\.\d{5,}$/", $latLng[0]) || preg_match("/\.\d{5,}$/", $latLng[1
     exit(1);
 }
 
-// Set Expires header to the time the database update scripts run
-$expiresTimestamp = strtotime("next Tuesday 1:20AM");
-$expiresTimeString = gmdate('D, d M Y H:i:s \G\M\T', $expiresTimestamp);
-header("Expires: {$expiresTimeString}");
-
 $coordinates = new Coords((float) $latLng[0], (float) $latLng[1]);
 
-// TODO: Game filters
+// Game filters
+// For caching, ensure valid values (ddr, piu, ziv) and ABC sorted
+$filters = [];
+if (!empty($_GET['filter'])) {
+    $filters = explode(",", $_GET['filter']);
+    sort($filters);
+    if ($_GET['filter'] !== implode(",", $filters)) {
+        echo APIError::getError(APIError::OUT_OF_ORDER_FILTERS, "The 'filter' field was provided, but the values were not in alphabetical order.");
+        exit(1);
+    }
+}
+// TODO: Calculate based on a source's "has:" fields
+$validFilterValues = ['ddr', 'piu', 'smx'];
+foreach ($filters as $v) {
+    if (!in_array($v, $validFilterValues)) {
+        echo APIError::getError(APIError::INVALID_FILTER, "The 'filter' field was provided, but one or more incorrect values were provided.");
+        exit(1);
+    }
+}
 
 // Grab limit parameter if available, otherwise set to 10 (max 50)
 $limit = (is_numeric($_GET['limit'])) ? $_GET['limit'] : 10;
@@ -90,9 +103,17 @@ if ($limit < 1 || $limit > 50) {
     exit(1);
 }
 
+// TODO: Enforce parameter sort order
+
+// Set Expires header to the time the database update scripts run
+$expiresTimestamp = strtotime("next Tuesday 1:20AM");
+$expiresTimeString = gmdate(DATE_RFC7231, $expiresTimestamp);
+header("Expires: {$expiresTimeString}");
+
 // Set up JSON result
 // Inject locations data
 $locationsHelper = new LocationsHelper(PDOHelper::getConnection());
+// TODO: Pass filters to getRadius call
 $locations = $locationsHelper->getRadius($coordinates, [$sourceId], $limit);
 $geoJSONConverter = new GeoJSONConverter(new GameAvailabilityHelper(), $source);
 
