@@ -6,4 +6,4 @@ Header always set Access-Control-Allow-Origin "*"
 </Files>
 
 RewriteEngine On
-RewriteRule "^nearby/(.*)\.geojson$" "nearby.php?src=$1" [QSA,L]
+RewriteRule "^nearby/([a-z]+)\.geojson$" "nearby.php?src=$1" [QSA,L]

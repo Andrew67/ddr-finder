@@ -105,7 +105,18 @@ if (!is_numeric($limit) || $limit < 1 || $limit > 50) {
     exit(1);
 }
 
-// TODO: Enforce parameter sort order
+// Enforce parameter sort order
+$paramArray = explode("&", $_SERVER['QUERY_STRING']);
+foreach ($paramArray as $i => $param) {
+    [$paramKey] = explode("=", $param);
+    // Position 0 is the `?src` from the URL rewrite
+    if (($paramKey === 'll' && $i !== 1) ||
+        ($paramKey === 'filter' && $i !== 2) ||
+        ($paramKey === 'limit' && $i !== 2 && $i !== 3)) {
+        echo APIError::getError(APIError::OUT_OF_ORDER_PARAMETERS, "The 'll', 'filter', and/or 'limit' fields were provided, but were in the wrong order.");
+        exit(1);
+    }
+}
 
 // Set Expires header to the time the database update scripts run
 $expiresTimestamp = strtotime("next Tuesday 1:20AM");
