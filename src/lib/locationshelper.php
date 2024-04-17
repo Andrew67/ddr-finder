@@ -31,8 +31,9 @@
 class LocationsHelper {
 
     // Query constants
-    const string SELECT_cols = '`id`, `source_type` AS `src`, `source_id` AS `sid`, `name`, `city`, `country`,
-        TRUNCATE(`latitude`,4) AS `lat`, TRUNCATE(`longitude`,4) AS `lng`, `hasDDR`, `hasPIU`, `hasSMX`';
+    const string SELECT_cols = '`id`, `source_type` AS `src`, `source_id` AS `sid`, `name`, `city`,
+        TRUNCATE(`latitude`,4) AS `lat`, TRUNCATE(`longitude`,4) AS `lng`, `hasDDR`';
+    const string SELECT_V4cols = ', `country`, `hasPIU`, `hasSMX`';
     const string SELECT_distance = 'TRUNCATE(6371.009*SQRT(POW(RADIANS(`latitude`-:lat1),2)+POW(COS(RADIANS((`latitude`+:lat2)/2))*RADIANS(`longitude`-:lng1),2)),2)
         AS `distance`';
     const string FROM = 'FROM `locations`';
@@ -90,16 +91,20 @@ class LocationsHelper {
      * @param Coords $coords
      * @param array $src Data sources to pull from.
      * @param boolean|int $limit Number of results to limit the resultset to, or FALSE for no limit.
+     * @param boolean $includeV4Fields Whether to include the APIv4 fields in the query (country and new game fields).
      * @param array $games Game IDs (from WHERE_hasGame keys) an arcade should have at least one of, or empty for no filter.
      * @return array API format array.
      */
-    public function getRadius(Coords $coords, array $src, bool|int $limit, array $games = []): array {
+    public function getRadius(Coords $coords, array $src, bool|int $limit,
+                              bool $includeV4Fields = false, array $games = []): array {
         $limitSql = ($limit === false) ? '' : 'LIMIT ' . $limit;
 
         $stmt = $this->dbh->prepare(
-            sprintf("SELECT %s, %s %s WHERE %s AND %s %s ORDER BY `distance` ASC %s",
-                self::SELECT_cols, self::SELECT_distance, self::FROM,
-                $this->getSourceString($src), self::WHERE_radius, $this->getGameFilter($games), $limitSql));
+            sprintf("SELECT %s %s, %s %s WHERE %s AND %s %s ORDER BY `distance` ASC %s",
+                self::SELECT_cols, $includeV4Fields ? self::SELECT_V4cols : '', self::SELECT_distance,
+                self::FROM,
+                $this->getSourceString($src), self::WHERE_radius, $this->getGameFilter($games),
+                $limitSql));
         $stmt->execute(array(
             ':lat1' => $coords->lat,
             ':lat2' => $coords->lat,
@@ -145,7 +150,7 @@ class LocationsHelper {
         // The $p is a trick to properly generate the commas in-between values
         $p = '';
         foreach ($src as $source) {
-            $q .= $p . $this->dbh->quote($source, PDO::PARAM_STR);
+            $q .= $p . $this->dbh->quote($source);
             $p = ',';
         }
 
@@ -166,7 +171,7 @@ class LocationsHelper {
             $queryParts[] = self::WHERE_hasGame[$game];
         }
         $query = implode(' OR ', $queryParts);
-        return "AND {$query}";
+        return "AND $query";
     }
 
 }
