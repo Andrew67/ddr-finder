@@ -12,14 +12,14 @@ All URL and UIs are now handled by the ddr-finder-ng repository.
 See API.md and APIv4.md.
 
 ## App(-like) ##
-* /app
+* /app/
 
 ### Description
 * Lacks activity name (e.g. nearby/map).
 * Default is nearby for web app, map on phone apps.
 
 ## Nearby search ##
-* /app/nearby/#ll={latitude},{longitude}(&src={dataSrc}&games={gameIds})(&selected={id})
+* /app/nearby?ll={latitude},{longitude}(&src={dataSrc}&games={gameIds})(&selected={id})
 * */locator(.html)*
 * */locator(.html)#loc={accuracy}/{latitude}/{longitude}&src={dataSrc}*
 * */locator(.html)?loc={accuracy}/{latitude}/{longitude}&src={dataSrc}*
@@ -34,11 +34,12 @@ See API.md and APIv4.md.
 * If selected is set, pre-open and scroll to the given arcade on results load.
 
 ## Interactive Map ##
-* /app/map/#ll={latitude},{longitude}&z={zoom}(&src={dataSrc}&games={gameIds})(&selected={id})
+* /app/explore?ll={latitude},{longitude}&z={zoom}(&src={dataSrc}&games={gameIds})(&selected={id})
 * */ng(/index.html)*
 * */ng/index.html?mode=standalone*
 * */ng(/index.html)?ll={latitude},{longitude}&z={zoom}*
 * */app/map/@{latitude},{longitude},{zoom}z*
+* */app/map/@{latitude},{longitude},{zoom}z(?src={dataSrc}&games={gameIds})*
 
 ### Description
 * Old /app/map links will redirect such that the zoom parameter has a z in it that must be ignored.

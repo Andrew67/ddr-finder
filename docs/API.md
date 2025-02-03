@@ -4,6 +4,21 @@ Technically they're all returned as JSON strings since the PDO driver in PHP ret
 v1 APIs will only return ZIv-sourced data, while v2 will provide more options.
 v3 makes a breaking change to more easily support deserialization of data source information through libraries such as Gson.
 
+## v3.x.2 (deprecation flags) ##
+Modification to handle displaying graceful / modal prompts for users to use the web app after the
+Google Play Android version is end-of-life.
+
+### Input parameters ###
+* showDeprecationFlags (optional): when set to any value, returns a set of booleans meant to be used by the Google Play version of
+  the Android app, directing users toward the web app after it's no longer able to receive bugfix updates.
+
+### Return value ###
+* Object called deprecations with below fields:
+* googlePlay (int): When set to 0, no change is made to the app UI.
+  When set to 1, the UI must show a gentle clickable banner guiding users to check out the web app.
+  When set to 2, the UI must show a modal which forces users into the web app.
+  This will only happen once the web app has feature parity, _or_ the app has broken in a way that needs an update.
+
 ## v3.x.1 / v2.0.1 / v1.x.1 (large data set support) ##
 Adds a version-independent optional flag that clients can set to say "I can gracefully handle more than 20 results in
 radius mode, and box mode results for an 'oversized' box". As clients get upgraded (pagination, pin consolidation),

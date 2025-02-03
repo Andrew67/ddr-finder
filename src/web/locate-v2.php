@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015-2016 Andrés Cordero
+ * Copyright (c) 2015-2025 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -28,6 +28,9 @@
 // Whether to restrict box mode queries to a 1° by 1° box.
 // These queries are not expensive for us, but may overload certain clients.
 define('RESTRICT_BOX_SIZE', !isset($_GET['canHandleLargeDataset']));
+
+// Whether to add deprecation fields for the Google Play Android app
+define('ADD_DEPRECATION_FLAGS', isset($_GET['showDeprecationFlags']));
 
 // Test for presence of "dump" field, as it overrides all others
 if (isset($_GET['dump'])) {
@@ -123,17 +126,20 @@ if ('dump' === $mode) {
     $result['locations'] = $lochelper->getDump($_GET['dump'], (31 <= $_GET['version']));
 }
 elseif ('radius' === $mode) {
-    /** @var Coords $location */
     $result['locations'] = $lochelper->getRadius($location, $datasrc, RESTRICT_BOX_SIZE ? 20 : false);
 }
 else /* if ('box' === $mode) */ {
-    /** @var CoordsBox $boundingBox */
     $result['locations'] = $lochelper->getBox($boundingBox, $datasrc);
 }
 
 // (v3.1+) Convert locations output to GeoJSON if requested
 if (31 <= $_GET['version'] && isset($_GET['locationformat']) && 'geojson' === $_GET['locationformat']) {
     $result['locations'] = GeoJSONConverter::convertCollection($result['locations']);
+}
+
+// Add deprecation flags if requested
+if (ADD_DEPRECATION_FLAGS) {
+    $result['deprecations'] = ['googlePlay' => 0];
 }
 
 echo json_encode($result, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
