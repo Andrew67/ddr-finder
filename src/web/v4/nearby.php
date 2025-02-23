@@ -89,8 +89,11 @@ if (!empty($_GET['filter'])) {
         exit(1);
     }
 }
-// TODO: Calculate based on a source's "has:" fields
-$validFilterValues = ['ddr', 'piu', 'smx'];
+// Calculated based on a source's "has:" fields
+$validFilterValues = [];
+if ($source['has:ddr']) $validFilterValues[] = 'ddr';
+if ($source['has:piu']) $validFilterValues[] = 'piu';
+if ($source['has:smx']) $validFilterValues[] = 'smx';
 foreach ($filters as $v) {
     if (!in_array($v, $validFilterValues)) {
         echo APIError::getError(APIError::INVALID_FILTER, "The 'filter' field was provided, but one or more incorrect values were provided.");
