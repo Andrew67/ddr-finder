@@ -100,6 +100,8 @@ foreach ($sources as $source) {
     $geoJsonHeader = '{"type": "FeatureCollection","features": [';
     fwrite($source->handle, $geoJsonHeader);
     if ($source->ddr->handle) fwrite($source->ddr->handle, $geoJsonHeader);
+    if ($source->piu->handle) fwrite($source->piu->handle, $geoJsonHeader);
+    if ($source->smx->handle) fwrite($source->smx->handle, $geoJsonHeader);
 }
 
 // Used below in for the game availability field logic
@@ -173,6 +175,14 @@ foreach ($sources as $source) {
     if ($source->ddr->handle) {
         fwrite($source->ddr->handle, ']}');
         fclose($source->ddr->handle);
+    }
+    if ($source->piu->handle) {
+        fwrite($source->piu->handle, ']}');
+        fclose($source->piu->handle);
+    }
+    if ($source->smx->handle) {
+        fwrite($source->smx->handle, ']}');
+        fclose($source->smx->handle);
     }
 }
 
