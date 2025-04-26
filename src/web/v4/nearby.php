@@ -124,7 +124,7 @@ foreach ($paramArray as $i => $param) {
 // Set Expires header to the time the database update scripts run
 $expiresTimestamp = strtotime("next Tuesday 1:20AM");
 $expiresTimeString = gmdate(DATE_RFC7231, $expiresTimestamp);
-header("Expires: {$expiresTimeString}");
+header("Expires: $expiresTimeString");
 
 // Set up JSON result
 // Inject locations data

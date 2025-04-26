@@ -21,8 +21,8 @@ See API.md and APIv4.md.
 ## Nearby search ##
 * /app/nearby?ll={latitude},{longitude}(&src={dataSrc}&games={gameIds})(&selected={id})
 * */locator(.html)*
-* */locator(.html)#loc={accuracy}/{latitude}/{longitude}&src={dataSrc}*
-* */locator(.html)?loc={accuracy}/{latitude}/{longitude}&src={dataSrc}*
+* */locator(.html)#loc=({accuracy}/){latitude}/{longitude}&src={dataSrc}*
+* */locator(.html)?loc=({accuracy}/){latitude}/{longitude}&src={dataSrc}*
 
 ### Description
 * locator.html is the original "nearby" Web UI (originally provided by this project).
@@ -32,6 +32,7 @@ See API.md and APIv4.md.
 * In the new version, accuracy will be exact when the user scans for their location,
   but approximate when ll is populated via a shared link.
 * If selected is set, pre-open and scroll to the given arcade on results load.
+  id is the source ID (ID from the data source).
 
 ## Interactive Map ##
 * /app/explore?ll={latitude},{longitude}&z={zoom}(&src={dataSrc}&games={gameIds})(&selected={id})
@@ -42,7 +43,6 @@ See API.md and APIv4.md.
 * */app/map/@{latitude},{longitude},{zoom}z(?src={dataSrc}&games={gameIds})*
 
 ### Description
-* Old /app/map links will redirect such that the zoom parameter has a z in it that must be ignored.
 * Lack of location data implies last navigated location or default (which may be current).
 * Lack of dataSrc or gameIds imply default. /ng does not support the dataSrc parameter.
 * In the new version, zoom will be 1-decimal fractional and latitude/longitude will be truncated
