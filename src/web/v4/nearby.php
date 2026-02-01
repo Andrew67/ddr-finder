@@ -37,7 +37,7 @@ if (CORSHelper::isCORSAuthorized()) {
     header('Access-Control-Allow-Origin: *');
 } else {
     // Avoid expending server resources for unauthorized origins
-    header('HTTP/1.1 403 Forbidden');
+    http_response_code(403);
     exit(1);
 }
 
@@ -45,7 +45,7 @@ if (CORSHelper::isCORSAuthorized()) {
 
 // Input field validations
 if (empty($_GET['src'])) {
-    header('HTTP/1.1 404 Not Found');
+    http_response_code(404);
     echo APIError::getError(APIError::MISSING_REQUIRED_FIELD, "The 'src' field is required, but was not specified.", false);
     exit(1);
 }
@@ -54,7 +54,7 @@ $sourceId = $_GET['src'];
 $source = array_key_exists($sourceId, Sources::$data) ? Sources::$data[$sourceId] : null;
 // Validate data source and throw error if invalid data source encountered
 if ($source === null) {
-    header('HTTP/1.1 404 Not Found');
+    http_response_code(404);
     echo APIError::getError(APIError::INVALID_DATA_SOURCE, "Invalid 'src' value specified: {$sourceId}", false);
     exit(1);
 }

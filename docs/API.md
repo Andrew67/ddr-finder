@@ -1,3 +1,12 @@
+> [!CAUTION]
+> 
+> All below APIs have been removed or deprecated as of 2026-01-22.
+> 
+> The minimal amount of v3 APIs are kept online to continue supporting
+> the final Android app release in 2025 on Google Play.
+> 
+> See [APIv4.md](./APIv4.md) for the current API documentation.
+
 # locator.php #
 All below descriptions are GET requests to locator.php with the given parameters, and JSON is returned as defined.
 Technically they're all returned as JSON strings since the PDO driver in PHP returns all results as strings by default.

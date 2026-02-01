@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015-2024 Andrés Cordero
+ * Copyright (c) 2015-2026 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -38,20 +38,18 @@ if (CORSHelper::isCORSAuthorized()) {
     header('Access-Control-Allow-Origin: *');
 }
 
-// Empty, invalid, or below 20 version field is treated as API 1.x client
-if (empty($_GET['version']) || !is_numeric($_GET['version']) || 20 > $_GET['version']) {
-    header('Content-Type: text/html; charset=utf-8');
-    require 'locate-v1.php';
+// API 1.x and 2.x have been removed as of 2026-01-20
+// API 3.x is maintained to continue supporting DDR Finder on Google Play's last release in 2025,
+// except for the dump API, which was never used by it, and v4 offers all/{src}.geojson
+
+if (empty($_GET['version']) || !is_numeric($_GET['version'])) {
+    echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'API version was implied to be 1.x. This server only implements API: v3.0/3.1.');
 }
-// API 2.x clients are 20 through 29
-elseif (20 <= $_GET['version'] && 30 > $_GET['version']) {
+// API 3.x clients are version 30 and 31
+elseif ($_GET['version'] === '30' || $_GET['version'] === '31') {
     require 'locate-v2.php';
 }
-// API 3.x clients are version 30 through 31
-elseif (30 <= $_GET['version'] && 31 >= $_GET['version']) {
-    require 'locate-v2.php';
-}
-// Any other API versions are yet to be implemented
+// API 4+ clients will go to the v4 paths, not this endpoint
 else {
-    echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'This server only implements API: v1.x, v2.x, v3.0/3.1.');
+    echo APIError::getError(APIError::VERSION_NOT_SUPPORTED, 'This server only implements API: v3.0/3.1.');
 }
