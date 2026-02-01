@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015-2024 Andrés Cordero
+ * Copyright (c) 2015-2026 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -55,35 +55,6 @@ class LocationsHelper {
 
     function __construct(PDO $dbh) {
         $this->dbh = $dbh;
-    }
-
-    /**
-     * Receive all records updated after the given timestamp.
-     * @param int $timestamp
-     * @param boolean $includeDeletions Whether to include deleted entries since given timestamp (see API v3.1).
-     * @return array API format array.
-     */
-    public function getDump(int $timestamp, bool $includeDeletions): array {
-        $notDeletedSql = ($includeDeletions) ? ', 0 AS `deleted`' : '';
-
-        $stmt = $this->dbh->prepare('SELECT ' . self::SELECT_cols . ' ' . $notDeletedSql . ' ' . self::FROM .
-            ' WHERE `last_update` > FROM_UNIXTIME(:timestamp) ORDER BY `last_update` ASC');
-        $stmt->bindValue(':timestamp', $timestamp, PDO::PARAM_INT);
-        $stmt->execute();
-        $newAndChangedEntries = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if ($includeDeletions && $timestamp > 0) {
-            $stmt = $this->dbh->prepare("SELECT `id`, '' AS `src`, '' AS `sid`, '' AS `name`, '' AS `city`," .
-                ' 0 AS `lat`, 0 AS `lng`, 0 AS `hasDDR`, 1 AS `deleted` FROM `locations_deleted`' .
-                ' WHERE `deletion_time` > FROM_UNIXTIME(:timestamp) ORDER BY `deletion_time` ASC');
-            $stmt->bindValue(':timestamp', $timestamp, PDO::PARAM_INT);
-            $stmt->execute();
-            $deletedEntries = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            return array_merge($newAndChangedEntries, $deletedEntries);
-        } else {
-            return $newAndChangedEntries;
-        }
     }
 
     /**

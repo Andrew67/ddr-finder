@@ -1,7 +1,7 @@
 <?php
 /*
  * ddr-finder
- * Copyright (c) 2015-2025 Andrés Cordero
+ * Copyright (c) 2015-2026 Andrés Cordero
  *
  * Web: https://github.com/Andrew67/ddr-finder
  *
@@ -32,10 +32,10 @@ define('RESTRICT_BOX_SIZE', !isset($_GET['canHandleLargeDataset']));
 // Whether to add deprecation fields for the Google Play Android app
 define('ADD_DEPRECATION_FLAGS', isset($_GET['showDeprecationFlags']));
 
-// Test for presence of "dump" field, as it overrides all others
+// Test for presence of "dump" field, as it overrides all others, and is no longer provided after 2026-02-01
 if (isset($_GET['dump'])) {
-    $mode = 'dump';
-    $_GET['datasrc'] = 'all';
+    echo APIError::getError(APIError::DUMP_FORBIDDEN, 'The \'dump\' field is no longer implemented.');
+    exit(1);
 }
 
 // Set up the datasrc array based on the following rules:
@@ -121,11 +121,7 @@ else { // API 31+
 // Inject locations data
 $result['locations'] = array();
 $lochelper = new LocationsHelper(PDOHelper::getConnection());
-// Dump mode
-if ('dump' === $mode) {
-    $result['locations'] = $lochelper->getDump($_GET['dump'], (31 <= $_GET['version']));
-}
-elseif ('radius' === $mode) {
+if ('radius' === $mode) {
     $result['locations'] = $lochelper->getRadius($location, $datasrc, RESTRICT_BOX_SIZE ? 20 : false);
 }
 else /* if ('box' === $mode) */ {
