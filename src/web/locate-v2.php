@@ -135,7 +135,7 @@ if (31 <= $_GET['version'] && isset($_GET['locationformat']) && 'geojson' === $_
 
 // Add deprecation flags if requested
 if (ADD_DEPRECATION_FLAGS) {
-    $result['deprecations'] = ['googlePlay' => 0];
+    $result['deprecations'] = ['googlePlay' => 1];
 }
 
 echo json_encode($result, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
