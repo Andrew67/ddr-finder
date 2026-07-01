@@ -1,53 +1,26 @@
-ddr-finder
-==========
-
+# ddr-finder
 DDR Locator Application; could be modified into a general location finder.
 
 This repo used to host a basic Web UI, which has moved to https://github.com/Andrew67/ddr-finder-ng
 
-Live Demo
----------
+## Live Demo
 The official working demo is at https://ddrfinder.andrew67.com/, using data snapshots from multiple sources.
 
-License
--------
-MIT license (see LICENSE); excludes favicon.png, arcade-machine.jpg, apple-touch-icon.png,
-and other items that have their own license declarations (such as the fonts, icons and stylesheets from Metro UI).
+## License
+MIT license (see `LICENSE`); excludes items that have their own license declarations.
 
-Custom Version
---------------
+## Custom Version
 * Modify all absolute URLs and copyright notices (keeping proper MIT license attribution in place).
 * Create a `db-conf.php` file to connect to your database, created by the schema script in the `sql/` folder.
+  (Use the provided `db-conf.example.php` as the base)
 * Create a `cors-conf.php` file to set the web origins allowed to access the API.
+  (Use the provided `db-conf.example.php` as the base)
 
-## Database ##
+## Database
 MySQL is used.
-
-### db-conf.php Format ###
-```php
-<?php
-return array('driver' => 'mysql',
-             'host' => 'localhost',
-             'username' => 'user',
-             'password' => 'pass',
-             'database' => 'ddrfinder',
-);
-```
-
-### cors-conf.php Format ###
-```php
-<?php
-return [
-    'allowed-origins' => ['https://example.com', 'http://localhost:4200'],
-    'allowed-origin-suffix' => 'pages.dev',
-];
-```
-
-### Table Schema ###
 See the `sql` directory for table creation and schema upgrade scripts.
 
-Acknowledgments
----------------
+## Acknowledgments
 * [Zenius -I- vanisher.com](https://zenius-i-vanisher.com/) for inspiring me to make this
   (and being a comprehensive source of arcade data).
 * [Dive into HTML5](https://diveintohtml5.info/geolocation.html) for information on the HTML5 Geolocation API.
